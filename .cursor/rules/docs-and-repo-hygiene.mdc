@@ -1,0 +1,13 @@
+---
+description: Docs, metadata, and repo hygiene
+globs: "README.md,md/**,**/package.json,.gitignore,scripts/**"
+alwaysApply: false
+---
+
+# Docs and repo hygiene
+
+- Update README / `md/` when scripts, env vars, routes, or commands change.
+- Never commit `node_modules`, `dist`, `.next`, `.env`, or coverage output.
+- `lint` scripts must be read-only; use `lint:fix` for autofix.
+- Keep product name **Golden Template** and `devTugu/golden-template` URLs consistent.
+- Delete one-off scripts after their job is done.

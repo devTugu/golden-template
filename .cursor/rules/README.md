@@ -10,6 +10,7 @@ Single source of truth for agents and humans. Wired in [`CLAUDE.md`](../../CLAUD
 | [clean-code.mdc](clean-code.mdc) | Size limits, style, naming |
 | [reuse-utils.mdc](reuse-utils.mdc) | Search `@default/*` before new helpers |
 | [shared-schemas.mdc](shared-schemas.mdc) | One Zod schema per domain in `@default/types` |
+| [agent-workflow.mdc](agent-workflow.mdc) | Definition of done, no silencing checks |
 
 ## Scoped (read before editing matching paths)
 
@@ -19,5 +20,11 @@ Single source of truth for agents and humans. Wired in [`CLAUDE.md`](../../CLAUD
 | [frontend-data.mdc](frontend-data.mdc) | `frontend/**` |
 | [design-system.mdc](design-system.mdc) | `frontend/**`, `packages/ui/**`, `packages/design-tokens/**` |
 | [playwright-e2e.mdc](playwright-e2e.mdc) | `frontend/e2e/**`, `frontend/playwright.config.ts` |
+| [dependencies-security.mdc](dependencies-security.mdc) | `package.json`, lockfile, `.github/**` |
+| [production-safety.mdc](production-safety.mdc) | Backend env/seed, `.env.example`, deploy docs |
+| [typescript-strictness.mdc](typescript-strictness.mdc) | `**/*.{ts,tsx}` |
+| [docs-and-repo-hygiene.mdc](docs-and-repo-hygiene.mdc) | README, `md/`, gitignore, scripts |
+
+Repo gate: `pnpm check:hygiene` (also in `pnpm verify` and CI).
 
 Intentionally **not** included (unlike larger product repos): URL-state-only rules, SEO, MR review, mobile, Redis/Bull — add here only when this template grows those surfaces.

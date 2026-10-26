@@ -1,0 +1,23 @@
+---
+description: Definition of done for agents — gates, scope, no silencing checks
+alwaysApply: true
+---
+
+# Agent workflow
+
+## Definition of done
+
+Before reporting work finished:
+
+1. Run `pnpm lint`, `pnpm typecheck`, and `pnpm test` for every package you touched.
+2. Cross-package changes → run `pnpm verify` (or the subset CI runs for that scope).
+3. If a command cannot run here, say so explicitly — never claim a pass without running it.
+
+## Do not silence checks
+
+```text
+❌ New eslint-disable / @ts-ignore / @ts-nocheck
+❌ Lower coverage thresholds, ESLint limits, or audit ignoreGhsas without user approval
+❌ `|| true` on failing gates
+✅ Fix the root cause; keep diffs scoped to the request
+```
