@@ -31,6 +31,16 @@ In **production**, seed refuses to run unless `SEED_ADMIN_EMAIL` and `SEED_ADMIN
 
 **Optional:** `SENTRY_DSN`, `OTEL_ENABLED` — try on staging first.
 
+### Media uploads (S3)
+
+| Variable | Notes |
+|----------|--------|
+| `S3_BUCKET`, `S3_REGION`, `S3_ACCESS_KEY`, `S3_SECRET_KEY` | Required for API multipart upload (`POST /api/v1/admin/media/upload`) |
+| `S3_ENDPOINT`, `S3_PUBLIC_BASE_URL` | Optional — MinIO / CDN base URL |
+| `MEDIA_MAX_BYTES` | Max body size (default 5 MiB); BFF returns **413** when exceeded |
+
+Uploads go through the API (not browser presigned PUT). Without S3 env, the upload use case returns a configuration error.
+
 ## Frontend env
 
 | Variable | Notes |

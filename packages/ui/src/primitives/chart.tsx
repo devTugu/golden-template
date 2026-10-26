@@ -1,6 +1,6 @@
 export type { ChartConfig } from "@default/ui-charts/chart";
+export { ChartContainer } from "./chart.lazy";
 export {
-  ChartContainer,
   ChartLegend,
   ChartLegendContent,
   ChartStyle,

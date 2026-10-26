@@ -14,18 +14,7 @@ import {
 } from '@nestjs/swagger';
 import { UploadMediaUseCase } from '@application/media/use-cases/upload-media.use-case';
 import { Permissions } from '../../../decorators/permissions.decorator';
-import { AppErrors } from '@application/exceptions/application.exception';
-import {
-  bufferMatchesMimeType,
-  sanitizeFilename,
-} from '@shared/utils/file-signature.util';
-
-const ALLOWED_MIME = new Set([
-  'image/jpeg',
-  'image/png',
-  'image/webp',
-  'image/gif',
-]);
+import { validateMediaUploadFile } from '../../../lib/media-upload.validation';
 
 @ApiTags('Media (Admin) v1')
 @ApiBearerAuth('access-token')
@@ -44,24 +33,11 @@ export class MediaAdminV1Controller {
     FileInterceptor('file', { limits: { fileSize: 10 * 1024 * 1024 } }),
   )
   upload(@UploadedFile() file: Express.Multer.File) {
-    if (!file) throw AppErrors.BAD_REQUEST('File is required.');
     const maxBytes = this.config.get<number>(
       'MEDIA_MAX_BYTES',
       5 * 1024 * 1024,
     );
-    if (file.size > maxBytes) {
-      throw AppErrors.PAYLOAD_TOO_LARGE('File exceeds maximum upload size.');
-    }
-    if (!ALLOWED_MIME.has(file.mimetype)) {
-      throw AppErrors.BAD_REQUEST('Unsupported file type.');
-    }
-    if (!bufferMatchesMimeType(file.buffer, file.mimetype)) {
-      throw AppErrors.BAD_REQUEST('File content does not match declared type.');
-    }
-    return this.uploadMedia.execute({
-      buffer: file.buffer,
-      mimeType: file.mimetype,
-      filename: sanitizeFilename(file.originalname),
-    });
+    const validated = validateMediaUploadFile(file, maxBytes);
+    return this.uploadMedia.execute(validated);
   }
 }

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { AuthSessionsV1Controller } from '../controllers/v1/auth-sessions.controller';
 import { AuthV1Controller } from '../controllers/v1/auth.controller';
+import { DevNotificationsV1Controller } from '../controllers/v1/dev-notifications.controller';
 import { LoginUseCase } from '@application/auth/use-cases/login.use-case';
 import { RefreshTokenUseCase } from '@application/auth/use-cases/refresh-token.use-case';
 import { LogoutUseCase } from '@application/auth/use-cases/logout.use-case';
@@ -33,7 +34,11 @@ import { AcceptInviteUseCase } from '@application/auth/use-cases/accept-invite.u
 
 @Module({
   imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
-  controllers: [AuthV1Controller, AuthSessionsV1Controller],
+  controllers: [
+    AuthV1Controller,
+    AuthSessionsV1Controller,
+    DevNotificationsV1Controller,
+  ],
   providers: [
     LoginUseCase,
     VerifyMfaLoginUseCase,

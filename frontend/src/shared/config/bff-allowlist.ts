@@ -8,6 +8,7 @@ type RoutePattern = {
 /** Static BFF routes derived from API_ENDPOINTS — single catalog for client + server. */
 const ROUTE_DEFINITIONS: Array<{ path: string; methods: HttpMethod[] }> = [
   { path: '/users', methods: ['GET', 'POST'] },
+  { path: '/users/invite', methods: ['POST'] },
   { path: '/users/:id', methods: ['GET', 'PATCH', 'DELETE'] },
   { path: '/roles', methods: ['GET', 'POST'] },
   { path: '/roles/:id', methods: ['GET', 'PATCH', 'DELETE'] },

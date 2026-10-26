@@ -1,3 +1,4 @@
+import { InviteUserSchema, type InviteUserInput } from "@default/types/auth";
 import {
   UserOutputSchema,
   type CreateUserInput,
@@ -23,6 +24,11 @@ export async function getUser(id: number): Promise<UserOutput> {
   const endpoint = API_ENDPOINTS.USERS.BY_ID(id);
   const data = await getApi().get(endpoint);
   return parseWith(UserOutputSchema, endpoint)(data);
+}
+
+export async function inviteUser(data: InviteUserInput): Promise<void> {
+  const endpoint = API_ENDPOINTS.USERS.INVITE;
+  await getApi().post(endpoint, InviteUserSchema.parse(data));
 }
 
 export async function createUser(data: CreateUserInput): Promise<UserOutput> {

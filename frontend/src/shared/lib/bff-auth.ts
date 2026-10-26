@@ -143,6 +143,41 @@ export async function bffOAuthCallback(
   return envelope.data as BffLoginResult;
 }
 
+async function postAuthNoContent(path: string, body: unknown): Promise<void> {
+  const csrf = await mutatingFetchHeaders();
+  const response = await fetch(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...csrf },
+    body: JSON.stringify(body),
+    credentials: 'include',
+  });
+
+  if (response.status === 204) {
+    return;
+  }
+
+  const envelope = await parseJson<unknown>(response);
+  throwBffError(response, envelope as unknown as ApiErrorEnvelope);
+}
+
+export async function bffForgotPassword(email: string): Promise<void> {
+  await postAuthNoContent('/api/auth/password/forgot', { email });
+}
+
+export async function bffResetPassword(data: {
+  token: string;
+  password: string;
+}): Promise<void> {
+  await postAuthNoContent('/api/auth/password/reset', data);
+}
+
+export async function bffAcceptInvite(data: {
+  token: string;
+  password: string;
+}): Promise<void> {
+  await postAuthNoContent('/api/auth/invite/accept', data);
+}
+
 export async function bffLogout(): Promise<void> {
   const csrf = await mutatingFetchHeaders();
   await fetch('/api/auth/logout', {

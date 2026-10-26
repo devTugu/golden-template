@@ -39,6 +39,7 @@ import { IPermissionCache } from '@application/ports/permission-cache.port';
 import { INotificationPort } from '@application/ports/notification.port';
 import { NoopNotificationAdapter } from './notification/noop-notification.adapter';
 import { NodemailerNotificationAdapter } from './notification/nodemailer-notification.adapter';
+import { CapturingNotificationAdapter } from './notification/capturing-notification.adapter';
 import { UrlPassthroughAdapter } from './media/url-passthrough.adapter';
 import { S3CompatibleStorageAdapter } from './media/s3-compatible-storage.adapter';
 import { CompositeMediaStorageAdapter } from './media/composite-media-storage.adapter';
@@ -116,13 +117,18 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
     },
     NoopNotificationAdapter,
     NodemailerNotificationAdapter,
+    CapturingNotificationAdapter,
     {
       provide: NOTIFICATION_PORT,
       useFactory: (
         config: ConfigService,
         noop: NoopNotificationAdapter,
         nodemailer: NodemailerNotificationAdapter,
+        capture: CapturingNotificationAdapter,
       ): INotificationPort => {
+        if (config.get<string>('NOTIFICATION_CAPTURE') === 'true') {
+          return capture;
+        }
         if (config.get<string>('SMTP_HOST')) return nodemailer;
         return noop;
       },
@@ -130,6 +136,7 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
         ConfigService,
         NoopNotificationAdapter,
         NodemailerNotificationAdapter,
+        CapturingNotificationAdapter,
       ],
     },
     UrlPassthroughAdapter,

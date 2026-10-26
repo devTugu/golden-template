@@ -87,6 +87,8 @@ const envSchemaBase = z.object({
   AUDIT_RETENTION_DAYS: z.coerce.number().int().min(1).default(90),
 
   SENTRY_DSN: z.string().url().optional(),
+
+  NOTIFICATION_CAPTURE: boolString.default('false'),
 });
 
 export const envSchema = envSchemaBase.superRefine((value, ctx) => {

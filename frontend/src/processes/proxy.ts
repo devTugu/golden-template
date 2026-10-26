@@ -8,7 +8,12 @@ import { ROUTES } from '@/shared/config/routes';
 import { AUTH_COOKIE_NAMES } from '@/shared/lib/auth-cookies';
 
 const PROTECTED_PREFIX = ROUTES.DASHBOARD;
-const AUTH_ROUTES = [ROUTES.LOGIN];
+const AUTH_ROUTES = [
+  ROUTES.LOGIN,
+  ROUTES.FORGOT_PASSWORD,
+  ROUTES.RESET_PASSWORD,
+  ROUTES.ACCEPT_INVITE,
+];
 
 export function createProxyHandler() {
   return function proxy(request: NextRequest) {

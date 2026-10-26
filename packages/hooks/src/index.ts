@@ -7,6 +7,7 @@ export {
   useUsers,
   useUser,
   useCreateUser,
+  useInviteUser,
   useUpdateUser,
   useDeleteUser,
   useExportUserData,
