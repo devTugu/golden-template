@@ -35,6 +35,6 @@ Backend Jest (unit + e2e): `@default/utils/*` and `@default/types/*` need matchi
 
 Turbo may print **circular dependency** (`@default/ui` ↔ `@default/ui-code`) — informational; exit code stays 0.
 
-UI `/docs` catalog: dev-only (`NEXT_SERVER_MODE=prod` hides in prod). Composed blocks in `@default/ui` may use `@ts-nocheck` — not app business logic.
+UI `/docs` catalog: dev-only (`NEXT_SERVER_MODE=prod` hides in prod).
 
 Rules: `.cursor/rules/` · ESLint clean-code limits — split units instead of disabling rules.

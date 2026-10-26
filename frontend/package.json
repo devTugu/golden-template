@@ -7,11 +7,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/devTugu/default.git"
+    "url": "https://github.com/devTugu/golden-template.git"
   },
-  "homepage": "https://github.com/devTugu/default#readme",
+  "homepage": "https://github.com/devTugu/golden-template#readme",
   "bugs": {
-    "url": "https://github.com/devTugu/default/issues"
+    "url": "https://github.com/devTugu/golden-template/issues"
   },
   "keywords": [
     "nextjs",
