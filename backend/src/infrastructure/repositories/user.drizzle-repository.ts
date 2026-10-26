@@ -8,9 +8,7 @@ import {
   UpdateUserData,
 } from '@domain/user/repositories/user.repository.interface';
 import { User as DomainUser } from '@domain/user/entities/user.entity';
-import { IOrganizationContext } from '@application/ports/organization-context.port';
 import { PaginatedResult } from '@shared/types/pagination';
-import { ORGANIZATION_CONTEXT } from '@shared/constants/tokens';
 import {
   DRIZZLE,
   type DrizzleDatabase,
@@ -34,22 +32,15 @@ const userWithAuth = {
 
 @Injectable()
 export class UserDrizzleRepository implements IUserRepository {
-  constructor(
-    @Inject(DRIZZLE) private readonly db: DrizzleDatabase,
-    @Inject(ORGANIZATION_CONTEXT)
-    private readonly orgContext: IOrganizationContext,
-  ) {}
+  constructor(@Inject(DRIZZLE) private readonly db: DrizzleDatabase) {}
 
   async create(data: CreateUserData): Promise<DomainUser> {
-    const organizationId =
-      data.organizationId ?? (await this.orgContext.getCurrentOrganizationId());
     const [inserted] = await this.db
       .insert(users)
       .values({
         email: data.email.toLowerCase(),
         passwordHash: data.passwordHash,
         isActive: data.isActive,
-        organizationId: organizationId ?? null,
         oauthProvider: data.oauthProvider ?? null,
         oauthSubject: data.oauthSubject ?? null,
       })

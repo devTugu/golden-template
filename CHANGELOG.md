@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0] — 2026-10-26
+
+### Breaking
+
+- **Single-tenant schema:** Removed `organizations`, `organization_members`, and all `organization_id` columns. Run database migrations (`pnpm --filter backend run migration:run`) on every environment before deploying API code from this release.
+- Removed `ORGANIZATION_DEFAULT_SLUG` from backend environment validation.
+
+### Added
+
+- [`md/tenancy.md`](md/tenancy.md) — single-tenant stance and guide for adding tenancy later.
+
 ## [1.3.0] — 2026-10-26
 
 ### Security

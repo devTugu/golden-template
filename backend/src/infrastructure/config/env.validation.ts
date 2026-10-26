@@ -106,9 +106,6 @@ export const envValidationSchema = Joi.object({
   LOGIN_MAX_FAILED_ATTEMPTS: Joi.number().integer().min(1).default(5),
   LOGIN_LOCKOUT_MINUTES: Joi.number().integer().min(1).default(15),
 
-  /** Slug of the single default org (multi-org UI out of scope). */
-  ORGANIZATION_DEFAULT_SLUG: Joi.string().default('default'),
-
   SWAGGER_ENABLED: Joi.string().valid('true', 'false').default('false'),
 
   SEED_ADMIN_EMAIL: Joi.string().email().optional(),

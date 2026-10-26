@@ -465,7 +465,6 @@ describe('List${Pascal}UseCase', () => {
           {
             id: 1,
             title: 'Sample',
-            organizationId: null,
             createdAt: new Date('2026-01-01T00:00:00.000Z'),
           },
         ],

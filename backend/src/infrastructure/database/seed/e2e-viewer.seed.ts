@@ -19,7 +19,6 @@ type SeedDb = NodePgDatabase<typeof schema>;
 export async function seedE2eViewerUser(
   db: SeedDb,
   input: {
-    organizationId: number;
     viewerEmail: string;
     viewerPassword: string;
   },
@@ -70,7 +69,6 @@ export async function seedE2eViewerUser(
         email: input.viewerEmail,
         passwordHash,
         isActive: true,
-        organizationId: input.organizationId,
       })
       .returning();
     viewerUser = inserted;

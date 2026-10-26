@@ -12,4 +12,3 @@ export const NOTIFICATION_PORT = Symbol('NOTIFICATION_PORT');
 export const MEDIA_STORAGE_PORT = Symbol('MEDIA_STORAGE_PORT');
 export const MFA_VERIFIER = Symbol('MFA_VERIFIER');
 export const OAUTH_IDENTITY = Symbol('OAUTH_IDENTITY');
-export const ORGANIZATION_CONTEXT = Symbol('ORGANIZATION_CONTEXT');

@@ -16,7 +16,6 @@ import {
   MEDIA_STORAGE_PORT,
   MFA_VERIFIER,
   OAUTH_IDENTITY,
-  ORGANIZATION_CONTEXT,
 } from '@shared/constants/tokens';
 import { UserDrizzleRepository } from './repositories/user.drizzle-repository';
 import { RefreshTokenDrizzleRepository } from './repositories/refresh-token.drizzle-repository';
@@ -43,7 +42,6 @@ import { S3CompatibleStorageAdapter } from './media/s3-compatible-storage.adapte
 import { CompositeMediaStorageAdapter } from './media/composite-media-storage.adapter';
 import { TotpMfaAdapter } from './auth/totp-mfa.adapter';
 import { OidcIdentityAdapter } from './auth/oidc-identity.adapter';
-import { DefaultOrganizationContext } from './tenancy/default-organization.context';
 import { DrizzleModule } from './database/drizzle/drizzle.module';
 import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
 
@@ -70,10 +68,6 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
     },
     RedisHealthIndicator,
     DrizzleHealthIndicator,
-    {
-      provide: ORGANIZATION_CONTEXT,
-      useClass: DefaultOrganizationContext,
-    },
     { provide: USER_REPOSITORY, useClass: UserDrizzleRepository },
     {
       provide: REFRESH_TOKEN_REPOSITORY,
@@ -162,7 +156,6 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
     MEDIA_STORAGE_PORT,
     MFA_VERIFIER,
     OAUTH_IDENTITY,
-    ORGANIZATION_CONTEXT,
   ],
 })
 export class InfrastructureModule {}

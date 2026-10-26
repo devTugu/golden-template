@@ -7,7 +7,6 @@ export interface CreateUserData {
   isActive: boolean;
   oauthProvider?: string | null;
   oauthSubject?: string | null;
-  organizationId?: number | null;
 }
 
 export interface UpdateUserData {
