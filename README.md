@@ -88,7 +88,7 @@ After fork: [md/fork.md](md/fork.md).
 ## Docs
 
 - [md/](md/) — fork, architecture, deploy, security, [CHANGELOG](CHANGELOG.md)
-- [Helm](backend/deploy/helm/README.md)
+- [Helm (advanced)](deploy/advanced/helm/README.md)
 
 ## License
 

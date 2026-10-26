@@ -60,8 +60,8 @@ jobs:
 
       - name: Helm lint and template
         run: |
-          helm lint backend/deploy/helm/website-stack
-          helm template website-test backend/deploy/helm/website-stack \
+          helm lint deploy/advanced/helm/website-stack
+          helm template website-test deploy/advanced/helm/website-stack \
             --set api.enabled=true \
             --set frontend.enabled=true \
             --set api.image.tag=${{ github.ref_name }} \
@@ -70,7 +70,7 @@ jobs:
       - name: Deploy staging (dry-run)
         if: startsWith(github.ref_name, 'v')
         run: |
-          helm upgrade --install website-staging backend/deploy/helm/website-stack \
+          helm upgrade --install website-staging deploy/advanced/helm/website-stack \
             --namespace website-staging --create-namespace \
             --set api.image.tag=${{ github.ref_name }} \
             --set frontend.image.tag=${{ github.ref_name }} \

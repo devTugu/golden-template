@@ -1,6 +1,6 @@
 # Deploy
 
-Helm details: [backend/deploy/helm/README.md](../backend/deploy/helm/README.md).
+Helm (optional / advanced): [deploy/advanced/helm/README.md](../deploy/advanced/helm/README.md). Default path: Railway + Docker (see below).
 
 ## Backend env (required)
 
@@ -72,7 +72,7 @@ Workflow: [`.github/workflows/cd.yml`](../.github/workflows/cd.yml) — runs on 
 After CD, you (or your cluster pipeline) install from the repo chart and set image tags:
 
 ```bash
-helm upgrade --install website-staging backend/deploy/helm/website-stack \
+helm upgrade --install website-staging deploy/advanced/helm/website-stack \
   --namespace website-staging --create-namespace \
   --set api.image.repository=ghcr.io/<owner>/<repo>/website-api \
   --set api.image.tag=v1.2.0 \
@@ -80,7 +80,7 @@ helm upgrade --install website-staging backend/deploy/helm/website-stack \
   --set frontend.image.tag=v1.2.0
 ```
 
-Check `backend/deploy/helm/website-stack/values.yaml` for default image repos.
+Check `deploy/advanced/helm/website-stack/values.yaml` for default image repos.
 
 **Railway:** optional per-app workflows under `backend/.github/workflows/` and `frontend/.github/workflows/` — separate from root CD.
 
