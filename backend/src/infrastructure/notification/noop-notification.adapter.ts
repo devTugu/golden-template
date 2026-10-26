@@ -19,4 +19,12 @@ export class NoopNotificationAdapter implements INotificationPort {
     this.logger.debug(`Contact auto-reply skipped (no SMTP): ${payload.email}`);
     return Promise.resolve();
   }
+
+  sendPasswordResetEmail(): Promise<void> {
+    return Promise.resolve();
+  }
+
+  sendInviteEmail(): Promise<void> {
+    return Promise.resolve();
+  }
 }

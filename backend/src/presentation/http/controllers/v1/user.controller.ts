@@ -27,6 +27,10 @@ import {
   ListUsersQueryDto,
   UpdateUserDto,
 } from '../../dto/v1/user.dto';
+import { InviteUserUseCase } from '@application/auth/use-cases/invite-user.use-case';
+import { InviteUserDto } from '../../dto/v1/auth-password.dto';
+import { CurrentUser } from '../../decorators/current-user.decorator';
+import { JwtPayload } from '@shared/types/pagination';
 
 @ApiTags('Users v1')
 @ApiBearerAuth('access-token')
@@ -40,7 +44,22 @@ export class UserV1Controller {
     private readonly deleteUser: DeleteUserUseCase,
     private readonly exportUserData: ExportUserDataUseCase,
     private readonly anonymizeUser: AnonymizeUserUseCase,
+    private readonly inviteUser: InviteUserUseCase,
   ) {}
+
+  @Post('invite')
+  @Permissions('USERS_INVITE')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Invite user by email' })
+  async invite(
+    @Body() dto: InviteUserDto,
+    @CurrentUser() user: JwtPayload,
+  ): Promise<void> {
+    await this.inviteUser.execute({
+      email: dto.email,
+      invitedByUserId: user.sub,
+    });
+  }
 
   @Post()
   @Permissions('USER_CREATE')

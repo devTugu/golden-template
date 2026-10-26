@@ -51,6 +51,29 @@ export const users = pgTable(
   ],
 );
 
+export const authTokens = pgTable(
+  'auth_tokens',
+  {
+    id: serial('id').primaryKey(),
+    userId: integer('user_id').notNull(),
+    type: varchar('type', { length: 32 }).notNull(),
+    tokenHash: varchar('token_hash', { length: 64 }).notNull(),
+    expiresAt: timestamp('expires_at', {
+      mode: 'date',
+      precision: 6,
+    }).notNull(),
+    usedAt: timestamp('used_at', { mode: 'date', precision: 6 }),
+    createdBy: integer('created_by'),
+    createdAt: timestamp('created_at', { mode: 'date', precision: 6 })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    uniqueIndex('UQ_auth_tokens_token_hash').on(table.tokenHash),
+    index('IDX_auth_tokens_user_id').on(table.userId),
+  ],
+);
+
 export const announcements = pgTable(
   'announcements',
   {
@@ -253,6 +276,7 @@ export const refreshTokensRelations = relations(refreshTokens, ({ one }) => ({
 
 export const schema = {
   users,
+  authTokens,
   announcements,
   roles,
   permissions,

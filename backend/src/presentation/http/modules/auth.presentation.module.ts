@@ -27,6 +27,9 @@ import {
   RevokeAuthSessionUseCase,
   RevokeOtherAuthSessionsUseCase,
 } from '@application/auth/use-cases/sessions.use-cases';
+import { RequestPasswordResetUseCase } from '@application/auth/use-cases/request-password-reset.use-case';
+import { ResetPasswordUseCase } from '@application/auth/use-cases/reset-password.use-case';
+import { AcceptInviteUseCase } from '@application/auth/use-cases/accept-invite.use-case';
 
 @Module({
   imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
@@ -51,6 +54,9 @@ import {
     RevokeAuthSessionUseCase,
     RevokeOtherAuthSessionsUseCase,
     JwtStrategy,
+    RequestPasswordResetUseCase,
+    ResetPasswordUseCase,
+    AcceptInviteUseCase,
   ],
 })
 export class AuthPresentationModule {}

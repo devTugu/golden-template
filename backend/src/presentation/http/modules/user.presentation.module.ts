@@ -9,6 +9,7 @@ import {
   AnonymizeUserUseCase,
   ExportUserDataUseCase,
 } from '@application/user/use-cases/gdpr.use-cases';
+import { InviteUserUseCase } from '@application/auth/use-cases/invite-user.use-case';
 
 @Module({
   controllers: [UserV1Controller],
@@ -20,6 +21,7 @@ import {
     DeleteUserUseCase,
     ExportUserDataUseCase,
     AnonymizeUserUseCase,
+    InviteUserUseCase,
   ],
 })
 export class UserPresentationModule {}

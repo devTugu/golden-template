@@ -80,3 +80,23 @@ export type OAuthCallbackInput = z.infer<typeof OAuthCallbackSchema>;
 export type MfaEnrollmentResponse = z.infer<typeof MfaEnrollmentResponseSchema>;
 export type AuthSession = z.infer<typeof AuthSessionSchema>;
 export type AuthSessionsList = z.infer<typeof AuthSessionsListSchema>;
+
+export const PasswordForgotSchema = z.object({
+  email: z.string().email(),
+});
+
+export const PasswordResetSchema = z.object({
+  token: z.string().min(16),
+  password: z.string().min(8),
+});
+
+export const InviteUserSchema = z.object({
+  email: z.string().email(),
+});
+
+export const AcceptInviteSchema = PasswordResetSchema;
+
+export type PasswordForgotInput = z.infer<typeof PasswordForgotSchema>;
+export type PasswordResetInput = z.infer<typeof PasswordResetSchema>;
+export type InviteUserInput = z.infer<typeof InviteUserSchema>;
+export type AcceptInviteInput = z.infer<typeof AcceptInviteSchema>;

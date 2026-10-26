@@ -43,6 +43,14 @@ import {
 import { LOGIN_THROTTLE_OPTIONS } from '../../config/throttle-options';
 import { JwtPayload, TokenPair } from '@shared/types/pagination';
 import { LoginResult } from '@application/auth/dto/login-result';
+import { RequestPasswordResetUseCase } from '@application/auth/use-cases/request-password-reset.use-case';
+import { ResetPasswordUseCase } from '@application/auth/use-cases/reset-password.use-case';
+import { AcceptInviteUseCase } from '@application/auth/use-cases/accept-invite.use-case';
+import {
+  AcceptInviteDto,
+  PasswordForgotDto,
+  PasswordResetDto,
+} from '../../dto/v1/auth-password.dto';
 import { extractClientRequestMeta } from '../../lib/client-request-meta';
 
 @ApiTags('Auth v1')
@@ -61,6 +69,9 @@ export class AuthV1Controller {
     private readonly confirmMfaEnrollWithEnrollmentToken: ConfirmMfaEnrollWithEnrollmentTokenUseCase,
     private readonly getOAuthUrl: GetOAuthAuthorizationUrlUseCase,
     private readonly completeOAuth: CompleteOAuthLoginUseCase,
+    private readonly requestPasswordReset: RequestPasswordResetUseCase,
+    private readonly resetPasswordUseCase: ResetPasswordUseCase,
+    private readonly acceptInviteUseCase: AcceptInviteUseCase,
   ) {}
 
   @Public()
@@ -202,5 +213,30 @@ export class AuthV1Controller {
   @ApiOperation({ summary: 'Current user profile' })
   async me(@CurrentUser() user: JwtPayload): Promise<unknown> {
     return this.getUserUseCase.execute(user.sub);
+  }
+
+  @Public()
+  @Post('password/forgot')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Throttle(LOGIN_THROTTLE_OPTIONS)
+  @ApiOperation({ summary: 'Request password reset email' })
+  async forgotPassword(@Body() dto: PasswordForgotDto): Promise<void> {
+    await this.requestPasswordReset.execute(dto.email);
+  }
+
+  @Public()
+  @Post('password/reset')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Reset password with token' })
+  async resetPassword(@Body() dto: PasswordResetDto): Promise<void> {
+    await this.resetPasswordUseCase.execute(dto.token, dto.password);
+  }
+
+  @Public()
+  @Post('invite/accept')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Accept invite and set password' })
+  async acceptInvite(@Body() dto: AcceptInviteDto): Promise<void> {
+    await this.acceptInviteUseCase.execute(dto.token, dto.password);
   }
 }

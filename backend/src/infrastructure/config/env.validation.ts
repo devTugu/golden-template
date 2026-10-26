@@ -106,6 +106,9 @@ export const envValidationSchema = Joi.object({
   LOGIN_MAX_FAILED_ATTEMPTS: Joi.number().integer().min(1).default(5),
   LOGIN_LOCKOUT_MINUTES: Joi.number().integer().min(1).default(15),
 
+  PASSWORD_RESET_TTL_MINUTES: Joi.number().integer().min(5).default(60),
+  INVITE_TTL_HOURS: Joi.number().integer().min(1).default(72),
+
   SWAGGER_ENABLED: Joi.string().valid('true', 'false').default('false'),
 
   SEED_ADMIN_EMAIL: Joi.string().email().optional(),

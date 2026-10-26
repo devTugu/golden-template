@@ -36,6 +36,13 @@
       "when": 1792996434223,
       "tag": "0004_announcements",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792996594573,
+      "tag": "0005_auth_tokens",
+      "breakpoints": true
     }
   ]
 }

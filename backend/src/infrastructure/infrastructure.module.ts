@@ -11,6 +11,7 @@ import {
   TOKEN_BLACKLIST,
   PERMISSION_CACHE,
   AUDIT_LOG_REPOSITORY,
+  AUTH_TOKEN_REPOSITORY,
   SITE_SETTING_REPOSITORY,
   NOTIFICATION_PORT,
   MEDIA_STORAGE_PORT,
@@ -22,6 +23,7 @@ import { RefreshTokenDrizzleRepository } from './repositories/refresh-token.driz
 import { RoleDrizzleRepository } from './repositories/role.drizzle-repository';
 import { PermissionDrizzleRepository } from './repositories/permission.drizzle-repository';
 import { AuditLogDrizzleRepository } from './repositories/audit-log.drizzle-repository';
+import { AuthTokenDrizzleRepository } from './repositories/auth-token.drizzle-repository';
 import { SiteSettingDrizzleRepository } from './repositories/site-setting.drizzle-repository';
 import { BcryptPasswordHasher } from './auth/bcrypt-password-hasher';
 import { JwtTokenIssuerAdapter } from './auth/jwt-token-issuer.adapter';
@@ -76,6 +78,10 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
     { provide: ROLE_REPOSITORY, useClass: RoleDrizzleRepository },
     { provide: PERMISSION_REPOSITORY, useClass: PermissionDrizzleRepository },
     { provide: AUDIT_LOG_REPOSITORY, useClass: AuditLogDrizzleRepository },
+    {
+      provide: AUTH_TOKEN_REPOSITORY,
+      useClass: AuthTokenDrizzleRepository,
+    },
     {
       provide: SITE_SETTING_REPOSITORY,
       useClass: SiteSettingDrizzleRepository,
@@ -147,6 +153,7 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
     ROLE_REPOSITORY,
     PERMISSION_REPOSITORY,
     AUDIT_LOG_REPOSITORY,
+    AUTH_TOKEN_REPOSITORY,
     SITE_SETTING_REPOSITORY,
     PASSWORD_HASHER,
     TOKEN_ISSUER,
