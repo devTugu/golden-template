@@ -26,8 +26,11 @@ function walk(dir, layer, rel = '') {
       layerExports[indexKey] = `./src/${layer}/${relPath}`;
     }
     if (ent.name.endsWith('.tsx') && !ent.name.startsWith('index.')) {
-      const base = ent.name.replace(/\.tsx$/, '');
       const key = `./${layer}/${relPath.replace(/\.tsx$/, '')}`;
+      layerExports[key] = `./src/${layer}/${relPath}`;
+    }
+    if (ent.name.endsWith('.css')) {
+      const key = `./${layer}/${relPath.replace(/\.css$/, '')}.css`;
       layerExports[key] = `./src/${layer}/${relPath}`;
     }
   }
