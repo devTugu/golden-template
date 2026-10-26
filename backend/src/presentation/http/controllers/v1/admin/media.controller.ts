@@ -4,6 +4,7 @@ import {
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,
@@ -30,17 +31,24 @@ const ALLOWED_MIME = new Set([
 @ApiBearerAuth('access-token')
 @Controller({ path: 'admin/media', version: '1' })
 export class MediaAdminV1Controller {
-  constructor(private readonly uploadMedia: UploadMediaUseCase) {}
+  constructor(
+    private readonly uploadMedia: UploadMediaUseCase,
+    private readonly config: ConfigService,
+  ) {}
 
   @Post('upload')
   @Permissions('SITE_SETTING_UPDATE')
   @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Upload media file (requires S3 config)' })
   @UseInterceptors(
-    FileInterceptor('file', { limits: { fileSize: 5 * 1024 * 1024 } }),
+    FileInterceptor('file', { limits: { fileSize: 10 * 1024 * 1024 } }),
   )
   upload(@UploadedFile() file: Express.Multer.File) {
     if (!file) throw AppErrors.BAD_REQUEST('File is required.');
+    const maxBytes = this.config.get<number>('MEDIA_MAX_BYTES', 5 * 1024 * 1024);
+    if (file.size > maxBytes) {
+      throw AppErrors.PAYLOAD_TOO_LARGE('File exceeds maximum upload size.');
+    }
     if (!ALLOWED_MIME.has(file.mimetype)) {
       throw AppErrors.BAD_REQUEST('Unsupported file type.');
     }

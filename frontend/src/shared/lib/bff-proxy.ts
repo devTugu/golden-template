@@ -16,6 +16,15 @@ const FORWARD_REQUEST_HEADERS = [
 ] as const;
 
 const MUTATING_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
+const DEFAULT_MEDIA_MAX_BYTES = 5 * 1024 * 1024;
+
+function mediaMaxBytes(): number {
+  const raw = process.env.MEDIA_MAX_BYTES;
+  const parsed = raw ? Number.parseInt(raw, 10) : DEFAULT_MEDIA_MAX_BYTES;
+  return Number.isFinite(parsed) && parsed > 0
+    ? parsed
+    : DEFAULT_MEDIA_MAX_BYTES;
+}
 
 async function readRequestBody(request: NextRequest): Promise<BodyInit | undefined> {
   if (!MUTATING_METHODS.has(request.method)) {
@@ -75,7 +84,43 @@ export async function proxyToBackend(
     }
   }
 
+  const maxUpload = mediaMaxBytes();
+  const contentLength = request.headers.get('content-length');
+  if (
+    upstreamPath === '/admin/media/upload' &&
+    contentLength &&
+    Number.parseInt(contentLength, 10) > maxUpload
+  ) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: {
+          code: 'PAYLOAD_TOO_LARGE',
+          message: 'File exceeds maximum upload size.',
+        },
+      },
+      { status: 413 },
+    );
+  }
+
   const body = await readRequestBody(request);
+  if (
+    upstreamPath === '/admin/media/upload' &&
+    body instanceof ArrayBuffer &&
+    body.byteLength > maxUpload
+  ) {
+    return NextResponse.json(
+      {
+        success: false,
+        error: {
+          code: 'PAYLOAD_TOO_LARGE',
+          message: 'File exceeds maximum upload size.',
+        },
+      },
+      { status: 413 },
+    );
+  }
+
   const upstreamUrl = `${upstreamPath}${request.nextUrl.search}`;
 
   const upstream = await fetchInternal(

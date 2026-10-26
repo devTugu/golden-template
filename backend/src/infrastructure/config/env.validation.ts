@@ -127,6 +127,10 @@ export const envValidationSchema = Joi.object({
   S3_SECRET_KEY: Joi.string().optional(),
   S3_ENDPOINT: Joi.string().uri().optional(),
   S3_PUBLIC_BASE_URL: Joi.string().uri().optional(),
+  MEDIA_MAX_BYTES: Joi.number()
+    .integer()
+    .min(1024)
+    .default(5 * 1024 * 1024),
 
   AUDIT_PURGE_ENABLED: Joi.string().valid('true', 'false').default('false'),
   AUDIT_RETENTION_DAYS: Joi.number().integer().min(1).default(90),
