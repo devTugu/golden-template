@@ -17,6 +17,9 @@ Single source of truth for coding rules is `.cursor/rules/` — shared with Curs
 | Files | Rule |
 |-------|------|
 | `backend/**` | `.cursor/rules/clean-architecture.mdc` |
+| `backend/src/infrastructure/database/**`, tenancy-sensitive backend | `.cursor/rules/tenancy.mdc` |
+| Auth reset/invite backend, BFF, types | `.cursor/rules/auth-tokens.mdc` |
+| `scripts/generate-domain/**`, `backend/src/modules/**` | `.cursor/rules/module-generator.mdc` |
 | `frontend/**` | `.cursor/rules/frontend-data.mdc` |
 | `frontend/**`, `packages/ui/**`, `packages/design-tokens/**` | `.cursor/rules/design-system.mdc` |
 | `frontend/e2e/**`, `frontend/playwright.config.ts` | `.cursor/rules/playwright-e2e.mdc` |

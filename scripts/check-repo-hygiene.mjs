@@ -96,6 +96,60 @@ function normalizeGitUrl(url) {
   return trimmed;
 }
 
+const WORKSPACE_PACKAGE_JSON = [
+  "package.json",
+  "backend/package.json",
+  "frontend/package.json",
+  "packages/types/package.json",
+  "packages/utils/package.json",
+  "packages/api/package.json",
+  "packages/hooks/package.json",
+  "packages/ui/package.json",
+  "packages/design-tokens/package.json",
+  "packages/config/tsconfig/package.json",
+  "packages/config/eslint-config/package.json",
+];
+
+function assertNoForbiddenDeps() {
+  for (const rel of WORKSPACE_PACKAGE_JSON) {
+    const full = path.join(root, rel);
+    if (!fs.existsSync(full)) continue;
+    const pkg = JSON.parse(fs.readFileSync(full, "utf8"));
+    const names = [
+      ...Object.keys(pkg.dependencies ?? {}),
+      ...Object.keys(pkg.devDependencies ?? {}),
+    ];
+    for (const banned of ["joi", "class-validator"]) {
+      if (names.includes(banned)) {
+        fail(`${rel} must not depend on ${banned}`);
+      }
+    }
+  }
+}
+
+function assertNoBackendHelmPaths(files) {
+  const bad = files.filter((f) => f.startsWith("backend/deploy/helm/"));
+  if (bad.length > 0) {
+    fail(`Helm charts belong under deploy/advanced/helm, not backend:\n${bad.join("\n")}`);
+  }
+}
+
+function assertSingleTenantSchema() {
+  const schemaPath = path.join(
+    root,
+    "backend/src/infrastructure/database/drizzle/schema/index.ts",
+  );
+  if (!fs.existsSync(schemaPath)) {
+    fail("missing Drizzle schema index.ts");
+  }
+  const text = fs.readFileSync(schemaPath, "utf8");
+  if (/\borganization_id\b/.test(text) || /\borganizations\b/.test(text)) {
+    fail(
+      "Drizzle schema must not define organizations or organization_id (single-tenant template)",
+    );
+  }
+}
+
 function assertRepositoryUrl() {
   const pkg = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
   const expected = execSync("git remote get-url origin", {
@@ -114,5 +168,8 @@ assertNoTrackedNodeModules(files);
 assertEnvExamples();
 assertNoTsNocheck();
 assertNoDefaultPasswordsInCode(files);
+assertNoForbiddenDeps();
+assertNoBackendHelmPaths(files);
+assertSingleTenantSchema();
 assertRepositoryUrl();
 console.log("check-repo-hygiene: ok");

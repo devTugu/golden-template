@@ -17,6 +17,9 @@ Single source of truth for agents and humans. Wired in [`CLAUDE.md`](../../CLAUD
 | Rule | Globs / paths |
 |------|----------------|
 | [clean-architecture.mdc](clean-architecture.mdc) | `backend/**` |
+| [tenancy.mdc](tenancy.mdc) | DB schema, domain/application (single-tenant guard) |
+| [auth-tokens.mdc](auth-tokens.mdc) | Reset/invite flows (backend, types, BFF, auth UI) |
+| [module-generator.mdc](module-generator.mdc) | `scripts/generate-domain/**`, `backend/src/modules/**` |
 | [frontend-data.mdc](frontend-data.mdc) | `frontend/**` |
 | [design-system.mdc](design-system.mdc) | `frontend/**`, `packages/ui/**`, `packages/design-tokens/**` |
 | [playwright-e2e.mdc](playwright-e2e.mdc) | `frontend/e2e/**`, `frontend/playwright.config.ts` |

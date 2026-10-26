@@ -1,0 +1,30 @@
+---
+description: Password reset and invite tokens — hash-only, single-use, enumeration-safe
+globs:
+  - backend/src/application/auth/**
+  - backend/src/infrastructure/repositories/auth-token*
+  - backend/src/presentation/http/controllers/v1/auth.controller.ts
+  - packages/types/src/auth/**
+  - frontend/app/api/auth/**
+  - frontend/src/features/**/auth/**
+---
+
+# Auth tokens (reset & invite)
+
+Flows use `auth_tokens` rows keyed by **SHA-256 hash** of the raw token sent by email.
+
+## Rules
+
+```text
+✅ Store tokenHash only; raw token appears once in email URL
+✅ Invalidate prior active tokens of the same type before creating a new one (reset)
+✅ markUsed on success; reject expired or wrong type
+✅ Request-password-reset: no user → return 204 without leaking existence
+✅ Reset/invite success: revoke refresh sessions where applicable
+❌ Persist or log raw tokens
+❌ Reveal whether an email exists on forgot-password public endpoints
+```
+
+Shared request/response shapes live in `@default/types/auth`. BFF routes proxy to Nest; do not duplicate Zod entity schemas in features.
+
+Env TTL: `PASSWORD_RESET_TTL_MINUTES`, `INVITE_TTL_HOURS` (Zod env validation).

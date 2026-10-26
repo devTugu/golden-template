@@ -1,0 +1,25 @@
+---
+description: Domain generator tiers must match repo conventions
+globs:
+  - scripts/generate-domain/**
+  - backend/src/modules/**
+  - md/fork.md
+  - md/architecture.md
+---
+
+# Module generator
+
+`pnpm generate:domain` supports **tiers**:
+
+| Tier | Output | When |
+|------|--------|------|
+| `simple` | `backend/src/modules/<name>/` (Nest module + Drizzle repo) | CRUD without full Clean Arch slice |
+| `domain` | `backend/src/<domain>/` presentation/application/domain | Core product domains |
+
+## Maintenance
+
+- **Simple tier reference:** copy patterns from `backend/src/modules/announcements/`.
+- Changing templates → update `scripts/generate-domain/generator.spec.mjs` and docs in `md/architecture.md`.
+- `--dry-run` must stay non-destructive; `--tier` is required for predictable output.
+
+Promoting simple → domain: follow two-tier notes in `clean-architecture.mdc`; do not leave duplicate REST surfaces.
