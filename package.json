@@ -24,7 +24,7 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
-    "test": "turbo run test --filter=backend --filter=frontend --filter=@default/utils --filter=@default/api",
+    "test": "turbo run test --filter=backend --filter=frontend --filter=@default/utils --filter=@default/api --filter=@default/types --filter=@default/hooks",
     "quality": "pnpm verify",
     "verify": "pnpm generate:tokens && pnpm --filter frontend exec node scripts/verify-lightningcss.js && pnpm lint && pnpm typecheck && pnpm build && pnpm test && pnpm --filter backend run test:cov && pnpm audit",
     "audit": "pnpm audit --audit-level=high",

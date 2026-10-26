@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { GeistMono } from 'geist/font/mono';
+import { GeistSans } from 'geist/font/sans';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale } from 'next-intl/server';
 import './globals.css';
@@ -11,15 +12,8 @@ import { getMessages as getAppMessages, resolveLocale } from '@/shared/i18n/mess
 import { buildBrandThemeCssVars } from '@default/utils/color';
 import { normalizeHexColor } from '@/shared/lib/normalize-hex-color';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
+const geistSans = GeistSans;
+const geistMono = GeistMono;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
