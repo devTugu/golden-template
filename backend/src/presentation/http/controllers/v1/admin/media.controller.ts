@@ -45,7 +45,10 @@ export class MediaAdminV1Controller {
   )
   upload(@UploadedFile() file: Express.Multer.File) {
     if (!file) throw AppErrors.BAD_REQUEST('File is required.');
-    const maxBytes = this.config.get<number>('MEDIA_MAX_BYTES', 5 * 1024 * 1024);
+    const maxBytes = this.config.get<number>(
+      'MEDIA_MAX_BYTES',
+      5 * 1024 * 1024,
+    );
     if (file.size > maxBytes) {
       throw AppErrors.PAYLOAD_TOO_LARGE('File exceeds maximum upload size.');
     }
