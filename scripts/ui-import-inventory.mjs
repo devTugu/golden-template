@@ -22,7 +22,7 @@ const SCAN_DIRS = [
 ];
 
 const IMPORT_RE =
-  /@default\/ui\/(composed|default-space)\/([a-z0-9-]+(?:\/[a-z0-9-]+)?)/gi;
+  /@default\/ui\/(composed|default-space)\/([a-z0-9-]+(?:\/[a-z0-9.-]+)*)/gi;
 
 function walkFiles(dir, out = []) {
   if (!fs.existsSync(dir)) return out;
