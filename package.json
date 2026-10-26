@@ -40,7 +40,7 @@
     "infra:down": "docker compose -f backend/docker-compose.dev.yml down"
   },
   "devDependencies": {
-    "turbo": "^2.5.4"
+    "turbo": "^2.11.10"
   },
   "pnpm": {
     "overrides": {
