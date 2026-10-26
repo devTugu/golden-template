@@ -16,9 +16,44 @@ describe('envValidationSchema', () => {
     const { error } = envValidationSchema.validate({
       ...validBase,
       NODE_ENV: 'production',
+      MFA_ENCRYPTION_KEY: 'production_mfa_encryption_key_32chars',
     });
 
     expect(error).toBeUndefined();
+  });
+
+  it('rejects placeholder JWT secrets in production', () => {
+    const { error } = envValidationSchema.validate({
+      ...validBase,
+      NODE_ENV: 'production',
+      JWT_ACCESS_SECRET: 'change_me_access_secret_min_32_chars',
+      MFA_ENCRYPTION_KEY: 'production_mfa_encryption_key_32chars',
+    });
+
+    expect(error).toBeDefined();
+  });
+
+  it('requires MFA_ENCRYPTION_KEY in production', () => {
+    const { error } = envValidationSchema.validate({
+      ...validBase,
+      NODE_ENV: 'production',
+    });
+
+    expect(error).toBeDefined();
+    expect(error?.message).toMatch(/MFA_ENCRYPTION_KEY/);
+  });
+
+  it('requires distinct JWT secrets in production', () => {
+    const secret = 'shared_production_jwt_secret_32chars!!';
+    const { error } = envValidationSchema.validate({
+      ...validBase,
+      NODE_ENV: 'production',
+      JWT_ACCESS_SECRET: secret,
+      JWT_REFRESH_SECRET: secret,
+      MFA_ENCRYPTION_KEY: 'production_mfa_encryption_key_32chars',
+    });
+
+    expect(error).toBeDefined();
   });
 
   it('rejects missing JWT secrets (fail-closed)', () => {

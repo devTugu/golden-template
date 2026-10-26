@@ -11,7 +11,9 @@ Template security notes — not a certification claim.
 | Throttle / lockout | `LOGIN_THROTTLE_*`, `LOGIN_MAX_FAILED_ATTEMPTS` |
 | Password | bcrypt; policy in shared types |
 
-Secrets: `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` (min 32 chars), `MFA_ENCRYPTION_KEY`.
+Secrets: `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` (min 32 chars, must differ in production), `MFA_ENCRYPTION_KEY` (required in production). Placeholder values starting with `change_me` are rejected when `NODE_ENV=production`.
+
+Database seed in production requires explicit admin credentials; default passwords and the e2e viewer account are development/test only.
 
 ## MFA / OIDC
 

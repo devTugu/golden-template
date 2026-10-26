@@ -7,11 +7,11 @@ Helm details: [backend/deploy/helm/README.md](../backend/deploy/helm/README.md).
 | Variable | Notes |
 |----------|--------|
 | `NODE_ENV=production` | |
-| `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` | Rotate periodically |
+| `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` | Min 32 chars, **must differ**; values starting with `change_me` are rejected in production |
+| `MFA_ENCRYPTION_KEY` | **Required** in production (min 32 chars; no `change_me` placeholders) |
 | `DB_*` | PostgreSQL; `DB_SSL=true` if needed |
 | `CORS_ORIGIN` | Frontend origin |
 | `REDIS_URL` | Throttle + permission cache (recommended) |
-| `MFA_ENCRYPTION_KEY` | If MFA enabled |
 | `SWAGGER_ENABLED=false` | Prod |
 
 Validation: `backend/src/infrastructure/config/env.validation.ts`
@@ -20,6 +20,8 @@ Validation: `backend/src/infrastructure/config/env.validation.ts`
 pnpm --filter backend run migration:run
 pnpm --filter backend run seed   # first deploy only
 ```
+
+In **production**, seed refuses to run unless `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` are set explicitly, the password is at least 12 characters and not a known default (`admin123!`, etc.). The e2e viewer user is **not** seeded in production.
 
 **Health:** `/api/v1/health/live`, `/api/v1/health/ready`
 

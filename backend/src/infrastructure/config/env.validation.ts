@@ -1,6 +1,23 @@
 import * as Joi from 'joi';
+import {
+  isPlaceholderSecret,
+  jwtSecretsMustDiffer,
+} from './env-production.rules';
 
 const durationPattern = /^(\d+)(s|m|h|d)$/i;
+
+const productionSecret = Joi.string().custom((value, helpers) => {
+  if (typeof value !== 'string') {
+    return helpers.error('any.invalid');
+  }
+  if (isPlaceholderSecret(value)) {
+    return helpers.error('any.invalid', {
+      message:
+        'must not use placeholder values starting with change_me in production',
+    });
+  }
+  return value;
+});
 
 export const envValidationSchema = Joi.object({
   NODE_ENV: Joi.string()
@@ -61,11 +78,23 @@ export const envValidationSchema = Joi.object({
 
   APP_DISPLAY_NAME: Joi.string().default('Website Template'),
   MFA_ISSUER: Joi.string().default('Website Template Admin'),
-  MFA_ENCRYPTION_KEY: Joi.string().min(32).optional(),
+  MFA_ENCRYPTION_KEY: Joi.when('NODE_ENV', {
+    is: 'production',
+    then: Joi.string().min(32).required().concat(productionSecret),
+    otherwise: Joi.string().min(32).optional(),
+  }),
   MFA_REQUIRED_ROLES: Joi.string().allow('').default(''),
 
-  JWT_ACCESS_SECRET: Joi.string().min(32).required(),
-  JWT_REFRESH_SECRET: Joi.string().min(32).required(),
+  JWT_ACCESS_SECRET: Joi.when('NODE_ENV', {
+    is: 'production',
+    then: Joi.string().min(32).required().concat(productionSecret),
+    otherwise: Joi.string().min(32).required(),
+  }),
+  JWT_REFRESH_SECRET: Joi.when('NODE_ENV', {
+    is: 'production',
+    then: Joi.string().min(32).required().concat(productionSecret),
+    otherwise: Joi.string().min(32).required(),
+  }),
   JWT_ACCESS_EXPIRES_IN: Joi.string().pattern(durationPattern).default('15m'),
   JWT_REFRESH_EXPIRES_IN: Joi.string().pattern(durationPattern).default('7d'),
 
@@ -103,4 +132,17 @@ export const envValidationSchema = Joi.object({
   AUDIT_RETENTION_DAYS: Joi.number().integer().min(1).default(90),
 
   SENTRY_DSN: Joi.string().uri().optional(),
+}).custom((value, helpers) => {
+  if (value.NODE_ENV !== 'production') {
+    return value;
+  }
+  if (
+    !jwtSecretsMustDiffer(value.JWT_ACCESS_SECRET, value.JWT_REFRESH_SECRET)
+  ) {
+    return helpers.error('any.invalid', {
+      message:
+        'JWT_ACCESS_SECRET and JWT_REFRESH_SECRET must differ in production',
+    });
+  }
+  return value;
 });

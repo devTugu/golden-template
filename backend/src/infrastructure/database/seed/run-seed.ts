@@ -23,8 +23,15 @@ import {
   SUPER_ADMIN_ROLE_NAME,
 } from './permissions.const';
 import { seedE2eViewerUser } from './e2e-viewer.seed';
+import { assertSeedAllowedForEnv } from './seed-production.guard';
 
 dotenv.config({ path: '.env' });
+
+const seedGuard = assertSeedAllowedForEnv(process.env);
+if (!seedGuard.ok) {
+  console.error(seedGuard.message);
+  process.exit(1);
+}
 
 const useSsl = process.env.DB_SSL === 'true';
 
@@ -197,11 +204,13 @@ async function runSeed(): Promise<void> {
     });
   }
 
-  await seedE2eViewerUser(db, {
-    organizationId: defaultOrg.id,
-    viewerEmail: VIEWER_EMAIL,
-    viewerPassword: VIEWER_PASSWORD,
-  });
+  if (process.env.NODE_ENV !== 'production') {
+    await seedE2eViewerUser(db, {
+      organizationId: defaultOrg.id,
+      viewerEmail: VIEWER_EMAIL,
+      viewerPassword: VIEWER_PASSWORD,
+    });
+  }
 
   await db
     .update(users)
