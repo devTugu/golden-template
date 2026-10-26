@@ -127,6 +127,44 @@ export default tseslint.config(
   },
 
   {
+    files: ['src/modules/**/*.controller.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'drizzle-orm',
+              message: 'Controllers must call the module service, not Drizzle.',
+            },
+          ],
+          patterns: [
+            {
+              group: ['**/infrastructure/database/**'],
+              message: 'Controllers must not import database infrastructure.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+
+  {
+    files: ['src/domain/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            { name: '@nestjs/common', message: 'Domain must stay framework-free.' },
+            { name: 'drizzle-orm', message: 'Domain must not import Drizzle.' },
+          ],
+        },
+      ],
+    },
+  },
+
+  {
     files: ['**/*.spec.ts', 'test/**/*.ts'],
     rules: {
       '@typescript-eslint/unbound-method': 'off',

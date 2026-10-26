@@ -8,8 +8,6 @@ import {
   DEFAULT_SITE_SETTINGS,
   SiteSettings,
 } from '@domain/site-setting/entities/site-settings.entity';
-import { IOrganizationContext } from '@application/ports/organization-context.port';
-import { ORGANIZATION_CONTEXT } from '@shared/constants/tokens';
 import {
   DRIZZLE,
   type DrizzleDatabase,
@@ -21,11 +19,7 @@ const SINGLETON_ID = 1;
 
 @Injectable()
 export class SiteSettingDrizzleRepository implements ISiteSettingRepository {
-  constructor(
-    @Inject(DRIZZLE) private readonly db: DrizzleDatabase,
-    @Inject(ORGANIZATION_CONTEXT)
-    private readonly orgContext: IOrganizationContext,
-  ) {}
+  constructor(@Inject(DRIZZLE) private readonly db: DrizzleDatabase) {}
 
   async get(): Promise<SiteSettings | null> {
     const entity = await this.db.query.siteSettings.findFirst({
@@ -84,20 +78,14 @@ export class SiteSettingDrizzleRepository implements ISiteSettingRepository {
         : base.security,
     };
 
-    const organizationId = await this.orgContext.getCurrentOrganizationId();
-
     if (existing) {
       await this.db
         .update(siteSettings)
-        .set({
-          ...next,
-          organizationId: organizationId ?? existing.organizationId,
-        })
+        .set(next)
         .where(eq(siteSettings.id, SINGLETON_ID));
     } else {
       await this.db.insert(siteSettings).values({
         id: SINGLETON_ID,
-        organizationId: organizationId ?? null,
         ...next,
       });
     }

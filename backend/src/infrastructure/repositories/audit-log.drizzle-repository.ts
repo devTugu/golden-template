@@ -6,8 +6,6 @@ import {
   IAuditLogRepository,
   ListAuditLogsQuery,
 } from '@application/ports/audit-log.port';
-import { IOrganizationContext } from '@application/ports/organization-context.port';
-import { ORGANIZATION_CONTEXT } from '@shared/constants/tokens';
 import {
   DRIZZLE,
   type DrizzleDatabase,
@@ -16,21 +14,11 @@ import { auditLogs } from '../database/drizzle/schema';
 
 @Injectable()
 export class AuditLogDrizzleRepository implements IAuditLogRepository {
-  constructor(
-    @Inject(DRIZZLE) private readonly db: DrizzleDatabase,
-    @Inject(ORGANIZATION_CONTEXT)
-    private readonly orgContext: IOrganizationContext,
-  ) {}
+  constructor(@Inject(DRIZZLE) private readonly db: DrizzleDatabase) {}
 
   async save(record: AuditLogRecord): Promise<void> {
-    const organizationId =
-      record.organizationId !== undefined
-        ? record.organizationId
-        : await this.orgContext.getCurrentOrganizationId();
-
     await this.db.insert(auditLogs).values({
       userId: record.userId,
-      organizationId: organizationId ?? null,
       action: record.action,
       resource: record.resource,
       resourceId: record.resourceId,
@@ -52,9 +40,6 @@ export class AuditLogDrizzleRepository implements IAuditLogRepository {
     }
     if (query.action) {
       filters.push(eq(auditLogs.action, query.action));
-    }
-    if (query.organizationId !== undefined) {
-      filters.push(eq(auditLogs.organizationId, query.organizationId));
     }
     if (query.from && query.to) {
       filters.push(
@@ -101,7 +86,6 @@ export class AuditLogDrizzleRepository implements IAuditLogRepository {
     return {
       id: entity.id,
       userId: entity.userId,
-      organizationId: entity.organizationId,
       action: entity.action,
       resource: entity.resource,
       resourceId: entity.resourceId,

@@ -11,18 +11,19 @@ import {
   TOKEN_BLACKLIST,
   PERMISSION_CACHE,
   AUDIT_LOG_REPOSITORY,
+  AUTH_TOKEN_REPOSITORY,
   SITE_SETTING_REPOSITORY,
   NOTIFICATION_PORT,
   MEDIA_STORAGE_PORT,
   MFA_VERIFIER,
   OAUTH_IDENTITY,
-  ORGANIZATION_CONTEXT,
 } from '@shared/constants/tokens';
 import { UserDrizzleRepository } from './repositories/user.drizzle-repository';
 import { RefreshTokenDrizzleRepository } from './repositories/refresh-token.drizzle-repository';
 import { RoleDrizzleRepository } from './repositories/role.drizzle-repository';
 import { PermissionDrizzleRepository } from './repositories/permission.drizzle-repository';
 import { AuditLogDrizzleRepository } from './repositories/audit-log.drizzle-repository';
+import { AuthTokenDrizzleRepository } from './repositories/auth-token.drizzle-repository';
 import { SiteSettingDrizzleRepository } from './repositories/site-setting.drizzle-repository';
 import { BcryptPasswordHasher } from './auth/bcrypt-password-hasher';
 import { JwtTokenIssuerAdapter } from './auth/jwt-token-issuer.adapter';
@@ -38,12 +39,12 @@ import { IPermissionCache } from '@application/ports/permission-cache.port';
 import { INotificationPort } from '@application/ports/notification.port';
 import { NoopNotificationAdapter } from './notification/noop-notification.adapter';
 import { NodemailerNotificationAdapter } from './notification/nodemailer-notification.adapter';
+import { CapturingNotificationAdapter } from './notification/capturing-notification.adapter';
 import { UrlPassthroughAdapter } from './media/url-passthrough.adapter';
 import { S3CompatibleStorageAdapter } from './media/s3-compatible-storage.adapter';
 import { CompositeMediaStorageAdapter } from './media/composite-media-storage.adapter';
 import { TotpMfaAdapter } from './auth/totp-mfa.adapter';
 import { OidcIdentityAdapter } from './auth/oidc-identity.adapter';
-import { DefaultOrganizationContext } from './tenancy/default-organization.context';
 import { DrizzleModule } from './database/drizzle/drizzle.module';
 import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
 
@@ -70,10 +71,6 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
     },
     RedisHealthIndicator,
     DrizzleHealthIndicator,
-    {
-      provide: ORGANIZATION_CONTEXT,
-      useClass: DefaultOrganizationContext,
-    },
     { provide: USER_REPOSITORY, useClass: UserDrizzleRepository },
     {
       provide: REFRESH_TOKEN_REPOSITORY,
@@ -82,6 +79,10 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
     { provide: ROLE_REPOSITORY, useClass: RoleDrizzleRepository },
     { provide: PERMISSION_REPOSITORY, useClass: PermissionDrizzleRepository },
     { provide: AUDIT_LOG_REPOSITORY, useClass: AuditLogDrizzleRepository },
+    {
+      provide: AUTH_TOKEN_REPOSITORY,
+      useClass: AuthTokenDrizzleRepository,
+    },
     {
       provide: SITE_SETTING_REPOSITORY,
       useClass: SiteSettingDrizzleRepository,
@@ -116,13 +117,18 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
     },
     NoopNotificationAdapter,
     NodemailerNotificationAdapter,
+    CapturingNotificationAdapter,
     {
       provide: NOTIFICATION_PORT,
       useFactory: (
         config: ConfigService,
         noop: NoopNotificationAdapter,
         nodemailer: NodemailerNotificationAdapter,
+        capture: CapturingNotificationAdapter,
       ): INotificationPort => {
+        if (config.get<string>('NOTIFICATION_CAPTURE') === 'true') {
+          return capture;
+        }
         if (config.get<string>('SMTP_HOST')) return nodemailer;
         return noop;
       },
@@ -130,6 +136,7 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
         ConfigService,
         NoopNotificationAdapter,
         NodemailerNotificationAdapter,
+        CapturingNotificationAdapter,
       ],
     },
     UrlPassthroughAdapter,
@@ -153,6 +160,7 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
     ROLE_REPOSITORY,
     PERMISSION_REPOSITORY,
     AUDIT_LOG_REPOSITORY,
+    AUTH_TOKEN_REPOSITORY,
     SITE_SETTING_REPOSITORY,
     PASSWORD_HASHER,
     TOKEN_ISSUER,
@@ -162,7 +170,6 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
     MEDIA_STORAGE_PORT,
     MFA_VERIFIER,
     OAUTH_IDENTITY,
-    ORGANIZATION_CONTEXT,
   ],
 })
 export class InfrastructureModule {}

@@ -22,6 +22,27 @@
       "when": 1730000003000,
       "tag": "0002_refresh_token_session_meta",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792996345212,
+      "tag": "0003_remove_organizations",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1792996434223,
+      "tag": "0004_announcements",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1792996594573,
+      "tag": "0005_auth_tokens",
+      "breakpoints": true
     }
   ]
 }

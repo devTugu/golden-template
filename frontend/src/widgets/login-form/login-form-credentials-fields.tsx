@@ -13,7 +13,9 @@ import {
   FormMessage,
 } from '@default/ui/primitives/form';
 import { Input } from '@default/ui/primitives/input';
+import Link from 'next/link';
 import { OAuthSignInButton } from '@/widgets/oauth-sign-in-button';
+import { ROUTES } from '@/shared/config/routes';
 
 const LOGIN04_INPUT_CLASS =
   'h-9 border-border bg-background text-foreground shadow-xs dark:bg-background';
@@ -96,6 +98,14 @@ export function LoginFormCredentialsFields({
           <div className="space-y-4">
             {emailField}
             {passwordField}
+            <p className="text-right text-sm">
+              <Link
+                href={ROUTES.FORGOT_PASSWORD}
+                className="text-muted-foreground underline-offset-4 hover:underline"
+              >
+                {t('forgotPasswordLink')}
+              </Link>
+            </p>
           </div>
         ) : (
           <>

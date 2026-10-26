@@ -1,6 +1,6 @@
 # Deploy
 
-Helm details: [backend/deploy/helm/README.md](../backend/deploy/helm/README.md).
+Helm (optional / advanced): [deploy/advanced/helm/README.md](../deploy/advanced/helm/README.md). Default path: Railway + Docker (see below).
 
 ## Backend env (required)
 
@@ -30,6 +30,16 @@ In **production**, seed refuses to run unless `SEED_ADMIN_EMAIL` and `SEED_ADMIN
 **Ops:** 503 ready → DB/Redis; auth fails → JWT/CORS/Redis; MFA → stable encryption key + clock.
 
 **Optional:** `SENTRY_DSN`, `OTEL_ENABLED` — try on staging first.
+
+### Media uploads (S3)
+
+| Variable | Notes |
+|----------|--------|
+| `S3_BUCKET`, `S3_REGION`, `S3_ACCESS_KEY`, `S3_SECRET_KEY` | Required for API multipart upload (`POST /api/v1/admin/media/upload`) |
+| `S3_ENDPOINT`, `S3_PUBLIC_BASE_URL` | Optional — MinIO / CDN base URL |
+| `MEDIA_MAX_BYTES` | Max body size (default 5 MiB); BFF returns **413** when exceeded |
+
+Uploads go through the API (not browser presigned PUT). Without S3 env, the upload use case returns a configuration error.
 
 ## Frontend env
 
@@ -72,7 +82,7 @@ Workflow: [`.github/workflows/cd.yml`](../.github/workflows/cd.yml) — runs on 
 After CD, you (or your cluster pipeline) install from the repo chart and set image tags:
 
 ```bash
-helm upgrade --install website-staging backend/deploy/helm/website-stack \
+helm upgrade --install website-staging deploy/advanced/helm/website-stack \
   --namespace website-staging --create-namespace \
   --set api.image.repository=ghcr.io/<owner>/<repo>/website-api \
   --set api.image.tag=v1.2.0 \
@@ -80,7 +90,7 @@ helm upgrade --install website-staging backend/deploy/helm/website-stack \
   --set frontend.image.tag=v1.2.0
 ```
 
-Check `backend/deploy/helm/website-stack/values.yaml` for default image repos.
+Check `deploy/advanced/helm/website-stack/values.yaml` for default image repos.
 
 **Railway:** optional per-app workflows under `backend/.github/workflows/` and `frontend/.github/workflows/` — separate from root CD.
 

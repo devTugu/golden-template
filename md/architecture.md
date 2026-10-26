@@ -14,14 +14,17 @@ Shared contracts: `@default/types`. Helpers: `@default/utils`.
 ## Backend
 
 ```text
-domain/ → application/ → presentation/
+domain/ → application/ → presentation/     (domain tier — auth, users, RBAC, …)
               ↑ infrastructure/
+
+modules/<name>/  controller → service → repository   (simple tier — e.g. announcements)
 ```
 
-| Module | Role |
-|--------|------|
-| Auth | Login, refresh, MFA, OIDC |
-| User | CRUD, export/anonymize |
+| Module | Tier | Role |
+|--------|------|------|
+| Announcements | Simple | Example CRUD (`backend/src/modules/announcements/`) |
+| Auth | Domain | Login, refresh, MFA, OIDC |
+| User | Domain | CRUD, export/anonymize |
 | Authorization | Roles, permissions |
 | SiteSetting | Singleton CMS-style settings |
 | Media | S3-compatible upload |

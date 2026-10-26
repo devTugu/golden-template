@@ -4,6 +4,7 @@ export * from "./permissions/api";
 export * from "./site-settings/api";
 export * from "./dashboard/api";
 export * from "./audit-logs/api";
+export * from "./announcements/api";
 export * from "./media/api";
 export * from "./auth/api";
 export { API_ENDPOINTS } from "./endpoints";
@@ -15,6 +16,7 @@ export {
   siteSettingsKeys,
   dashboardKeys,
   auditLogKeys,
+  announcementKeys,
 } from "./query-keys";
 export type {
   ApiEnvelope,

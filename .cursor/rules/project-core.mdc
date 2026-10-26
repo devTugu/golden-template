@@ -14,6 +14,7 @@ Product & fork docs: [`md/README.md`](../../md/README.md) (`md/fork.md`, `md/arc
 | Path | Package | Role |
 |------|---------|------|
 | `backend/` | `backend` | NestJS + Drizzle + PostgreSQL — Clean Architecture |
+| `backend/src/modules/` | `backend` | **Simple tier** Nest modules (e.g. announcements) |
 | `frontend/` | `frontend` | Next.js — FSD + BFF (httpOnly cookies) |
 | `packages/types` | `@default/types` | Zod schemas/enums per domain |
 | `packages/utils` | `@default/utils` | Domain-agnostic pure helpers |

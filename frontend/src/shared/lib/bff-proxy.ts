@@ -7,6 +7,7 @@ import {
   isBffPathAllowed,
   normalizeBffPath,
 } from '@/shared/config/bff-allowlist';
+import { rejectOversizeMediaUpload } from '@/shared/lib/bff-upload-limit';
 
 const FORWARD_REQUEST_HEADERS = [
   'accept',
@@ -76,6 +77,13 @@ export async function proxyToBackend(
   }
 
   const body = await readRequestBody(request);
+  const oversize = rejectOversizeMediaUpload({
+    upstreamPath,
+    contentLengthHeader: request.headers.get('content-length'),
+    body,
+  });
+  if (oversize) return oversize;
+
   const upstreamUrl = `${upstreamPath}${request.nextUrl.search}`;
 
   const upstream = await fetchInternal(

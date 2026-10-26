@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { AuthSessionsV1Controller } from '../controllers/v1/auth-sessions.controller';
 import { AuthV1Controller } from '../controllers/v1/auth.controller';
+import { DevNotificationsV1Controller } from '../controllers/v1/dev-notifications.controller';
 import { LoginUseCase } from '@application/auth/use-cases/login.use-case';
 import { RefreshTokenUseCase } from '@application/auth/use-cases/refresh-token.use-case';
 import { LogoutUseCase } from '@application/auth/use-cases/logout.use-case';
@@ -27,10 +28,17 @@ import {
   RevokeAuthSessionUseCase,
   RevokeOtherAuthSessionsUseCase,
 } from '@application/auth/use-cases/sessions.use-cases';
+import { RequestPasswordResetUseCase } from '@application/auth/use-cases/request-password-reset.use-case';
+import { ResetPasswordUseCase } from '@application/auth/use-cases/reset-password.use-case';
+import { AcceptInviteUseCase } from '@application/auth/use-cases/accept-invite.use-case';
 
 @Module({
   imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
-  controllers: [AuthV1Controller, AuthSessionsV1Controller],
+  controllers: [
+    AuthV1Controller,
+    AuthSessionsV1Controller,
+    DevNotificationsV1Controller,
+  ],
   providers: [
     LoginUseCase,
     VerifyMfaLoginUseCase,
@@ -51,6 +59,9 @@ import {
     RevokeAuthSessionUseCase,
     RevokeOtherAuthSessionsUseCase,
     JwtStrategy,
+    RequestPasswordResetUseCase,
+    ResetPasswordUseCase,
+    AcceptInviteUseCase,
   ],
 })
 export class AuthPresentationModule {}

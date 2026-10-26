@@ -19,4 +19,6 @@ export const AppErrors = {
     new ApplicationException('BAD_REQUEST', 400, msg),
   TOO_MANY_REQUESTS: (msg: string) =>
     new ApplicationException('TOO_MANY_REQUESTS', 429, msg),
+  PAYLOAD_TOO_LARGE: (msg: string) =>
+    new ApplicationException('PAYLOAD_TOO_LARGE', 413, msg),
 };

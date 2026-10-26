@@ -5,8 +5,6 @@ export interface AuditLogRecord {
   resourceId: string | null;
   ipAddress: string | null;
   metadata: Record<string, unknown> | null;
-  /** Stamped from IOrganizationContext when available. */
-  organizationId?: number | null;
 }
 
 export interface AuditLogEntry extends AuditLogRecord {
@@ -22,7 +20,6 @@ export interface ListAuditLogsQuery {
   action?: string;
   from?: Date;
   to?: Date;
-  organizationId?: number;
 }
 
 export interface IAuditLogRepository {

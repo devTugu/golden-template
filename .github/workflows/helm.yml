@@ -1,0 +1,24 @@
+name: Helm (advanced)
+
+on:
+  push:
+    paths:
+      - 'deploy/advanced/helm/**'
+  pull_request:
+    paths:
+      - 'deploy/advanced/helm/**'
+
+jobs:
+  helm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+        with:
+          version: v3.16.4
+      - run: |
+          helm lint deploy/advanced/helm/website-stack
+          helm template website-test deploy/advanced/helm/website-stack \
+            --set brand.nextPublicSiteUrl=https://example.com \
+            --set api.image.repository=example/api \
+            --set frontend.image.repository=example/frontend

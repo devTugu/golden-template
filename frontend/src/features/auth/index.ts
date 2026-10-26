@@ -6,6 +6,11 @@ export {
   useLogout,
   useVerifyMfaLogin,
 } from './api/mutations';
+export {
+  useAcceptInvite,
+  useForgotPassword,
+  useResetPassword,
+} from './api/password-recovery.mutations';
 export { useAuthStore } from './model/store';
 export { AuthGuard } from './ui/AuthGuard';
 export { SessionExpiryDialog } from './ui/SessionExpiryDialog';

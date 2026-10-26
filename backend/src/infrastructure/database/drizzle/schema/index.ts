@@ -22,24 +22,6 @@ import type {
   SiteSettingsTheme,
 } from '@domain/site-setting/entities/site-settings.entity';
 
-/** Multi-org UI is out of scope; schema is tenancy-ready with a single default org. */
-export const organizations = pgTable(
-  'organizations',
-  {
-    id: serial('id').primaryKey(),
-    slug: varchar('slug', { length: 100 }).notNull(),
-    name: varchar('name', { length: 255 }).notNull(),
-    createdAt: timestamp('created_at', { mode: 'date', precision: 6 })
-      .notNull()
-      .defaultNow(),
-    updatedAt: timestamp('updated_at', { mode: 'date', precision: 6 })
-      .notNull()
-      .defaultNow()
-      .$onUpdate(() => new Date()),
-  },
-  (table) => [uniqueIndex('UQ_organizations_slug').on(table.slug)],
-);
-
 export const users = pgTable(
   'users',
   {
@@ -53,7 +35,6 @@ export const users = pgTable(
     mfaSecretEncrypted: text('mfa_secret_encrypted'),
     failedLoginAttempts: integer('failed_login_attempts').notNull().default(0),
     lockedUntil: timestamp('locked_until', { mode: 'date', precision: 6 }),
-    organizationId: integer('organization_id'),
     createdAt: timestamp('created_at', { mode: 'date', precision: 6 })
       .notNull()
       .defaultNow(),
@@ -67,29 +48,48 @@ export const users = pgTable(
     uniqueIndex('UQ_users_email').on(table.email),
     index('IDX_users_email').on(table.email),
     uniqueIndex('UQ_users_oauth').on(table.oauthProvider, table.oauthSubject),
-    index('IDX_users_organization_id').on(table.organizationId),
   ],
 );
 
-export const organizationMembers = pgTable(
-  'organization_members',
+export const authTokens = pgTable(
+  'auth_tokens',
   {
     id: serial('id').primaryKey(),
-    organizationId: integer('organization_id').notNull(),
     userId: integer('user_id').notNull(),
-    role: varchar('role', { length: 32 }).notNull(),
+    type: varchar('type', { length: 32 }).notNull(),
+    tokenHash: varchar('token_hash', { length: 64 }).notNull(),
+    expiresAt: timestamp('expires_at', {
+      mode: 'date',
+      precision: 6,
+    }).notNull(),
+    usedAt: timestamp('used_at', { mode: 'date', precision: 6 }),
+    createdBy: integer('created_by'),
     createdAt: timestamp('created_at', { mode: 'date', precision: 6 })
       .notNull()
       .defaultNow(),
   },
   (table) => [
-    uniqueIndex('UQ_organization_members_org_user').on(
-      table.organizationId,
-      table.userId,
-    ),
-    index('IDX_organization_members_org_id').on(table.organizationId),
-    index('IDX_organization_members_user_id').on(table.userId),
+    uniqueIndex('UQ_auth_tokens_token_hash').on(table.tokenHash),
+    index('IDX_auth_tokens_user_id').on(table.userId),
   ],
+);
+
+export const announcements = pgTable(
+  'announcements',
+  {
+    id: serial('id').primaryKey(),
+    title: varchar('title', { length: 255 }).notNull(),
+    body: text('body').notNull(),
+    published: boolean('published').notNull().default(false),
+    createdAt: timestamp('created_at', { mode: 'date', precision: 6 })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date', precision: 6 })
+      .notNull()
+      .defaultNow()
+      .$onUpdate(() => new Date()),
+  },
+  (table) => [index('IDX_announcements_title').on(table.title)],
 );
 
 export const roles = pgTable(
@@ -194,7 +194,6 @@ export const auditLogs = pgTable(
   {
     id: serial('id').primaryKey(),
     userId: integer('user_id'),
-    organizationId: integer('organization_id'),
     action: varchar('action', { length: 100 }).notNull(),
     resource: varchar('resource', { length: 100 }).notNull(),
     resourceId: varchar('resource_id', { length: 64 }),
@@ -204,17 +203,13 @@ export const auditLogs = pgTable(
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),
   },
-  (table) => [
-    index('IDX_audit_user_id').on(table.userId),
-    index('IDX_audit_organization_id').on(table.organizationId),
-  ],
+  (table) => [index('IDX_audit_user_id').on(table.userId)],
 );
 
 export const siteSettings = pgTable(
   'site_settings',
   {
     id: integer('id').primaryKey(),
-    organizationId: integer('organization_id'),
     hero: jsonb('hero').$type<SiteSettingsHero>().notNull(),
     header: jsonb('header').$type<SiteSettingsHeader>().notNull(),
     footer: jsonb('footer').$type<SiteSettingsFooter>().notNull(),
@@ -230,37 +225,12 @@ export const siteSettings = pgTable(
       .defaultNow()
       .$onUpdate(() => new Date()),
   },
-  (table) => [
-    index('IDX_site_settings_organization_id').on(table.organizationId),
-  ],
+  () => [],
 );
 
-export const organizationsRelations = relations(organizations, ({ many }) => ({
-  members: many(organizationMembers),
-  users: many(users),
-}));
-
-export const organizationMembersRelations = relations(
-  organizationMembers,
-  ({ one }) => ({
-    organization: one(organizations, {
-      fields: [organizationMembers.organizationId],
-      references: [organizations.id],
-    }),
-    user: one(users, {
-      fields: [organizationMembers.userId],
-      references: [users.id],
-    }),
-  }),
-);
-
-export const usersRelations = relations(users, ({ many, one }) => ({
+export const usersRelations = relations(users, ({ many }) => ({
   userRoles: many(userRoles),
   refreshTokens: many(refreshTokens),
-  organization: one(organizations, {
-    fields: [users.organizationId],
-    references: [organizations.id],
-  }),
 }));
 
 export const rolesRelations = relations(roles, ({ many }) => ({
@@ -305,9 +275,9 @@ export const refreshTokensRelations = relations(refreshTokens, ({ one }) => ({
 }));
 
 export const schema = {
-  organizations,
-  organizationMembers,
   users,
+  authTokens,
+  announcements,
   roles,
   permissions,
   userRoles,
@@ -315,8 +285,6 @@ export const schema = {
   refreshTokens,
   auditLogs,
   siteSettings,
-  organizationsRelations,
-  organizationMembersRelations,
   usersRelations,
   rolesRelations,
   permissionsRelations,

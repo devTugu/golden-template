@@ -1,13 +1,10 @@
 import * as bcrypt from 'bcrypt';
 import * as dotenv from 'dotenv';
-import { and, eq, isNull } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { Pool } from 'pg';
-import { OrganizationMembership } from '@domain/organization/entities/organization-membership.entity';
 import { DEFAULT_SITE_SETTINGS } from '@domain/site-setting/entities/site-settings.entity';
 import {
-  organizationMembers,
-  organizations,
   permissions,
   rolePermissions,
   roles,
@@ -39,7 +36,6 @@ const ADMIN_EMAIL = process.env.SEED_ADMIN_EMAIL ?? 'admin@default.mn';
 const ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD ?? 'admin123!';
 const VIEWER_EMAIL = process.env.SEED_VIEWER_EMAIL ?? 'viewer@default.mn';
 const VIEWER_PASSWORD = process.env.SEED_VIEWER_PASSWORD ?? 'viewer123!';
-const DEFAULT_ORG_SLUG = process.env.ORGANIZATION_DEFAULT_SLUG ?? 'default';
 
 async function runSeed(): Promise<void> {
   const pool = new Pool({
@@ -54,22 +50,6 @@ async function runSeed(): Promise<void> {
   });
 
   const db = drizzle(pool, { schema });
-
-  let defaultOrg = await db.query.organizations.findFirst({
-    where: eq(organizations.slug, DEFAULT_ORG_SLUG),
-  });
-  if (!defaultOrg) {
-    const [inserted] = await db
-      .insert(organizations)
-      .values({
-        slug: DEFAULT_ORG_SLUG,
-        name: 'Default',
-      })
-      .returning();
-    defaultOrg = inserted;
-    console.log('Created default organization:', DEFAULT_ORG_SLUG);
-  }
-  if (!defaultOrg) throw new Error('DEFAULT_ORGANIZATION_MISSING');
 
   let superAdminRole = await db.query.roles.findFirst({
     where: eq(roles.name, SUPER_ADMIN_ROLE_NAME),
@@ -122,7 +102,6 @@ async function runSeed(): Promise<void> {
         email: ADMIN_EMAIL,
         passwordHash,
         isActive: true,
-        organizationId: defaultOrg.id,
       })
       .returning();
     adminUser = inserted;
@@ -182,13 +161,12 @@ async function runSeed(): Promise<void> {
     });
   }
 
-  let existingSettings = await db.query.siteSettings.findFirst({
+  const existingSettings = await db.query.siteSettings.findFirst({
     where: eq(siteSettings.id, 1),
   });
   if (!existingSettings) {
     await db.insert(siteSettings).values({
       id: DEFAULT_SITE_SETTINGS.id,
-      organizationId: defaultOrg.id,
       hero: DEFAULT_SITE_SETTINGS.hero,
       header: DEFAULT_SITE_SETTINGS.header,
       footer: DEFAULT_SITE_SETTINGS.footer,
@@ -199,51 +177,13 @@ async function runSeed(): Promise<void> {
       security: DEFAULT_SITE_SETTINGS.security,
     } as unknown as typeof siteSettings.$inferInsert);
     console.log('Created default site settings');
-    existingSettings = await db.query.siteSettings.findFirst({
-      where: eq(siteSettings.id, 1),
-    });
   }
 
   if (process.env.NODE_ENV !== 'production') {
     await seedE2eViewerUser(db, {
-      organizationId: defaultOrg.id,
       viewerEmail: VIEWER_EMAIL,
       viewerPassword: VIEWER_PASSWORD,
     });
-  }
-
-  await db
-    .update(users)
-    .set({ organizationId: defaultOrg.id })
-    .where(isNull(users.organizationId));
-
-  const allUsers = await db
-    .select({ id: users.id, email: users.email })
-    .from(users);
-  for (const u of allUsers) {
-    const memberRole = u.email === ADMIN_EMAIL ? 'owner' : 'member';
-    OrganizationMembership.assertValidRole(memberRole);
-
-    const existingMember = await db.query.organizationMembers.findFirst({
-      where: and(
-        eq(organizationMembers.organizationId, defaultOrg.id),
-        eq(organizationMembers.userId, u.id),
-      ),
-    });
-    if (!existingMember) {
-      await db.insert(organizationMembers).values({
-        organizationId: defaultOrg.id,
-        userId: u.id,
-        role: memberRole,
-      });
-    }
-  }
-
-  if (existingSettings && !existingSettings.organizationId) {
-    await db
-      .update(siteSettings)
-      .set({ organizationId: defaultOrg.id })
-      .where(eq(siteSettings.id, 1));
   }
 
   await pool.end();

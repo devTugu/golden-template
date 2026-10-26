@@ -1,3 +1,4 @@
+import type { ListAnnouncementsQuery } from "@default/types/announcements";
 import type { ListAuditLogsParams } from "@default/types/audit-log";
 import type { ListQueryParams } from "./types";
 
@@ -35,6 +36,15 @@ export const siteSettingsKeys = {
 export const dashboardKeys = {
   all: ["dashboard"] as const,
   stats: () => [...dashboardKeys.all, "stats"] as const,
+};
+
+export const announcementKeys = {
+  all: ["announcements"] as const,
+  lists: () => [...announcementKeys.all, "list"] as const,
+  list: (params: ListAnnouncementsQuery) =>
+    [...announcementKeys.lists(), params] as const,
+  details: () => [...announcementKeys.all, "detail"] as const,
+  detail: (id: number) => [...announcementKeys.details(), id] as const,
 };
 
 export const auditLogKeys = {

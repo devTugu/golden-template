@@ -1,0 +1,28 @@
+---
+description: Single-tenant template — no org layer without an explicit plan
+globs:
+  - backend/src/infrastructure/database/**
+  - backend/src/domain/**
+  - backend/src/application/**
+  - packages/types/**
+---
+
+# Tenancy (single-tenant default)
+
+This template ships **single-tenant**: no organization context, middleware, or `organization_id` columns.
+
+## Do not reintroduce lightly
+
+```text
+❌ organizations / organization_members tables or organization_id on core rows
+❌ Org-scoped guards or request context without md/tenancy.md + forward migrations
+❌ Fork-specific tenancy baked into @default/types without a documented decision
+```
+
+## When you need multi-tenant later
+
+1. Update [`md/tenancy.md`](../../md/tenancy.md) with the chosen model (row-level vs schema-per-tenant).
+2. Add migrations and shared types together; never half-add columns in Drizzle only.
+3. Extend hygiene tests if new invariants apply.
+
+Reference: [`md/tenancy.md`](../../md/tenancy.md).

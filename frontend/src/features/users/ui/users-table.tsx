@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { InviteUserDialog } from "./invite-user-dialog";
 import { useTranslations } from "next-intl";
 import type { UserOutput } from "@/entities/user";
 import { useAuthPermissions } from "@/features/auth";
@@ -25,8 +26,10 @@ export function UsersTable() {
   const { data, isLoading, isError, error, refetch } = useUsers(queryParams);
   const [sheetState, setSheetState] = useState<UserSheetState | null>(null);
   const [deleteUser, setDeleteUser] = useState<UserOutput | null>(null);
+  const [inviteOpen, setInviteOpen] = useState(false);
   const columns = useUsersTableColumns({ setSheetState, setDeleteUser });
   const canCreate = can(PERMISSION_CODES.USER_CREATE);
+  const canInvite = can(PERMISSION_CODES.USERS_INVITE);
 
   return (
     <DataTableQueryState isError={isError} error={error} refetch={refetch}>
@@ -42,10 +45,19 @@ export function UsersTable() {
         onSearchChange={onSearchChange}
         searchPlaceholder={t("searchPlaceholder")}
         toolbarActions={
-          canCreate ? (
-            <Button size="sm" onClick={() => setSheetState({ mode: "create" })}>
-              {t("addUser")}
-            </Button>
+          canCreate || canInvite ? (
+            <div className="flex gap-2">
+              {canInvite ? (
+                <Button size="sm" variant="outline" onClick={() => setInviteOpen(true)}>
+                  {t("inviteUser")}
+                </Button>
+              ) : null}
+              {canCreate ? (
+                <Button size="sm" onClick={() => setSheetState({ mode: "create" })}>
+                  {t("addUser")}
+                </Button>
+              ) : null}
+            </div>
           ) : null
         }
         emptyContent={
@@ -74,6 +86,7 @@ export function UsersTable() {
         open={Boolean(deleteUser)}
         onOpenChange={(open) => !open && setDeleteUser(null)}
       />
+      <InviteUserDialog open={inviteOpen} onOpenChange={setInviteOpen} />
     </DataTableQueryState>
   );
 }

@@ -8,6 +8,7 @@ type RoutePattern = {
 /** Static BFF routes derived from API_ENDPOINTS — single catalog for client + server. */
 const ROUTE_DEFINITIONS: Array<{ path: string; methods: HttpMethod[] }> = [
   { path: '/users', methods: ['GET', 'POST'] },
+  { path: '/users/invite', methods: ['POST'] },
   { path: '/users/:id', methods: ['GET', 'PATCH', 'DELETE'] },
   { path: '/roles', methods: ['GET', 'POST'] },
   { path: '/roles/:id', methods: ['GET', 'PATCH', 'DELETE'] },
@@ -19,6 +20,8 @@ const ROUTE_DEFINITIONS: Array<{ path: string; methods: HttpMethod[] }> = [
   { path: '/admin/media/upload', methods: ['POST'] },
   { path: '/admin/dashboard/stats', methods: ['GET'] },
   { path: '/admin/audit-logs', methods: ['GET'] },
+  { path: '/admin/announcements', methods: ['GET', 'POST'] },
+  { path: '/admin/announcements/:id', methods: ['GET', 'PUT', 'DELETE'] },
   { path: '/users/:id/export', methods: ['GET'] },
   { path: '/users/:id/anonymize', methods: ['POST'] },
   { path: '/auth/mfa/enroll', methods: ['POST'] },

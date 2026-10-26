@@ -45,6 +45,12 @@
       "import": "./src/dashboard/index.ts",
       "default": "./src/dashboard/index.ts"
     },
+    "./announcements": {
+      "types": "./src/announcements/index.ts",
+      "require": "./dist/announcements/index.js",
+      "import": "./src/announcements/index.ts",
+      "default": "./src/announcements/index.ts"
+    },
     "./audit-log": {
       "types": "./src/audit-log/index.ts",
       "require": "./dist/audit-log/index.js",
@@ -84,6 +90,9 @@
       ],
       "audit-log": [
         "./src/audit-log/index.ts"
+      ],
+      "announcements": [
+        "./src/announcements/index.ts"
       ],
       "media": [
         "./src/media/index.ts"

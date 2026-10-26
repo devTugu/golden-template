@@ -15,6 +15,7 @@ export const API_ENDPOINTS = {
   },
   USERS: {
     LIST: "/users",
+    INVITE: "/users/invite",
     BY_ID: (id: number) => `/users/${id}`,
     EXPORT: (id: number) => `/users/${id}/export`,
     ANONYMIZE: (id: number) => `/users/${id}/anonymize`,
@@ -42,5 +43,9 @@ export const API_ENDPOINTS = {
   },
   AUDIT_LOGS: {
     LIST: "/admin/audit-logs",
+  },
+  ANNOUNCEMENTS: {
+    LIST: "/admin/announcements",
+    BY_ID: (id: number) => `/admin/announcements/${id}`,
   },
 } as const;

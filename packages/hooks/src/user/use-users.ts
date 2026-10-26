@@ -7,11 +7,13 @@ import {
   deleteUser,
   exportUserData,
   getUser,
+  inviteUser,
   listUsers,
   updateUser,
   userKeys,
   type ListQueryParams,
 } from "@default/api";
+import type { InviteUserInput } from "@default/types/auth";
 import type { CreateUserInput, UpdateUserInput } from "@default/types/user";
 import { listQueryOptions } from "../list-query-options";
 import { getMeFetcher } from "../me-fetcher";
@@ -40,6 +42,16 @@ export const useUser = (id: number, enabled = true) => {
     queryKey: userKeys.detail(id),
     queryFn: () => getUser(id),
     enabled: enabled && id > 0,
+  });
+};
+
+export const useInviteUser = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: InviteUserInput) => inviteUser(data),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: userKeys.lists() });
+    },
   });
 };
 

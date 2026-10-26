@@ -2,7 +2,9 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   ContactNotificationPayload,
+  InviteEmailPayload,
   INotificationPort,
+  PasswordResetEmailPayload,
 } from '@application/ports/notification.port';
 
 @Injectable()
@@ -83,6 +85,49 @@ export class NodemailerNotificationAdapter implements INotificationPort {
     } catch (error) {
       this.logger.warn(
         `Failed to send contact auto-reply: ${error instanceof Error ? error.message : 'unknown'}`,
+      );
+    }
+  }
+
+  async sendPasswordResetEmail(
+    payload: PasswordResetEmailPayload,
+  ): Promise<void> {
+    await this.sendSimpleMail(
+      payload.to,
+      'Reset your password',
+      `Use this link to reset your password (expires soon):\n\n${payload.resetUrl}`,
+    );
+  }
+
+  async sendInviteEmail(payload: InviteEmailPayload): Promise<void> {
+    await this.sendSimpleMail(
+      payload.to,
+      'You are invited',
+      `Accept your invite and set a password:\n\n${payload.inviteUrl}`,
+    );
+  }
+
+  private async sendSimpleMail(
+    to: string,
+    subject: string,
+    text: string,
+  ): Promise<void> {
+    const from = this.config.get<string>('SMTP_FROM', 'noreply@example.com');
+    try {
+      const nodemailer = await import('nodemailer');
+      const transporter = nodemailer.createTransport({
+        host: this.config.getOrThrow<string>('SMTP_HOST'),
+        port: this.config.get<number>('SMTP_PORT', 587),
+        secure: this.config.get<number>('SMTP_PORT', 587) === 465,
+        auth: {
+          user: this.config.get<string>('SMTP_USER'),
+          pass: this.config.get<string>('SMTP_PASS'),
+        },
+      });
+      await transporter.sendMail({ from, to, subject, text });
+    } catch (error) {
+      this.logger.warn(
+        `Failed to send mail: ${error instanceof Error ? error.message : 'unknown'}`,
       );
     }
   }
