@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { TopbarLogo } from "../../shared/topbar-logo";
@@ -78,7 +77,7 @@ export default function Header() {
 
         {/* MIDDLE NAV (DESKTOP ONLY) */}
         <div className="hidden lg:flex items-center justify-between">
-          <NavigationMenu viewport={false}>
+          <NavigationMenu>
             <NavigationMenuList className="flex justify-center gap-1">
               {(NavData as NavGroup[]).map((item) => {
                 if (item.type === "dropdown" && item.items) {

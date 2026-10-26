@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FileArchive, FileSpreadsheet, FileText, X } from "lucide-react";
 import {
   Attachment,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { Button } from "@default/ui/primitives/button";
@@ -49,7 +48,11 @@ const SheetSideDemo = () => {
             </div>
             <SheetFooter>
               <Button type="submit" className="cursor-pointer hover:bg-primary/80">Save changes</Button>
-              <SheetClose render={<Button variant="outline" className="cursor-pointer">Close</Button>} />
+              <SheetClose asChild>
+                <Button variant="outline" className="cursor-pointer" type="button">
+                  Close
+                </Button>
+              </SheetClose>
             </SheetFooter>
           </SheetContent>
         </Sheet>

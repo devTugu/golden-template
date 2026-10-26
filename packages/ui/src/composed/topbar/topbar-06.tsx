@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Sidebar, SidebarProvider } from "@default/ui/primitives/sidebar";
 import Header from "../../default-space/blocks/topbar-06/header";
 

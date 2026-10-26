@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import * as React from "react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import {
   Pagination,
   PaginationContent,
@@ -81,7 +81,7 @@ export default function PremiumRibbon() {
             <motion.div
               layoutId="ribbon-active"
               className="absolute inset-x-1.5 bottom-0.5 h-0.5 bg-primary rounded-full"
-              transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
+              transition={{ type: "spring" as const, bounce: 0.3, duration: 0.6 }}
             />
           )}
         </PaginationItem>,
@@ -126,7 +126,6 @@ export default function PremiumRibbon() {
                 e.preventDefault();
                 handlePageChange(activePage - 1);
               }}
-              text=""
               className="rounded-xl w-10 h-10 hover:bg-muted group p-0 flex justify-center"
             />
           </PaginationItem>
@@ -142,7 +141,6 @@ export default function PremiumRibbon() {
                 e.preventDefault();
                 handlePageChange(activePage + 1);
               }}
-              text=""
               className="rounded-xl w-10 h-10 hover:bg-muted group p-0 flex justify-center"
             />
           </PaginationItem>

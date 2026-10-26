@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import { TopbarLogo } from "../../default-space/blocks/shared/topbar-logo";

@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { cn } from "@default/ui/lib/cn";
 
 interface SwitchLabeledProps {
@@ -82,7 +82,7 @@ const SwitchLabeled = ({
       <motion.span
         layout
         whileTap={{ scale: 0.92 }}
-        transition={{ type: "spring", stiffness: 500, damping: 32 }}
+        transition={{ type: "spring" as const, stiffness: 500, damping: 32 }}
         style={{ marginLeft: checked ? "auto" : 0 }}
         className={cn(
           "relative z-10 flex size-6 shrink-0 items-center justify-center rounded-full bg-background shadow-sm",

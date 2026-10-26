@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Breadcrumb,BreadcrumbEllipsis, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage,BreadcrumbSeparator} from "@default/ui/primitives/breadcrumb";
 import {DropdownMenu,DropdownMenuContent,DropdownMenuItem,DropdownMenuTrigger} from "@default/ui/primitives/dropdown-menu";
 

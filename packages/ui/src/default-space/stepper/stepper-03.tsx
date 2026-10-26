@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import type { Variants } from "motion/react";
 import {
   Check,
   ChevronLeft,
@@ -59,14 +59,14 @@ export default function Stepper03() {
             style={{ left: "12.5%", right: "12.5%" }}
             initial={false}
             animate={{ scaleX: progress }}
-            transition={{ type: "spring", stiffness: 120, damping: 20 }}
+            transition={{ type: "spring" as const, stiffness: 120, damping: 20 }}
           />
           <motion.span
             className="absolute size-2 rounded-full bg-primary"
             style={{ top: 21, x: "-50%", y: "-50%" }}
             initial={{ left: "12.5%" }}
             animate={{ left: `${12.5 + progress * 75}%` }}
-            transition={{ type: "spring", stiffness: 160, damping: 24 }}
+            transition={{ type: "spring" as const, stiffness: 160, damping: 24 }}
           />
           <div className="relative flex items-start justify-between">
             {steps.map((step, index) => {
@@ -111,8 +111,7 @@ export default function Stepper03() {
                     <motion.div
                       className="relative flex items-center justify-center"
                       animate={{ scale: isActive ? 1.1 : 1 }}
-                      transition={{
-                        type: "spring",
+                      transition={{ type: "spring" as const,
                         stiffness: 320,
                         damping: 18,
                       }}
@@ -124,8 +123,7 @@ export default function Stepper03() {
                             initial={{ scale: 0, rotate: -90, opacity: 0 }}
                             animate={{ scale: 1, rotate: 0, opacity: 1 }}
                             exit={{ scale: 0, rotate: 90, opacity: 0 }}
-                            transition={{
-                              type: "spring",
+                            transition={{ type: "spring" as const,
                               stiffness: 400,
                               damping: 22,
                             }}
@@ -139,8 +137,7 @@ export default function Stepper03() {
                             initial={{ scale: 0, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0, opacity: 0 }}
-                            transition={{
-                              type: "spring",
+                            transition={{ type: "spring" as const,
                               stiffness: 400,
                               damping: 22,
                             }}

@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client"
 
 import { useRef } from "react"
@@ -8,7 +7,7 @@ import { Skeleton } from "@default/ui/primitives/skeleton"
 const fadeUp = (inView: boolean, delay: number) => ({
   initial: { opacity: 0, y: 8 },
   animate: inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 },
-  transition: { duration: 0.4, ease: "easeOut", delay },
+  transition: { duration: 0.4, ease: "easeOut" as const, delay },
 })
 
 const ProfileSkeleton = () => {
@@ -20,7 +19,7 @@ const ProfileSkeleton = () => {
       ref={ref}
       initial={{ opacity: 0, scale: 0.98 }}
       animate={inView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.98 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
+      transition={{ duration: 0.35, ease: "easeOut" as const }}
       className="flex w-full max-w-2xl flex-col gap-4 rounded-md border p-4"
     >
       {/* Table title + action */}

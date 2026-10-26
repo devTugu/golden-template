@@ -1,1 +1,1 @@
-export * from "@default/ui-code/code-block";
+export * from "../lib/code-block";

@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client"
 
 import { REGEXP_ONLY_DIGITS } from "input-otp"

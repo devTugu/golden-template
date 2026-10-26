@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@default/ui/primitives/tabs";
 import {
   LockKeyhole,

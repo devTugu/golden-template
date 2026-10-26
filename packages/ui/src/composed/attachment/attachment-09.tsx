@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { Presentation, X } from "lucide-react";

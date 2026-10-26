@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useId } from 'react'
 import { Input } from "@default/ui/primitives/input"
 import { Label } from "@default/ui/primitives/label"

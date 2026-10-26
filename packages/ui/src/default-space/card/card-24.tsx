@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useRef } from "react";
 import { motion, useInView } from "motion/react";
+import type { Variants } from "motion/react";
 import { Calendar, Clock, MapPin } from "lucide-react";
 import { Card, CardContent } from "@default/ui/primitives/card";
 import { Badge } from "@default/ui/primitives/badge";
@@ -95,8 +95,7 @@ const EventCard = ({
             <motion.div
               initial={{ opacity: 0, scale: 0.6 }}
               animate={isInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{
-                type: "spring",
+              transition={{ type: "spring" as const,
                 stiffness: 260,
                 damping: 16,
                 delay: 0.25,
@@ -114,13 +113,13 @@ const EventCard = ({
 
           <CardContent className="p-5">
             <motion.div
-              variants={contentVariants}
+              variants={contentVariants as unknown as Variants}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
               className="flex flex-col gap-4"
             >
               <motion.div
-                variants={itemVariants}
+                variants={itemVariants as unknown as Variants}
                 className="flex flex-col gap-2"
               >
                 <Badge className="w-fit rounded-full">{category}</Badge>
@@ -133,7 +132,7 @@ const EventCard = ({
               </motion.div>
 
               <motion.div
-                variants={itemVariants}
+                variants={itemVariants as unknown as Variants}
                 className="flex flex-col gap-1.5"
               >
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -146,10 +145,10 @@ const EventCard = ({
                 </div>
               </motion.div>
 
-              <MotionSeparator variants={itemVariants} />
+              <MotionSeparator variants={itemVariants as unknown as Variants} />
 
               <motion.div
-                variants={itemVariants}
+                variants={itemVariants as unknown as Variants}
                 className="flex items-center justify-between"
               >
                 <div className="flex items-center gap-2">
@@ -159,8 +158,7 @@ const EventCard = ({
                         key={index}
                         initial={{ opacity: 0, scale: 0.5 }}
                         animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                        transition={{
-                          type: "spring",
+                        transition={{ type: "spring" as const,
                           stiffness: 300,
                           damping: 18,
                           delay: 0.45 + index * 0.08,

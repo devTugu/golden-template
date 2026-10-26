@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Marquee } from "../animations/marquee";
 
 type BrandList = {

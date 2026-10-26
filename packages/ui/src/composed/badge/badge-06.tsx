@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Badge } from '@default/ui/primitives/badge'
 
 const ErrorBadgeDemo = () => {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { useId, useMemo, useRef, useState } from "react";
@@ -289,7 +288,7 @@ export function GooeyStatusTooltip({
           {isOpen && (
             <motion.div
               key="status-panel"
-              variants={panelVariants}
+              variants={panelVariants as unknown as Variants}
               initial="closed"
               animate="open"
               exit="closed"
@@ -297,7 +296,7 @@ export function GooeyStatusTooltip({
               className="absolute overflow-hidden bg-foreground"
             >
               <motion.div
-                variants={listVariants}
+                variants={listVariants as unknown as Variants}
                 initial="closed"
                 animate="open"
                 exit="closed"
@@ -306,7 +305,7 @@ export function GooeyStatusTooltip({
                 {data.map((item) => (
                   <motion.div
                     key={item.key}
-                    variants={rowVariants}
+                    variants={rowVariants as unknown as Variants}
                     className="flex items-center justify-between gap-3 text-background"
                   >
                     <span className="text-xs font-medium text-background/70">

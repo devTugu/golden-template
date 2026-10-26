@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Separator } from "@default/ui/primitives/separator";
 
 const GradientFadedDemo = () => {

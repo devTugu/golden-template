@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import * as React from "react";
 import { motion, AnimatePresence, type HTMLMotionProps } from "motion/react";
+import type { Variants } from "motion/react";
 import { Send, Loader2, Check } from "lucide-react";
 import { cn } from "@default/ui/lib/cn";
 
@@ -116,7 +116,7 @@ const MultiStateSendButton = React.forwardRef<
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ type: "spring", stiffness: 350, damping: 22 }}
+              transition={{ type: "spring" as const, stiffness: 350, damping: 22 }}
               className="relative z-10 flex items-center gap-2 font-medium"
             >
               <Check className="size-4 stroke-[2.5]" />

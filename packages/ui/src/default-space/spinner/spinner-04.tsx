@@ -1,4 +1,3 @@
-// @ts-nocheck
 export default function SpinnerCircleFilled() {
   const r = 9;
   const c = +(2 * Math.PI * r).toFixed(2);

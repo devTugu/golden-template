@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client"
 
 import { useMemo } from "react"
@@ -103,7 +102,7 @@ export function TextReveal({
 
   return (
     <MotionComponent
-      variants={parentVariants}
+      variants={parentVariants as unknown as Variants}
       initial={props.initial ?? "hidden"}
       whileInView={props.whileInView ?? "visible"}
       viewport={props.viewport ?? { once, amount: 0.2 }}
@@ -120,7 +119,7 @@ export function TextReveal({
                     <motion.span
                       key={charIdx}
                       custom={idx}
-                      variants={childVariants}
+                      variants={childVariants as unknown as Variants}
                       className="inline-block"
                     >
                       {char}
@@ -138,7 +137,7 @@ export function TextReveal({
               <span key={wordIdx} className="inline-block whitespace-nowrap">
                 <motion.span
                   custom={wordIdx}
-                  variants={childVariants}
+                  variants={childVariants as unknown as Variants}
                   className="inline-block"
                 >
                   {word}

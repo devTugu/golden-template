@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import {
@@ -13,7 +12,7 @@ import { NavGroup } from "../types";
 export default function Sidebar({ onLinkClick }: { onLinkClick?: () => void }) {
   return (
     <nav className="space-y-1 px-4">
-      <Accordion className="w-full">
+      <Accordion type="multiple" className="w-full">
         {(NavData as NavGroup[]).map((group) => {
           const GroupIcon = group.icon;
           return (

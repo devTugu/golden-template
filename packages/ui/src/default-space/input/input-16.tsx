@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Input } from "@default/ui/primitives/input";
 
 const InputDefaultDemo = () => {

@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useMemo, useState, type ReactNode } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { Tabs, TabsList, TabsTrigger } from "@default/ui/primitives/tabs";
 import { Switch } from "@default/ui/primitives/switch";
 import { cn } from "@default/ui/lib/cn";
@@ -133,14 +133,14 @@ export function AnimatedTabs({
                 <motion.span
                   layoutId={indicatorId}
                   className="absolute inset-0 -z-10 rounded-xl bg-background shadow-[0_1px_2px_rgba(0,0,0,0.06),0_4px_10px_-4px_rgba(0,0,0,0.15)] ring-1 ring-border"
-                  transition={{ type: "spring", stiffness: 500, damping: 34, mass: 0.9 }}
+                  transition={{ type: "spring" as const, stiffness: 500, damping: 34, mass: 0.9 }}
                 />
               )}
               <motion.span
                 key={isActive ? "active" : "inactive"}
                 initial={isActive ? { scale: 0.85 } : false}
                 animate={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                transition={{ type: "spring" as const, stiffness: 500, damping: 15 }}
                 className="flex items-center gap-1.5"
               >
                 {Icon && <Icon className="size-4" />}
@@ -153,7 +153,7 @@ export function AnimatedTabs({
                     initial={{ opacity: 0, scale: 0.5, y: -6 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.5, y: 6 }}
-                    transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                    transition={{ type: "spring" as const, stiffness: 500, damping: 25 }}
                     className={cn(
                       "flex h-4.5 min-w-4.5 items-center justify-center rounded-full px-1 text-[10px] font-semibold tabular-nums transition-colors",
                       isActive
@@ -181,7 +181,7 @@ export function AnimatedTabs({
               key={activeTab.value}
               custom={direction}
               role="tabpanel"
-              variants={panelVariants}
+              variants={panelVariants as unknown as Variants}
               initial="enter"
               animate="center"
               exit="exit"
@@ -208,7 +208,7 @@ function OverviewPanel() {
         {stats.map((stat) => (
           <motion.div
             key={stat.label}
-            variants={panelItemVariants}
+            variants={panelItemVariants as unknown as Variants}
             className="rounded-xl border border-border/60 p-4"
           >
             <p className="text-xs font-medium text-muted-foreground">{stat.label}</p>
@@ -251,7 +251,7 @@ function BillingPanel() {
         {invoices.map((invoice) => (
           <motion.li
             key={invoice.id}
-            variants={panelItemVariants}
+            variants={panelItemVariants as unknown as Variants}
             className="flex items-center justify-between py-3 first:pt-0 last:pb-0"
           >
             <div>
@@ -291,7 +291,7 @@ function NotificationsPanel() {
         {notifications.map((item) => (
           <motion.li
             key={item.title}
-            variants={panelItemVariants}
+            variants={panelItemVariants as unknown as Variants}
             className="flex items-center gap-3 py-3 first:pt-0 last:pb-0"
           >
             <Circle
@@ -330,7 +330,7 @@ function SettingsPanel() {
         {rows.map((row) => (
           <motion.li
             key={row.key}
-            variants={panelItemVariants}
+            variants={panelItemVariants as unknown as Variants}
             className="flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0"
           >
             <div>

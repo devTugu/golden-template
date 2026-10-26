@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Button } from "@default/ui/primitives/button";
 import { ButtonGroup, ButtonGroupSeparator } from "@default/ui/primitives/button-group";
 import { Save, X, MoreHorizontal } from "lucide-react";

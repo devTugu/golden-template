@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { RotateCw, TriangleAlert } from "lucide-react";
 import {
   Attachment,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Switch } from "@default/ui/primitives/switch";
 
 const SwitchCustomColorDemo = () => {

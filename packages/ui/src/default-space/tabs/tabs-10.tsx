@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import {
@@ -10,6 +9,7 @@ import {
   type KeyboardEvent,
 } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@default/ui/primitives/tabs";
 import { cn } from "@default/ui/lib/cn";
 import { InputGroup, InputGroupInput } from "@default/ui/primitives/input-group";
@@ -238,7 +238,7 @@ function ChatPanel() {
                     <Bubble variant="ghost" className="max-w-full">
                       <BubbleContent className="text-sm leading-5 text-foreground p-0">
                         <motion.span
-                          variants={containerVariants}
+                          variants={containerVariants as unknown as Variants}
                           initial="hidden"
                           animate="visible"
                           className="inline"
@@ -246,7 +246,7 @@ function ChatPanel() {
                           {ANSWER_WORDS.map((word, index) => (
                             <Fragment key={index}>
                               <motion.span
-                                variants={wordVariants}
+                                variants={wordVariants as unknown as Variants}
                                 className="inline-block"
                               >
                                 {word}
@@ -287,7 +287,7 @@ function VoicePanel() {
             <motion.span
               key={index}
               custom={index}
-              variants={waveBarVariants}
+              variants={waveBarVariants as unknown as Variants}
               animate={recording ? "recording" : "idle"}
               className="w-0.5 shrink-0 rounded-full bg-muted-foreground/80"
               style={{

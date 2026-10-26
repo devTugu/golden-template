@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { Trash2Icon } from "lucide-react";

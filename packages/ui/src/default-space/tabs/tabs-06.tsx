@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { cn } from "@default/ui/lib/cn";
 import { LayoutDashboard, Users, FileText, Bell } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@default/ui/primitives/tabs";
@@ -49,8 +49,7 @@ export default function TabsVertical() {
                     layoutId="tabs-06-bg"
                     className="absolute inset-0 bg-primary/10 rounded-lg"
                     initial={false}
-                    transition={{
-                      type: "spring",
+                    transition={{ type: "spring" as const,
                       stiffness: 300,
                       damping: 25,
                     }}
@@ -61,8 +60,7 @@ export default function TabsVertical() {
                     layoutId="tabs-06-indicator"
                     className="absolute left-0 top-1/4 bottom-1/4 w-1 bg-primary rounded-r-full hidden sm:block"
                     initial={false}
-                    transition={{
-                      type: "spring",
+                    transition={{ type: "spring" as const,
                       stiffness: 300,
                       damping: 25,
                     }}

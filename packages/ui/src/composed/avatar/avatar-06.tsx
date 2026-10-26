@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { Avatar, AvatarFallback } from "@default/ui/primitives/avatar";
 const FallbackDemo = () => {
   return (

@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { Triangle } from "lucide-react";
 
 const ToggleDemo = () => {
@@ -68,8 +68,7 @@ const ToggleDemo = () => {
             initial={{ y: upvoted ? 16 : -16, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: upvoted ? -16 : 16, opacity: 0 }}
-            transition={{
-              type: "spring",
+            transition={{ type: "spring" as const,
               stiffness: 300,
               damping: 18,
             }}

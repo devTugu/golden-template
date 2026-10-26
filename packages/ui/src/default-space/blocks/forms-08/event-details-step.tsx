@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { CalendarDays, X } from "lucide-react";

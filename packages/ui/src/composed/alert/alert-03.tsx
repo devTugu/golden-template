@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { Alert, AlertDescription } from "@default/ui/primitives/alert";

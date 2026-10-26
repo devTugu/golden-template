@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { Progress } from "@default/ui/primitives/progress";
 import { cn } from "@default/ui/lib/cn";
 
@@ -92,8 +92,7 @@ export default function ShimmerProgress({
             initial={{ opacity: 0, scale: 1.4, y: -5 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5, y: 5 }}
-            transition={{ 
-              type: "spring", 
+            transition={{ type: "spring" as const, 
               stiffness: 400, 
               damping: 18 
             }}
@@ -139,7 +138,7 @@ export default function ShimmerProgress({
         />
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes shimmer {
           0% {
             transform: translateX(-100%);

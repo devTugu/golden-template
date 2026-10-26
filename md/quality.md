@@ -33,8 +33,8 @@ Production `node dist/main` resolves `@default/utils` / `@default/types` via **`
 
 Backend Jest (unit + e2e): `@default/utils/*` and `@default/types/*` need matching `moduleNameMapper` in `backend/package.json` and `backend/test/jest-e2e.json`.
 
-Turbo may print **circular dependency** (`@default/ui` ↔ `@default/ui-code`) — informational; exit code stays 0.
+`@default/ui-code` re-exports code-block from `@default/ui`; there is no workspace cycle.
 
-UI `/docs` catalog: dev-only (`NEXT_SERVER_MODE=prod` hides in prod). Composed blocks in `@default/ui` may use `@ts-nocheck` — not app business logic.
+UI `/docs` catalog: dev-only (`NEXT_SERVER_MODE=prod` hides in prod).
 
 Rules: `.cursor/rules/` · ESLint clean-code limits — split units instead of disabling rules.

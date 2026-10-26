@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Form from "./form";
 
 const Page = () => {

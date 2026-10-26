@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@default/ui/primitives/breadcrumb"
 import { Separator } from "@default/ui/primitives/separator"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@default/ui/primitives/sidebar"

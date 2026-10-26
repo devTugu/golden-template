@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { FileSpreadsheet, X } from "lucide-react";
 import {
   Attachment,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
@@ -33,7 +32,7 @@ export default function Questionnaire01() {
 
   return (
     <div className="w-full max-w-3xl mx-auto p-4 sm:p-6">
-      <Accordion defaultValue={["mechanics"]} className="w-full">
+      <Accordion type="multiple" defaultValue={["mechanics"]} className="w-full">
         <AccordionItem
           value="mechanics"
           className="rounded-xl border border-border bg-card px-4 py-1"

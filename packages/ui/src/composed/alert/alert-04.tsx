@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { OctagonAlert, Star } from 'lucide-react'

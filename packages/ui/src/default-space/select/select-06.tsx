@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Label } from "@default/ui/primitives/label"
 import type { Option } from "@default/ui/primitives/multi-select"
 import MultipleSelector from "@default/ui/primitives/multi-select"

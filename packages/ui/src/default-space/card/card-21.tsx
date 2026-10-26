@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react";
 import { Check, X } from "lucide-react";
 import { Separator } from "@default/ui/primitives/separator";

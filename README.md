@@ -1,6 +1,6 @@
-# Website Template
+# Golden Template
 
-Full-stack **golden template** — production-shaped **platform skeleton** (auth, RBAC, BFF, CI gates). Fork it, then add vertical domains (marketplace, booking, merchant). Not a Booking/Shopify/Upwork clone out of the box.
+Full-stack **Golden Template** — production-shaped **platform skeleton** (auth, RBAC, BFF, CI gates). Fork it, then add vertical domains (marketplace, booking, merchant). Not a Booking/Shopify/Upwork clone out of the box.
 
 | Package | Role |
 |---------|------|

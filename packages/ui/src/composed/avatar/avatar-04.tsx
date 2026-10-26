@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@default/ui/primitives/avatar";
 import { CheckIcon } from "lucide-react";

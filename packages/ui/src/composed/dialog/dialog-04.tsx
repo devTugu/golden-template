@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { MailIcon, PhoneIcon, MessageSquareIcon } from "lucide-react";

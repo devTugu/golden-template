@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 
 const ToggleDemo = () => {
   const [isDark, setIsDark] = useState(false);
@@ -25,7 +25,7 @@ const ToggleDemo = () => {
         animate={{
           rotate: isDark ? 40 : 0,
         }}
-        transition={{ type: "spring", stiffness: 220, damping: 15 }}
+        transition={{ type: "spring" as const, stiffness: 220, damping: 15 }}
       >
         <mask id="moon-mask-01">
           <rect x="0" y="0" width="24" height="24" fill="white" />
@@ -38,7 +38,7 @@ const ToggleDemo = () => {
               cx: isDark ? 18 : 25,
               cy: isDark ? 6 : 0,
             }}
-            transition={{ type: "spring", stiffness: 220, damping: 15 }}
+            transition={{ type: "spring" as const, stiffness: 220, damping: 15 }}
           />
         </mask>
 
@@ -51,7 +51,7 @@ const ToggleDemo = () => {
           animate={{
             r: isDark ? 8 : 5,
           }}
-          transition={{ type: "spring", stiffness: 220, damping: 15 }}
+          transition={{ type: "spring" as const, stiffness: 220, damping: 15 }}
         />
 
         <motion.g
@@ -60,7 +60,7 @@ const ToggleDemo = () => {
             opacity: isDark ? 0 : 1,
             scale: isDark ? 0.3 : 1,
           }}
-          transition={{ type: "spring", stiffness: 220, damping: 15 }}
+          transition={{ type: "spring" as const, stiffness: 220, damping: 15 }}
         >
           <line x1="12" y1="1" x2="12" y2="3" />
           <line x1="12" y1="21" x2="12" y2="23" />

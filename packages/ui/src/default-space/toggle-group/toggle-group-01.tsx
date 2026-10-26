@@ -1,10 +1,10 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { ToggleGroup, ToggleGroupItem } from "@default/ui/primitives/toggle-group";
 import { LayoutGrid, List } from "lucide-react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 
 const pressedClear =
   "data-pressed:bg-transparent! aria-pressed:bg-transparent! data-[state=on]:bg-transparent! hover:bg-muted/40";
@@ -40,8 +40,7 @@ const ToggleGroupDemo = () => {
                 <motion.div
                   layoutId="active-view-pill"
                   className="absolute inset-0 bg-primary rounded-lg z-0"
-                  transition={{
-                    type: "spring",
+                  transition={{ type: "spring" as const,
                     stiffness: 380,
                     damping: 30,
                   }}

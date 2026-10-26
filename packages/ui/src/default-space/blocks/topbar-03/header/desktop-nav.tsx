@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { LucideIcon } from "lucide-react";
 import { Button } from "@default/ui/primitives/button";
 import {

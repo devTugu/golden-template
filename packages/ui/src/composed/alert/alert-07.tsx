@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { CheckCircle2Icon, XIcon } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "@default/ui/primitives/alert";
 import { Button } from "@default/ui/primitives/button";
@@ -40,8 +40,7 @@ const AlertToastDemo = ({
               filter: "blur(4px)",
               transition: { duration: 0.2, ease: "easeOut" },
             }}
-            transition={{
-              type: "spring",
+            transition={{ type: "spring" as const,
               stiffness: 420,
               damping: 34,
               mass: 0.7,
@@ -51,8 +50,7 @@ const AlertToastDemo = ({
               <motion.div
                 initial={{ opacity: 0, scale: 0.6 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  type: "spring",
+                transition={{ type: "spring" as const,
                   stiffness: 380,
                   damping: 22,
                   delay: 0.08,
@@ -101,7 +99,7 @@ const AlertToastDemo = ({
                     strokeWidth="1.5"
                     strokeLinecap="round"
                     className="stroke-teal-400"
-                    variants={ringVariants}
+                    variants={ringVariants as unknown as Variants}
                     transition={{ duration: 0.35, ease: "easeOut" }}
                   />
                 </svg>

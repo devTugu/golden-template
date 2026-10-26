@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Checkbox } from "@default/ui/primitives/checkbox"
 import { Label } from "@default/ui/primitives/label"
 

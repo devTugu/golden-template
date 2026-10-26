@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Button } from "@default/ui/primitives/button";
 import "@default/ui/default-space/button/button-02.css";
 

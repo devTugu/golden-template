@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client'
 
 import { motion, type Variants } from "motion/react";
@@ -70,7 +69,7 @@ const PendingBadgeDemo = () => {
           <motion.span
             key={i}
             custom={i}
-            variants={LETTER_VARIANTS}
+            variants={LETTER_VARIANTS as unknown as Variants}
             initial="hidden"
             animate="visible"
             className="inline-block whitespace-pre leading-normal"

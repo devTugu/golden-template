@@ -1,4 +1,4 @@
-#!/usr/bin/bin/node
+#!/usr/bin/env node
 /**
  * Fetch shadcn v4 (new-york) primitives into packages/ui/src/primitives.
  */

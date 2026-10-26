@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { Bell, Hash, Mail, MessageSquare, Webhook } from "lucide-react";
 import { cn } from "@default/ui/lib/cn";
 import { Badge } from "@default/ui/primitives/badge";
@@ -81,8 +81,7 @@ const SelectAlertChannelsDemo = () => {
                             scale: isSelected ? 1 : 0.4,
                             opacity: isSelected ? 1 : 0,
                           }}
-                          transition={{
-                            type: "spring",
+                          transition={{ type: "spring" as const,
                             stiffness: 500,
                             damping: 32,
                           }}
@@ -135,8 +134,7 @@ const SelectAlertChannelsDemo = () => {
                         scale: isSelected ? 1 : 0.85,
                         opacity: isSelected ? 1 : 0.55,
                       }}
-                      transition={{
-                        type: "spring",
+                      transition={{ type: "spring" as const,
                         stiffness: 400,
                         damping: 25,
                       }}

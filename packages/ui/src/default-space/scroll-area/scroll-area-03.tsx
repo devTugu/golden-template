@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ScrollArea } from "@default/ui/primitives/scroll-area";
 
 export default function VerticalImageGallery() {

@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@default/ui/lib/cn";
 import { Button } from "@default/ui/primitives/button";
@@ -51,13 +51,13 @@ export default function Stepper04() {
               className="absolute inset-y-0 left-0 rounded-full bg-teal-400/20"
               initial={false}
               animate={{ width: `${activeStep * segmentWidth}%` }}
-              transition={{ type: "spring", stiffness: 150, damping: 22 }}
+              transition={{ type: "spring" as const, stiffness: 150, damping: 22 }}
             />
             <motion.div
               className="absolute inset-y-0 rounded-full bg-primary"
               initial={false}
               animate={{ x: `${activeStep * 100}%`, width: `${segmentWidth}%` }}
-              transition={{ type: "spring", stiffness: 150, damping: 22 }}
+              transition={{ type: "spring" as const, stiffness: 150, damping: 22 }}
             />
           </div>
 

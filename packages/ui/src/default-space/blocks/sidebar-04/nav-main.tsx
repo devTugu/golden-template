@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client"
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@default/ui/primitives/dropdown-menu"

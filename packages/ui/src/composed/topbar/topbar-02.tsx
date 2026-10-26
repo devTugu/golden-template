@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Header from "../../default-space/blocks/topbar-02/header";
 
 export default function Page() {

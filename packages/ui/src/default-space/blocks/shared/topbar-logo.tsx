@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Logo from "../../assets/logo/logo";
 
 export function TopbarLogo({ className }: { className?: string }) {

@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { memo } from "react";
@@ -61,7 +60,7 @@ const OrbitalSpinner = memo(({
         className
       )}
       initial="initial"
-      variants={containerVariants}
+      variants={containerVariants as unknown as Variants}
       {...props}
     >
       {/* Central Core */}

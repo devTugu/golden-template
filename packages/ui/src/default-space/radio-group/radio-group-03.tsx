@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Label } from "@default/ui/primitives/label";
 import { RadioGroup, RadioGroupItem } from "@default/ui/primitives/radio-group";
 import { cn } from "@default/ui/lib/cn";

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useId } from "react";
 import { Label } from "@default/ui/primitives/label";
 import { RadioGroup, RadioGroupItem } from "@default/ui/primitives/radio-group";

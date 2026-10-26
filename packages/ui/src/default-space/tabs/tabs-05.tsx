@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { cn } from "@default/ui/lib/cn";
 import { Box, Settings, Activity, Link2 } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@default/ui/primitives/tabs";
@@ -31,7 +31,7 @@ const variants = {
 };
 
 const transition = {
-  type: "spring",
+  type: "spring" as const,
   stiffness: 340,
   damping: 32,
 };
@@ -85,7 +85,7 @@ export default function TabsUnderline() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      transition={{ type: "spring" as const, stiffness: 400, damping: 30 }}
                     />
                   )}
                   <Icon className="w-4 h-4 relative z-10" />
@@ -98,8 +98,7 @@ export default function TabsUnderline() {
                     layoutId="tabs-05-indicator"
                     className="absolute bottom-[-1px] left-0 right-0 h-[2px] bg-primary"
                     initial={false}
-                    transition={{
-                      type: "spring",
+                    transition={{ type: "spring" as const,
                       stiffness: 400,
                       damping: 30,
                     }}
@@ -119,7 +118,7 @@ export default function TabsUnderline() {
                 <motion.div
                   key={tab.id}
                   custom={direction}
-                  variants={variants}
+                  variants={variants as unknown as Variants}
                   initial="enter"
                   animate="center"
                   exit="exit"

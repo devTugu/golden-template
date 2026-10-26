@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Globe, X } from "lucide-react";
 import {
   Attachment,

@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { Plus } from "lucide-react";
 import {
   Accordion,
@@ -84,8 +84,7 @@ const AccordionMotionServices = () => {
                           scale: isActive ? 1 : isHovered ? 0.85 : 0,
                           opacity: isActive ? 1 : isHovered ? 0.1 : 0,
                         }}
-                        transition={{
-                          type: "spring",
+                        transition={{ type: "spring" as const,
                           stiffness: 400,
                           damping: 25,
                         }}
@@ -112,8 +111,7 @@ const AccordionMotionServices = () => {
                             ? "var(--color-foreground)"
                             : "var(--color-muted-foreground)",
                       }}
-                      transition={{
-                        type: "spring",
+                      transition={{ type: "spring" as const,
                         stiffness: 400,
                         damping: 30,
                       }}>
@@ -127,8 +125,7 @@ const AccordionMotionServices = () => {
                         rotate: isActive ? 45 : 0,
                         opacity: isActive || isHovered ? 1 : 0.4,
                       }}
-                      transition={{
-                        type: "spring",
+                      transition={{ type: "spring" as const,
                         stiffness: 300,
                         damping: 20,
                       }}>
@@ -149,7 +146,7 @@ const AccordionMotionServices = () => {
                   className="absolute bottom-0 left-0 h-px origin-left bg-foreground"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: isActive ? 1 : isHovered ? 0.3 : 0 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  transition={{ type: "spring" as const, stiffness: 300, damping: 30 }}
                 />
               </AccordionItem>
             );

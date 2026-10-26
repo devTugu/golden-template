@@ -1,4 +1,3 @@
-// @ts-nocheck
 import SurveyForm from "./survey-form";
 
 const Page = () => {

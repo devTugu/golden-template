@@ -1,0 +1,14 @@
+---
+description: Dependency and audit hygiene
+globs: "**/package.json,pnpm-lock.yaml,.github/**"
+alwaysApply: false
+---
+
+# Dependencies and security
+
+After adding or upgrading dependencies:
+
+- Run `pnpm audit --audit-level=high` and fix high/critical findings.
+- Never pin to a known vulnerable range.
+- Every `pnpm.overrides` entry needs a documented reason in [`md/security.md`](../../md/security.md); remove once upstream fixes the transitive.
+- Search `@default/utils` and existing packages before adding a new dependency.

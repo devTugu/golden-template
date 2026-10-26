@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { cn } from "@default/ui/lib/cn";
 
 type Tab = {
@@ -108,7 +108,7 @@ const Tabs = ({
               {isActive && (
                 <motion.div
                   layoutId="clickedbutton"
-                  transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
+                  transition={{ type: "spring" as const, bounce: 0.3, duration: 0.6 }}
                   className={cn(
                     "absolute inset-0 bg-primary rounded-full",
                     activeTabClassName,

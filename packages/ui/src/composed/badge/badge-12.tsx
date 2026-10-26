@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { X } from "lucide-react";
 import { Badge } from "@default/ui/primitives/badge";
 import { Button } from "@default/ui/primitives/button";
@@ -23,7 +23,7 @@ function FilterChip({ label, onRemove, className }: FilterChipProps) {
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.7, transition: { duration: 0.15 } }}
-      transition={{ type: "spring", stiffness: 500, damping: 30 }}
+      transition={{ type: "spring" as const, stiffness: 500, damping: 30 }}
     >
       <Badge
         variant="outline"

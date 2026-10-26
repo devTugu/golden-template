@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { ScrollArea, ScrollBar } from "@default/ui/primitives/scroll-area";

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import ProfileForm from "./profile-form";
 
 const Page = () => {

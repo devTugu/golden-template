@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { cn } from "@default/ui/lib/cn";
 
 export interface MarkerHighlightProps {
@@ -75,8 +75,7 @@ export function MarkerHighlight({
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
           onViewportEnter={() => setIsInView(true)}
-          transition={{
-            type: "spring",
+          transition={{ type: "spring" as const,
             damping: 14,
             stiffness: 100,
             delay: 0.2 / speed,

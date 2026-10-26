@@ -11,7 +11,9 @@ Template security notes — not a certification claim.
 | Throttle / lockout | `LOGIN_THROTTLE_*`, `LOGIN_MAX_FAILED_ATTEMPTS` |
 | Password | bcrypt; policy in shared types |
 
-Secrets: `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` (min 32 chars), `MFA_ENCRYPTION_KEY`.
+Secrets: `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` (min 32 chars, must differ in production), `MFA_ENCRYPTION_KEY` (required in production). Placeholder values starting with `change_me` are rejected when `NODE_ENV=production`.
+
+Database seed in production requires explicit admin credentials; default passwords and the e2e viewer account are development/test only.
 
 ## MFA / OIDC
 
@@ -38,7 +40,21 @@ Client IP for upstream: `frontend/src/shared/lib/bff-client-meta.ts`.
 
 ## Dependencies
 
-CI: `pnpm audit` (`--audit-level=high`, exit 0). Overrides in root `package.json` → `pnpm.overrides`.
+CI runs `pnpm audit --audit-level=high` and **fails** on high or critical advisories (see [`.github/workflows/ci.yml`](../.github/workflows/ci.yml)).
+
+### `pnpm.overrides` (root `package.json`)
+
+| Package | Reason |
+|---------|--------|
+| `body-parser` `>=2.4.0` | `@nestjs/platform-express` still pulls `body-parser@2.3.x` until Nest ships a fixed express stack; override pins the patched release ([GHSA-27r3-jxmh-p828](https://github.com/advisories/GHSA-27r3-jxmh-p828)). Remove when `pnpm why body-parser` resolves to `>=2.4.0` without override. |
+| `multer` `>=2.5.0` | Same for `@nestjs/platform-express` → `multer@2.4.x` ([GHSA-q7qp-rjg7-q26m](https://github.com/advisories/GHSA-q7qp-rjg7-q26m)). Remove when transitive version is patched upstream. |
+| OpenTelemetry, `esbuild`, `vite`, etc. | Historical transitive fixes; re-check with `pnpm why <pkg>` before removing. |
+
+### `auditConfig.ignoreGhsas`
+
+| GHSAs | Reason |
+|-------|--------|
+| `GHSA-vfj7-8cjw-p6xm` | Moderate-only advisory in a dev/build toolchain path; not high/critical. Re-run `pnpm audit --json` after major upgrades; remove if the advisory no longer appears. |
 
 ## Operator (your infra)
 

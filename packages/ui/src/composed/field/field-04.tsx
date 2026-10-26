@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { Checkbox } from "@default/ui/primitives/checkbox";

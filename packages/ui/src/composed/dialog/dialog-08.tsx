@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { PlusIcon, SearchIcon } from "lucide-react";

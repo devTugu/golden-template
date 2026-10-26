@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client'
 
 import { useId, useState } from 'react'

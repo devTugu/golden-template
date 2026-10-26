@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { File, Upload } from "lucide-react";
 import {
   Attachment,

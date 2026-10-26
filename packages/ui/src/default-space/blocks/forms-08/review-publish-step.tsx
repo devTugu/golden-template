@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { ClipboardCheck, Sparkles, CalendarDays } from "lucide-react";

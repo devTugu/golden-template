@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import NumberFlow from "@number-flow/react";
 import { cn } from "@default/ui/lib/cn";
 
@@ -104,7 +104,7 @@ export default function Slider05({
             initial={{ opacity: 0, y: 10, scale: 0.8 }}
             animate={{ opacity: 1, y: -55, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.8 }}
-            transition={{ type: "spring", damping: 15, stiffness: 400 }}
+            transition={{ type: "spring" as const, damping: 15, stiffness: 400 }}
             className="absolute z-20 bg-secondary text-secondary-foreground p-1 px-3 rounded-xl text-xl pointer-events-none w-fit text-center flex items-center justify-center border border-border"
             style={{
               left: tooltipLeft,

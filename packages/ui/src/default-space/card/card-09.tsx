@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Avatar, AvatarGroup, AvatarImage } from "@default/ui/primitives/avatar"
 import { Button } from "@default/ui/primitives/button"
 import { Card, CardContent } from "@default/ui/primitives/card"

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from "react";
 import { LucideIcon, Sun, Moon, Star, Earth } from "lucide-react";
 import { cn } from "@default/ui/lib/cn";

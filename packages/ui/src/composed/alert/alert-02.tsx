@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { CircleAlertIcon } from 'lucide-react'

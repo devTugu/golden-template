@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Bubble, BubbleContent, BubbleReactions } from "@default/ui/primitives/bubble";
 import { Button } from "@default/ui/primitives/button";
 

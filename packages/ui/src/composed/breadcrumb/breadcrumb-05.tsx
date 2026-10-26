@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ChevronDownIcon, ChevronsLeft, Command, HomeIcon, TriangleAlert } from 'lucide-react'
 import { Badge } from '@default/ui/primitives/badge'
 import { Breadcrumb,BreadcrumbItem,BreadcrumbLink,BreadcrumbList,BreadcrumbPage,BreadcrumbSeparator } from '@default/ui/primitives/breadcrumb'

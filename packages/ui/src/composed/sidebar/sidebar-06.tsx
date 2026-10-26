@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { SidebarProvider, SidebarTrigger } from "@default/ui/primitives/sidebar";
 import { AppSidebar } from "../../default-space/blocks/sidebar-06/app-sidebar";
 

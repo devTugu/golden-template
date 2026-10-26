@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { AspectRatio } from "@default/ui/primitives/aspect-ratio";
 
 const CaptionOverlayAspectRatioDemo = () => {

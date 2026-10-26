@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { BellIcon } from "lucide-react";

@@ -36,7 +36,8 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix --max-warnings 0",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --max-warnings 0",
+    "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix --max-warnings 0",
     "typecheck": "tsc -p tsconfig.build.json --noEmit",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -93,7 +94,7 @@
     "swagger-ui-express": "^5.0.1",
     "uuid": "^11.1.1",
     "winston": "^3.19.0",
-    "zod": "^4.4.3"
+    "zod": "^4.6.6"
   },
   "devDependencies": {
     "@default/eslint-config": "workspace:*",
@@ -173,6 +174,12 @@
       "!domain/**/entities/**"
     ],
     "coverageThreshold": {
+      "global": {
+        "branches": 72,
+        "functions": 86,
+        "lines": 88,
+        "statements": 88
+      },
       "./src/application/": {
         "branches": 70,
         "functions": 80,

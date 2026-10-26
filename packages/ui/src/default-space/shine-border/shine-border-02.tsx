@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { ReactNode } from "react";
 import { Card, CardContent, CardHeader } from "@default/ui/primitives/card";
 import { Badge } from "@default/ui/primitives/badge";

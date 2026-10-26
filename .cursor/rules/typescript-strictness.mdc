@@ -1,0 +1,15 @@
+---
+description: TypeScript comment and strictness rules
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# TypeScript strictness
+
+| Rule | Policy |
+|------|--------|
+| `@ts-nocheck` | Forbidden |
+| `@ts-ignore` | Forbidden |
+| `@ts-expect-error` | Allowed on one line with description ≥ 10 characters |
+
+Vendored or generated code must still type-check (no file-level nocheck).

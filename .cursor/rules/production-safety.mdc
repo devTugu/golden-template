@@ -1,0 +1,16 @@
+---
+description: Production env, seed, and secrets
+globs: "backend/src/infrastructure/config/**,backend/src/infrastructure/database/seed/**,**/.env.example,backend/deploy/**"
+alwaysApply: false
+---
+
+# Production safety
+
+```text
+❌ Default credentials or secret fallbacks in application code
+❌ Placeholder secrets accepted when NODE_ENV=production
+✅ New env vars → env.validation.ts + matching .env.example + md/deploy.md in the same change
+✅ Both apps must always ship a complete .env.example
+```
+
+Seed in production requires explicit admin credentials; no default passwords or e2e viewer user.
