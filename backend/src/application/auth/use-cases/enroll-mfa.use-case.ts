@@ -1,19 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { IUserRepository } from '@domain/user/repositories/user.repository.interface';
 import { IMfaVerifier } from '@application/ports/identity.port';
 import { ITokenIssuer } from '@application/ports/token-issuer.port';
 import { AppErrors } from '@application/exceptions/application.exception';
-import {
-  MFA_VERIFIER,
-  TOKEN_ISSUER,
-  USER_REPOSITORY,
-} from '@shared/constants/tokens';
 
-@Injectable()
 export class EnrollMfaUseCase {
   constructor(
-    @Inject(USER_REPOSITORY) private readonly users: IUserRepository,
-    @Inject(MFA_VERIFIER) private readonly mfa: IMfaVerifier,
+    private readonly users: IUserRepository,
+    private readonly mfa: IMfaVerifier,
   ) {}
 
   async execute(userId: number): Promise<{ otpauthUrl: string }> {
@@ -30,12 +23,11 @@ export class EnrollMfaUseCase {
   }
 }
 
-@Injectable()
 export class EnrollMfaWithEnrollmentTokenUseCase {
   constructor(
-    @Inject(USER_REPOSITORY) private readonly users: IUserRepository,
-    @Inject(MFA_VERIFIER) private readonly mfa: IMfaVerifier,
-    @Inject(TOKEN_ISSUER) private readonly tokens: ITokenIssuer,
+    private readonly users: IUserRepository,
+    private readonly mfa: IMfaVerifier,
+    private readonly tokens: ITokenIssuer,
   ) {}
 
   async execute(enrollmentToken: string): Promise<{ otpauthUrl: string }> {

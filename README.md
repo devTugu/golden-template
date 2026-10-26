@@ -51,7 +51,7 @@ pnpm --filter backend run seed
 pnpm dev
 ```
 
-**Seed admin:** `admin@default.mn` / `admin123!`
+**Seed admin:** `admin@example.com` / `admin123!`
 
 | Resource | URL |
 |----------|-----|

@@ -1,14 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { IUserRepository } from '@domain/user/repositories/user.repository.interface';
 import { User } from '@domain/user/entities/user.entity';
 import { IRefreshTokenRepository } from '@domain/auth/repositories/refresh-token.repository.interface';
 import { IAuditLogRepository } from '@application/ports/audit-log.port';
 import { AppErrors } from '@application/exceptions/application.exception';
-import {
-  USER_REPOSITORY,
-  REFRESH_TOKEN_REPOSITORY,
-  AUDIT_LOG_REPOSITORY,
-} from '@shared/constants/tokens';
 
 const SENSITIVE_METADATA_KEY =
   /password|secret|token|authorization|cookie|mfa/i;
@@ -25,11 +19,9 @@ function sanitizeMetadata(
   return sanitized;
 }
 
-@Injectable()
 export class ExportUserDataUseCase {
   constructor(
-    @Inject(USER_REPOSITORY) private readonly users: IUserRepository,
-    @Inject(AUDIT_LOG_REPOSITORY)
+    private readonly users: IUserRepository,
     private readonly auditLogs: IAuditLogRepository,
   ) {}
 
@@ -72,11 +64,9 @@ export class ExportUserDataUseCase {
   }
 }
 
-@Injectable()
 export class AnonymizeUserUseCase {
   constructor(
-    @Inject(USER_REPOSITORY) private readonly users: IUserRepository,
-    @Inject(REFRESH_TOKEN_REPOSITORY)
+    private readonly users: IUserRepository,
     private readonly refreshTokens: IRefreshTokenRepository,
   ) {}
 

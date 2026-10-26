@@ -1,4 +1,3 @@
-import { Inject, Injectable } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { IUserRepository } from '@domain/user/repositories/user.repository.interface';
 import {
@@ -11,25 +10,18 @@ import { ITokenIssuer } from '@application/ports/token-issuer.port';
 import { IPermissionCache } from '@application/ports/permission-cache.port';
 import { AppErrors } from '@application/exceptions/application.exception';
 import { TokenPair } from '@shared/types/pagination';
-import {
-  USER_REPOSITORY,
-  REFRESH_TOKEN_REPOSITORY,
-  TOKEN_ISSUER,
-  PERMISSION_CACHE,
-} from '@shared/constants/tokens';
-import { ConfigService } from '@nestjs/config';
+import { IRuntimeConfig } from '@application/ports/runtime-config.port';
+import { ActiveOrganizationService } from '../services/active-organization.service';
 
-@Injectable()
 export class RefreshTokenUseCase {
   constructor(
-    @Inject(USER_REPOSITORY) private readonly users: IUserRepository,
-    @Inject(REFRESH_TOKEN_REPOSITORY)
+    private readonly users: IUserRepository,
     private readonly refreshTokens: IRefreshTokenRepository,
-    @Inject(TOKEN_ISSUER) private readonly tokens: ITokenIssuer,
-    @Inject(PERMISSION_CACHE)
+    private readonly tokens: ITokenIssuer,
     private readonly permissionCache: IPermissionCache,
-    private readonly config: ConfigService,
+    private readonly runtimeConfig: IRuntimeConfig,
     private readonly recordRefresh: RecordRefreshTokenService,
+    private readonly activeOrganization: ActiveOrganizationService,
   ) {}
 
   async execute(
@@ -77,7 +69,7 @@ export class RefreshTokenUseCase {
       user.email,
     );
     if (fullUser) {
-      const ttl = this.config.get<number>('PERMISSION_CACHE_TTL_SEC', 60);
+      const ttl = this.runtimeConfig.getPermissionCacheTtlSec();
       await this.permissionCache.set(
         fullUser.id,
         {
@@ -88,7 +80,14 @@ export class RefreshTokenUseCase {
       );
     }
 
-    const issued = await this.tokens.issuePair(user.id, user.email);
+    const organizationId = await this.activeOrganization.resolveOrganizationId(
+      user.id,
+    );
+    const issued = await this.tokens.issuePair(
+      user.id,
+      user.email,
+      organizationId,
+    );
     const persistedMeta = mergeSessionMeta(meta, stored);
     await this.recordRefresh.record(
       user.id,

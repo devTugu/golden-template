@@ -23,16 +23,18 @@ describe('LoginUseCase', () => {
       .mockResolvedValue('enrollment-token'),
   };
   const permissionCache = { set: jest.fn() };
-  const config = {
-    get: jest.fn((key: string) => {
-      if (key === 'PERMISSION_CACHE_TTL_SEC') return 60;
-      if (key === 'LOGIN_MAX_FAILED_ATTEMPTS') return 5;
-      if (key === 'LOGIN_LOCKOUT_MINUTES') return 15;
-      return undefined;
-    }),
+  const runtimeConfig = {
+    getLoginMaxFailedAttempts: () => 5,
+    getLoginLockoutMinutes: () => 15,
+    getPermissionCacheTtlSec: () => 60,
+    getMfaRequiredRolesRaw: () => undefined,
+    getAuditRetentionDays: () => 90,
   };
   const mfaPolicy = {
     getRequiredRoles: jest.fn().mockResolvedValue([]),
+  };
+  const activeOrganization = {
+    resolveOrganizationId: jest.fn().mockResolvedValue(1),
   };
 
   const useCase = new LoginUseCase(
@@ -41,8 +43,9 @@ describe('LoginUseCase', () => {
     recordRefresh as never,
     tokens as never,
     permissionCache as never,
-    config as never,
+    runtimeConfig,
     mfaPolicy as never,
+    activeOrganization as never,
   );
 
   beforeEach(() => jest.clearAllMocks());

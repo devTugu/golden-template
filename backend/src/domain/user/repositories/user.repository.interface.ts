@@ -18,6 +18,7 @@ export interface UpdateUserData {
   oauthProvider?: string | null;
   oauthSubject?: string | null;
   email?: string;
+  organizationId?: number | null;
 }
 
 export interface ListUsersQuery {

@@ -1,18 +1,15 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { IUserRepository } from '@domain/user/repositories/user.repository.interface';
 import {
   IPermissionCache,
   UserAuthContext,
 } from '@application/ports/permission-cache.port';
-import { USER_REPOSITORY, PERMISSION_CACHE } from '@shared/constants/tokens';
-import { ConfigService } from '@nestjs/config';
+import { IRuntimeConfig } from '@application/ports/runtime-config.port';
 
-@Injectable()
 export class LoadUserAuthContextUseCase {
   constructor(
-    @Inject(USER_REPOSITORY) private readonly users: IUserRepository,
-    @Inject(PERMISSION_CACHE) private readonly cache: IPermissionCache,
-    private readonly config: ConfigService,
+    private readonly users: IUserRepository,
+    private readonly cache: IPermissionCache,
+    private readonly runtimeConfig: IRuntimeConfig,
   ) {}
 
   async execute(userId: number): Promise<UserAuthContext | null> {
@@ -26,7 +23,7 @@ export class LoadUserAuthContextUseCase {
       roleNames: user.roleNames,
       permissionCodes: user.permissionCodes,
     };
-    const ttl = this.config.get<number>('PERMISSION_CACHE_TTL_SEC', 60);
+    const ttl = this.runtimeConfig.getPermissionCacheTtlSec();
     await this.cache.set(userId, context, ttl);
     return context;
   }

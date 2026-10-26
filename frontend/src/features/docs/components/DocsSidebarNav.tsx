@@ -8,6 +8,7 @@ import { Badge } from "@default/ui/primitives/badge";
 import { Button } from "@default/ui/primitives/button";
 import { Input } from "@default/ui/primitives/input";
 import { cn } from "@default/ui/lib/cn";
+import { env } from "@/shared/config/env";
 import { DOCS_BLOCKS_NAV } from "../docs-blocks-nav";
 import { DOCS_COMPONENTS_NAV } from "../docs-components-nav";
 
@@ -23,9 +24,18 @@ function matchesQuery(label: string, query: string): boolean {
   return label.toLowerCase().includes(q);
 }
 
+function repositoryIssuesUrl(): string | undefined {
+  const base = env.REPOSITORY_URL?.replace(/\/$/, "");
+  if (!base) {
+    return undefined;
+  }
+  return `${base}/issues/new/choose`;
+}
+
 export function DocsSidebarNav({ className }: DocsSidebarNavProps) {
   const pathname = usePathname();
   const [query, setQuery] = useState("");
+  const issuesUrl = repositoryIssuesUrl();
 
   const blocksNav = useMemo(
     () => DOCS_BLOCKS_NAV.filter((item) => matchesQuery(item.label, query)),
@@ -39,16 +49,14 @@ export function DocsSidebarNav({ className }: DocsSidebarNavProps) {
   return (
     <div className={cn("flex flex-col", className)}>
       <div className="space-y-3 border-b border-border p-4">
-        <Button variant="outline" className="h-10 w-full justify-between gap-2 font-normal" asChild>
-          <Link
-            href="https://github.com/devTugu/default/issues/new/choose"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span className="flex items-center gap-2">Request a component</span>
-            <ExternalLink className="size-4 text-muted-foreground" />
-          </Link>
-        </Button>
+        {issuesUrl ? (
+          <Button variant="outline" className="h-10 w-full justify-between gap-2 font-normal" asChild>
+            <Link href={issuesUrl} target="_blank" rel="noopener noreferrer">
+              <span className="flex items-center gap-2">Request a component</span>
+              <ExternalLink className="size-4 text-muted-foreground" />
+            </Link>
+          </Button>
+        ) : null}
         <div className="relative">
           <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input

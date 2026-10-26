@@ -12,6 +12,7 @@ export class User {
     public readonly permissionCodes: string[] = [],
     public readonly mfaEnabled: boolean = false,
     public readonly oauthProvider: string | null = null,
+    public readonly organizationId: number | null = null,
   ) {}
 
   /** Rejects users already wiped via GDPR anonymize. */

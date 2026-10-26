@@ -105,7 +105,7 @@ jobs:
       MFA_ENCRYPTION_KEY: ci_mfa_encryption_key_minimum_32_chars
       MFA_ISSUER: Website Template CI
       MFA_REQUIRED_ROLES: SITE_EDITOR
-      SEED_ADMIN_EMAIL: admin@default.mn
+      SEED_ADMIN_EMAIL: admin@example.com
       SEED_ADMIN_PASSWORD: admin123!
 
     steps:
@@ -180,9 +180,9 @@ jobs:
     env:
       CI: true
       API_INTERNAL_URL: http://localhost:3001/api/v1
-      E2E_ADMIN_EMAIL: admin@default.mn
+      E2E_ADMIN_EMAIL: admin@example.com
       E2E_ADMIN_PASSWORD: admin123!
-      E2E_VIEWER_EMAIL: viewer@default.mn
+      E2E_VIEWER_EMAIL: viewer@example.com
       E2E_VIEWER_PASSWORD: viewer123!
       MFA_REQUIRED_ROLES: ''
       DB_HOST: 127.0.0.1
@@ -206,9 +206,9 @@ jobs:
       LOG_LEVEL: error
       MFA_ENCRYPTION_KEY: ci_mfa_encryption_key_minimum_32_chars
       MFA_ISSUER: Website Template CI
-      SEED_ADMIN_EMAIL: admin@default.mn
+      SEED_ADMIN_EMAIL: admin@example.com
       SEED_ADMIN_PASSWORD: admin123!
-      SEED_VIEWER_EMAIL: viewer@default.mn
+      SEED_VIEWER_EMAIL: viewer@example.com
       SEED_VIEWER_PASSWORD: viewer123!
 
     steps:
@@ -249,9 +249,9 @@ jobs:
           PERMISSION_CACHE_TTL_SEC=60
           OTEL_ENABLED=false
           LOG_LEVEL=error
-          SEED_ADMIN_EMAIL=admin@default.mn
+          SEED_ADMIN_EMAIL=admin@example.com
           SEED_ADMIN_PASSWORD=admin123!
-          SEED_VIEWER_EMAIL=viewer@default.mn
+          SEED_VIEWER_EMAIL=viewer@example.com
           SEED_VIEWER_PASSWORD=viewer123!
           MFA_REQUIRED_ROLES=
           MFA_ENCRYPTION_KEY=ci_mfa_encryption_key_minimum_32_chars

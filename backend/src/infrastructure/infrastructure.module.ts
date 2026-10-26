@@ -17,6 +17,8 @@ import {
   MFA_VERIFIER,
   OAUTH_IDENTITY,
   ORGANIZATION_CONTEXT,
+  ORGANIZATION_REPOSITORY,
+  RUNTIME_CONFIG,
 } from '@shared/constants/tokens';
 import { UserDrizzleRepository } from './repositories/user.drizzle-repository';
 import { RefreshTokenDrizzleRepository } from './repositories/refresh-token.drizzle-repository';
@@ -43,7 +45,9 @@ import { S3CompatibleStorageAdapter } from './media/s3-compatible-storage.adapte
 import { CompositeMediaStorageAdapter } from './media/composite-media-storage.adapter';
 import { TotpMfaAdapter } from './auth/totp-mfa.adapter';
 import { OidcIdentityAdapter } from './auth/oidc-identity.adapter';
-import { DefaultOrganizationContext } from './tenancy/default-organization.context';
+import { RequestOrganizationContext } from './tenancy/request-organization.context';
+import { OrganizationDrizzleRepository } from './repositories/organization.drizzle-repository';
+import { NestRuntimeConfigAdapter } from './config/nest-runtime-config.adapter';
 import { DrizzleModule } from './database/drizzle/drizzle.module';
 import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
 
@@ -72,7 +76,15 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
     DrizzleHealthIndicator,
     {
       provide: ORGANIZATION_CONTEXT,
-      useClass: DefaultOrganizationContext,
+      useClass: RequestOrganizationContext,
+    },
+    {
+      provide: ORGANIZATION_REPOSITORY,
+      useClass: OrganizationDrizzleRepository,
+    },
+    {
+      provide: RUNTIME_CONFIG,
+      useClass: NestRuntimeConfigAdapter,
     },
     { provide: USER_REPOSITORY, useClass: UserDrizzleRepository },
     {
@@ -163,6 +175,8 @@ import { DrizzleHealthIndicator } from './database/drizzle/drizzle.health';
     MFA_VERIFIER,
     OAUTH_IDENTITY,
     ORGANIZATION_CONTEXT,
+    ORGANIZATION_REPOSITORY,
+    RUNTIME_CONFIG,
   ],
 })
 export class InfrastructureModule {}

@@ -1,4 +1,5 @@
 export { configureMeFetcher } from "./me-fetcher";
+export { configureSwitchOrganizationFetcher } from "./organization/switch-organization-fetcher";
 export { listQueryOptions } from "./list-query-options";
 
 export {
@@ -62,3 +63,14 @@ export {
   useRevokeAuthSession,
   useRevokeOtherAuthSessions,
 } from "./auth/use-auth-sessions";
+
+export {
+  organizationKeys,
+  useOrganizations,
+  useMyOrganizations,
+  useCreateOrganization,
+  useUpdateOrganization,
+  useSwitchOrganization,
+  useOrganizationMembers,
+  useAddOrganizationMember,
+} from "./organization/use-organizations";

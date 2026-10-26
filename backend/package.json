@@ -1,18 +1,18 @@
 {
   "name": "backend",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "Production-ready NestJS website template API — Clean Architecture, JWT, RBAC, Drizzle ORM, Redis, PostgreSQL.",
   "author": "devTugu (Tuguldur Unurtsetseg)",
-  "private": false,
+  "private": true,
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/devTugu/default.git"
+    "url": "https://github.com/devTugu/golden-template.git"
   },
   "bugs": {
-    "url": "https://github.com/devTugu/default/issues"
+    "url": "https://github.com/devTugu/golden-template/issues"
   },
-  "homepage": "https://github.com/devTugu/default#readme",
+  "homepage": "https://github.com/devTugu/golden-template#readme",
   "keywords": [
     "nestjs",
     "website",

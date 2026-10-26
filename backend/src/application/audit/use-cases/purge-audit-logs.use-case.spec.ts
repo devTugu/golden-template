@@ -2,19 +2,15 @@ import { PurgeAuditLogsUseCase } from './purge-audit-logs.use-case';
 
 describe('PurgeAuditLogsUseCase', () => {
   const auditLogs = { deleteOlderThan: jest.fn() };
-  const config = { get: jest.fn() };
+  const runtimeConfig = { getAuditRetentionDays: jest.fn(() => 90) };
   const useCase = new PurgeAuditLogsUseCase(
     auditLogs as never,
-    config as never,
+    runtimeConfig as never,
   );
 
   beforeEach(() => {
     jest.useFakeTimers();
     jest.setSystemTime(new Date('2026-06-16T12:00:00.000Z'));
-    config.get.mockImplementation((key: string, defaultValue: number) => {
-      if (key === 'AUDIT_RETENTION_DAYS') return 90;
-      return defaultValue;
-    });
   });
 
   afterEach(() => {

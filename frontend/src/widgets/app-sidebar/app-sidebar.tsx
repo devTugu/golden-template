@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { LayoutDashboard, Settings, Shield } from 'lucide-react';
+import { Building2, LayoutDashboard, Settings, Shield } from 'lucide-react';
 import { env } from '@/shared/config/env';
 import { ROUTES } from '@/shared/config/routes';
 import {
@@ -46,6 +46,12 @@ const systemNavItems: NavItem[] = [
     href: ROUTES.DASHBOARD,
     icon: LayoutDashboard,
     permission: PERMISSION_CODES.DASHBOARD_READ,
+  },
+  {
+    titleKey: 'organizations',
+    href: ROUTES.ORGANIZATIONS,
+    icon: Building2,
+    permission: PERMISSION_CODES.ORGANIZATION_READ,
   },
 ];
 

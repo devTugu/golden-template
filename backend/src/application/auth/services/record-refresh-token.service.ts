@@ -1,15 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { IRefreshTokenRepository } from '@domain/auth/repositories/refresh-token.repository.interface';
-import { REFRESH_TOKEN_REPOSITORY } from '@shared/constants/tokens';
 import type { ClientRequestMeta } from '../dto/client-request-meta';
 
-@Injectable()
 export class RecordRefreshTokenService {
-  constructor(
-    @Inject(REFRESH_TOKEN_REPOSITORY)
-    private readonly refreshTokens: IRefreshTokenRepository,
-  ) {}
+  constructor(private readonly refreshTokens: IRefreshTokenRepository) {}
 
   async record(
     userId: number,

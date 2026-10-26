@@ -16,16 +16,20 @@ describe('RefreshTokenUseCase', () => {
     issuePair: jest.fn(),
   };
   const permissionCache = { set: jest.fn() };
-  const config = { get: jest.fn().mockReturnValue(60) };
+  const runtimeConfig = { getPermissionCacheTtlSec: () => 60 };
   const recordRefresh = { record: jest.fn() };
+  const activeOrganization = {
+    resolveOrganizationId: jest.fn().mockResolvedValue(1),
+  };
 
   const useCase = new RefreshTokenUseCase(
     users as never,
     refreshTokens as never,
     tokens as never,
     permissionCache as never,
-    config as never,
+    runtimeConfig as never,
     recordRefresh as never,
+    activeOrganization as never,
   );
 
   beforeEach(() => jest.clearAllMocks());

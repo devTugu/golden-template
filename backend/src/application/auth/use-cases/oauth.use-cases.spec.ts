@@ -62,14 +62,12 @@ describe('OAuth use cases', () => {
     };
     const permissionCache = { set: jest.fn() };
     const hasher = { hash: jest.fn().mockResolvedValue('hash') };
-    const config = {
-      get: jest.fn((key: string) => {
-        if (key === 'PERMISSION_CACHE_TTL_SEC') return 60;
-        return undefined;
-      }),
-    };
+    const runtimeConfig = { getPermissionCacheTtlSec: () => 60 };
     const mfaPolicy = {
       getRequiredRoles: jest.fn().mockResolvedValue([]),
+    };
+    const activeOrganization = {
+      resolveOrganizationId: jest.fn().mockResolvedValue(1),
     };
 
     it('returns MFA step-up when user has MFA enabled', async () => {
@@ -80,8 +78,9 @@ describe('OAuth use cases', () => {
         recordRefresh as never,
         permissionCache as never,
         hasher as never,
-        config as never,
+        runtimeConfig as never,
         mfaPolicy as never,
+        activeOrganization as never,
       );
 
       const result = await useCase.execute('https://cb?code=1');

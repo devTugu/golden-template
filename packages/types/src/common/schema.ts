@@ -1,29 +1,14 @@
 import { z } from "zod";
 import { ComplexPasswordSchema } from "./password";
 
-/** EN required; MN optional (empty falls back to EN via pickLocalized). */
-export const LocalizedTextSchema = z.object({
-  en: z.string().min(1),
-  mn: z.string(),
-});
-
-export const LocalizedTextRequiredSchema = z.object({
-  en: z.string().min(1),
-  mn: z.string().min(1),
-});
-
-export const LocalizedTextOptionalSchema = z.object({
-  en: z.string(),
-  mn: z.string(),
-});
-
-export const LocalizedStringListSchema = z.object({
-  en: z.array(z.string()),
-  mn: z.array(z.string()),
-});
-
-export type LocalizedText = z.infer<typeof LocalizedTextSchema>;
-export type LocalizedStringList = z.infer<typeof LocalizedStringListSchema>;
+export {
+  LocalizedTextSchema,
+  LocalizedTextRequiredSchema,
+  LocalizedTextOptionalSchema,
+  LocalizedStringListSchema,
+  type LocalizedText,
+  type LocalizedStringList,
+} from "./localized-schema";
 
 export const UserOutputSchema = z.object({
   id: z.number(),

@@ -1,27 +1,19 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { IRoleRepository } from '@domain/authorization/repositories/role.repository.interface';
 import { IPermissionCache } from '@application/ports/permission-cache.port';
 import { AppErrors } from '@application/exceptions/application.exception';
-import { ROLE_REPOSITORY, PERMISSION_CACHE } from '@shared/constants/tokens';
 import { PaginatedResult } from '@shared/types/pagination';
 import { Role } from '@domain/authorization/entities/role.entity';
 
-@Injectable()
 export class ListRolesUseCase {
-  constructor(
-    @Inject(ROLE_REPOSITORY) private readonly roles: IRoleRepository,
-  ) {}
+  constructor(private readonly roles: IRoleRepository) {}
 
   execute(page = 1, limit = 20): Promise<PaginatedResult<Role>> {
     return this.roles.findAll(page, limit);
   }
 }
 
-@Injectable()
 export class GetRoleUseCase {
-  constructor(
-    @Inject(ROLE_REPOSITORY) private readonly roles: IRoleRepository,
-  ) {}
+  constructor(private readonly roles: IRoleRepository) {}
 
   async execute(id: number): Promise<Role> {
     const role = await this.roles.findById(id);
@@ -30,11 +22,10 @@ export class GetRoleUseCase {
   }
 }
 
-@Injectable()
 export class UpdateRoleUseCase {
   constructor(
-    @Inject(ROLE_REPOSITORY) private readonly roles: IRoleRepository,
-    @Inject(PERMISSION_CACHE) private readonly cache: IPermissionCache,
+    private readonly roles: IRoleRepository,
+    private readonly cache: IPermissionCache,
   ) {}
 
   async execute(
@@ -56,11 +47,10 @@ export class UpdateRoleUseCase {
   }
 }
 
-@Injectable()
 export class DeleteRoleUseCase {
   constructor(
-    @Inject(ROLE_REPOSITORY) private readonly roles: IRoleRepository,
-    @Inject(PERMISSION_CACHE) private readonly cache: IPermissionCache,
+    private readonly roles: IRoleRepository,
+    private readonly cache: IPermissionCache,
   ) {}
 
   async execute(id: number): Promise<void> {
@@ -72,11 +62,10 @@ export class DeleteRoleUseCase {
   }
 }
 
-@Injectable()
 export class AssignRoleToUserUseCase {
   constructor(
-    @Inject(ROLE_REPOSITORY) private readonly roles: IRoleRepository,
-    @Inject(PERMISSION_CACHE) private readonly cache: IPermissionCache,
+    private readonly roles: IRoleRepository,
+    private readonly cache: IPermissionCache,
   ) {}
 
   async execute(userId: number, roleId: number): Promise<void> {
@@ -94,11 +83,10 @@ export class AssignRoleToUserUseCase {
   }
 }
 
-@Injectable()
 export class RemoveRoleFromUserUseCase {
   constructor(
-    @Inject(ROLE_REPOSITORY) private readonly roles: IRoleRepository,
-    @Inject(PERMISSION_CACHE) private readonly cache: IPermissionCache,
+    private readonly roles: IRoleRepository,
+    private readonly cache: IPermissionCache,
   ) {}
 
   async execute(userId: number, roleId: number): Promise<void> {

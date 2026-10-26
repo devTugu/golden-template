@@ -1,8 +1,8 @@
 import { expect, type Page } from '@playwright/test';
 
-const adminEmail = process.env.E2E_ADMIN_EMAIL ?? 'admin@default.mn';
+const adminEmail = process.env.E2E_ADMIN_EMAIL ?? 'admin@example.com';
 const adminPassword = process.env.E2E_ADMIN_PASSWORD ?? 'admin123!';
-const viewerEmail = process.env.E2E_VIEWER_EMAIL ?? 'viewer@default.mn';
+const viewerEmail = process.env.E2E_VIEWER_EMAIL ?? 'viewer@example.com';
 const viewerPassword = process.env.E2E_VIEWER_PASSWORD ?? 'viewer123!';
 
 async function fetchCsrf(page: Page): Promise<string> {

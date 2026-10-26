@@ -37,6 +37,18 @@ export const dashboardKeys = {
   stats: () => [...dashboardKeys.all, "stats"] as const,
 };
 
+export const organizationKeys = {
+  all: ["organizations"] as const,
+  lists: () => [...organizationKeys.all, "list"] as const,
+  list: (params: ListQueryParams) =>
+    [...organizationKeys.lists(), params] as const,
+  mine: () => [...organizationKeys.all, "mine"] as const,
+  members: (organizationId: number, params: ListQueryParams) =>
+    [...organizationKeys.all, "members", organizationId, params] as const,
+  memberLists: (organizationId: number) =>
+    [...organizationKeys.all, "members", organizationId] as const,
+};
+
 export const auditLogKeys = {
   all: ["audit-logs"] as const,
   lists: () => [...auditLogKeys.all, "list"] as const,

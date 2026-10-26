@@ -12,6 +12,13 @@ export const API_ENDPOINTS = {
     MFA_ENROLLMENT_CONFIRM: "/auth/mfa/enrollment/confirm",
     OAUTH_AUTHORIZE: "/auth/oauth/authorize",
     OAUTH_CALLBACK: "/auth/oauth/callback",
+    MY_ORGANIZATIONS: "/auth/organizations",
+    SWITCH_ORGANIZATION: "/auth/switch-organization",
+  },
+  ORGANIZATIONS: {
+    LIST: "/admin/organizations",
+    BY_ID: (id: number) => `/admin/organizations/${id}`,
+    MEMBERS: (id: number) => `/admin/organizations/${id}/members`,
   },
   USERS: {
     LIST: "/users",

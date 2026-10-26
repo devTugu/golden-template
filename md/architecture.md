@@ -23,10 +23,11 @@ domain/ → application/ → presentation/
 | Auth | Login, refresh, MFA, OIDC |
 | User | CRUD, export/anonymize |
 | Authorization | Roles, permissions |
-| SiteSetting | Singleton CMS-style settings |
+| SiteSetting | Per-organization CMS-style settings (JWT tenant) |
 | Media | S3-compatible upload |
 | Dashboard | Admin stats |
 | Audit | HTTP audit trail + admin list |
+| Organization | Multi-tenant org + membership; JWT `organizationId` scopes admin data |
 
 Drizzle: `backend/src/infrastructure/database/drizzle/`, migrations in `drizzle/migrations/`.
 
@@ -38,7 +39,7 @@ Drizzle: `backend/src/infrastructure/database/drizzle/`, migrations in `drizzle/
 
 Layers: `app` → `widgets` → `features` → `entities` → `shared`. Features must not import widgets.
 
-BFF: `frontend/app/api/auth/*`, `frontend/app/api/backend/*`, `frontend/src/shared/lib/bff-*`.
+BFF: `frontend/app/api/auth/*` (login, refresh, switch-organization), `frontend/app/api/backend/*`, `frontend/src/shared/lib/bff-*`.
 
 ## Admin request flow
 

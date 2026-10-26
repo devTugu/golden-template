@@ -1,12 +1,6 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { IUserRepository } from '@domain/user/repositories/user.repository.interface';
 import { IRoleRepository } from '@domain/authorization/repositories/role.repository.interface';
 import { IPermissionRepository } from '@domain/authorization/repositories/permission.repository.interface';
-import {
-  PERMISSION_REPOSITORY,
-  ROLE_REPOSITORY,
-  USER_REPOSITORY,
-} from '@shared/constants/tokens';
 import { DashboardStatsOutput } from '../dto/dashboard-stats.output';
 
 const PERMISSION_MAP = {
@@ -15,12 +9,10 @@ const PERMISSION_MAP = {
   permissions: 'PERMISSION_READ',
 } as const;
 
-@Injectable()
 export class GetDashboardStatsUseCase {
   constructor(
-    @Inject(USER_REPOSITORY) private readonly users: IUserRepository,
-    @Inject(ROLE_REPOSITORY) private readonly roles: IRoleRepository,
-    @Inject(PERMISSION_REPOSITORY)
+    private readonly users: IUserRepository,
+    private readonly roles: IRoleRepository,
     private readonly permissions: IPermissionRepository,
   ) {}
 

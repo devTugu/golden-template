@@ -29,7 +29,11 @@ export interface IssuedTokens {
 }
 
 export interface ITokenIssuer {
-  issuePair(userId: number, email: string): Promise<IssuedTokens>;
+  issuePair(
+    userId: number,
+    email: string,
+    organizationId: number,
+  ): Promise<IssuedTokens>;
   issueMfaPendingToken(userId: number): Promise<string>;
   verifyMfaPending(token: string): Promise<MfaPendingClaims>;
   issueMfaEnrollmentPendingToken(userId: number): Promise<string>;

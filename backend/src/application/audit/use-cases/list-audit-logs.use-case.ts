@@ -1,4 +1,3 @@
-import { Inject, Injectable } from '@nestjs/common';
 import {
   IAuditLogRepository,
   ListAuditLogsQuery,
@@ -9,21 +8,27 @@ import {
   toAuditLogOutput,
 } from '../dto/audit-log-output.mapper';
 import { PaginatedResult } from '@shared/types/pagination';
-import { AUDIT_LOG_REPOSITORY } from '@shared/constants/tokens';
+import { IOrganizationContext } from '@application/ports/organization-context.port';
 
-@Injectable()
 export class ListAuditLogsUseCase {
   constructor(
-    @Inject(AUDIT_LOG_REPOSITORY)
     private readonly auditLogs: IAuditLogRepository,
     private readonly recordAuditLog: RecordAuditLogUseCase,
+    private readonly orgContext: IOrganizationContext,
   ) {}
 
   async execute(
     query: ListAuditLogsQuery,
     actorUserId: number,
   ): Promise<PaginatedResult<AuditLogOutput>> {
-    const result = await this.auditLogs.findAll(query);
+    const organizationId =
+      query.organizationId ??
+      (await this.orgContext.getCurrentOrganizationId());
+    const scopedQuery =
+      organizationId !== null && organizationId !== undefined
+        ? { ...query, organizationId }
+        : query;
+    const result = await this.auditLogs.findAll(scopedQuery);
 
     await this.recordAuditLog.execute({
       userId: actorUserId,

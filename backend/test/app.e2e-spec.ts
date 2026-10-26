@@ -40,7 +40,7 @@ describe('Auth and RBAC (e2e)', () => {
     const response = await request(app.getHttpServer())
       .post('/api/v1/auth/login')
       .send({
-        email: process.env.SEED_ADMIN_EMAIL ?? 'admin@default.mn',
+        email: process.env.SEED_ADMIN_EMAIL ?? 'admin@example.com',
         password: process.env.SEED_ADMIN_PASSWORD ?? 'admin123!',
       })
       .expect(200);
@@ -59,7 +59,9 @@ describe('Auth and RBAC (e2e)', () => {
       .expect(200);
 
     const body = response.body.data ?? response.body;
-    expect(body.email).toBe(process.env.SEED_ADMIN_EMAIL ?? 'admin@default.mn');
+    expect(body.email).toBe(
+      process.env.SEED_ADMIN_EMAIL ?? 'admin@example.com',
+    );
     expect(Array.isArray(body.permissionCodes)).toBe(true);
     expect(body.permissionCodes.length).toBeGreaterThan(0);
   });
@@ -69,6 +71,27 @@ describe('Auth and RBAC (e2e)', () => {
       .get('/api/v1/users')
       .set('Authorization', `Bearer ${accessToken}`)
       .expect(200);
+  });
+
+  it('GET /api/v1/admin/organizations returns seeded org for admin', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/api/v1/admin/organizations')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .expect(200);
+
+    const body = response.body.data ?? response.body;
+    expect(body.items?.length).toBeGreaterThan(0);
+  });
+
+  it('GET /api/v1/auth/organizations lists memberships', async () => {
+    const response = await request(app.getHttpServer())
+      .get('/api/v1/auth/organizations')
+      .set('Authorization', `Bearer ${accessToken}`)
+      .expect(200);
+
+    const body = response.body.data ?? response.body;
+    expect(Array.isArray(body)).toBe(true);
+    expect(body.length).toBeGreaterThan(0);
   });
 
   it('GET /api/v1/users returns 401 without token', () => {
@@ -123,7 +146,7 @@ describe('Admin foundation (e2e)', () => {
     const login = await request(app.getHttpServer())
       .post('/api/v1/auth/login')
       .send({
-        email: process.env.SEED_ADMIN_EMAIL ?? 'admin@default.mn',
+        email: process.env.SEED_ADMIN_EMAIL ?? 'admin@example.com',
         password: process.env.SEED_ADMIN_PASSWORD ?? 'admin123!',
       });
     const body = login.body.data ?? login.body;
@@ -200,7 +223,6 @@ describe('Admin foundation (e2e)', () => {
       .get(`/api/v1/users/${user.id}`)
       .set('Authorization', `Bearer ${accessToken}`);
 
-    // Soft-deleted users may 404 or return anonymized email depending on findById
     if (listed.status === 200) {
       const body = listed.body.data ?? listed.body;
       expect(String(body.email)).toContain('anonymized');

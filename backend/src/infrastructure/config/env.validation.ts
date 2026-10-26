@@ -4,20 +4,26 @@ import {
   jwtSecretsMustDiffer,
 } from './env-production.rules';
 
+type JoiCustomHelpers = {
+  error: (code: string, context?: { message?: string }) => unknown;
+};
+
 const durationPattern = /^(\d+)(s|m|h|d)$/i;
 
-const productionSecret = Joi.string().custom((value, helpers) => {
-  if (typeof value !== 'string') {
-    return helpers.error('any.invalid');
-  }
-  if (isPlaceholderSecret(value)) {
-    return helpers.error('any.invalid', {
-      message:
-        'must not use placeholder values starting with change_me in production',
-    });
-  }
-  return value;
-});
+const productionSecret = Joi.string().custom(
+  (value: unknown, helpers: JoiCustomHelpers) => {
+    if (typeof value !== 'string') {
+      return helpers.error('any.invalid');
+    }
+    if (isPlaceholderSecret(value)) {
+      return helpers.error('any.invalid', {
+        message:
+          'must not use placeholder values starting with change_me in production',
+      });
+    }
+    return value;
+  },
+);
 
 export const envValidationSchema = Joi.object({
   NODE_ENV: Joi.string()
@@ -132,13 +138,17 @@ export const envValidationSchema = Joi.object({
   AUDIT_RETENTION_DAYS: Joi.number().integer().min(1).default(90),
 
   SENTRY_DSN: Joi.string().uri().optional(),
-}).custom((value, helpers) => {
+}).custom((value: Record<string, unknown>, helpers: JoiCustomHelpers) => {
   if (value.NODE_ENV !== 'production') {
     return value;
   }
-  if (
-    !jwtSecretsMustDiffer(value.JWT_ACCESS_SECRET, value.JWT_REFRESH_SECRET)
-  ) {
+  const accessSecret =
+    typeof value.JWT_ACCESS_SECRET === 'string' ? value.JWT_ACCESS_SECRET : '';
+  const refreshSecret =
+    typeof value.JWT_REFRESH_SECRET === 'string'
+      ? value.JWT_REFRESH_SECRET
+      : '';
+  if (!jwtSecretsMustDiffer(accessSecret, refreshSecret)) {
     return helpers.error('any.invalid', {
       message:
         'JWT_ACCESS_SECRET and JWT_REFRESH_SECRET must differ in production',

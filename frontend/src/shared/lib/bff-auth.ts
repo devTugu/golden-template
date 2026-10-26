@@ -162,6 +162,25 @@ async function fetchBffMe<T>(): Promise<{ response: Response; envelope: ApiEnvel
   return { response, envelope };
 }
 
+export async function bffSwitchOrganization(organizationId: number): Promise<{
+  expiresIn: number;
+}> {
+  const csrf = await mutatingFetchHeaders();
+  const response = await fetch('/api/auth/switch-organization', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...csrf },
+    body: JSON.stringify({ organizationId }),
+    credentials: 'include',
+  });
+
+  const envelope = await parseJson<{ expiresIn: number }>(response);
+  if (!response.ok) {
+    throwBffError(response, envelope as unknown as ApiErrorEnvelope);
+  }
+
+  return envelope.data;
+}
+
 export async function bffMe<T>(): Promise<T> {
   let { response, envelope } = await fetchBffMe<T>();
 

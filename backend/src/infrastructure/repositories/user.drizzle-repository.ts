@@ -101,9 +101,12 @@ export class UserDrizzleRepository implements IUserRepository {
 
   async findAll(query: ListUsersQuery): Promise<PaginatedResult<DomainUser>> {
     const { page = 1, limit = 20, search } = query;
-    const whereClause = search
-      ? and(isNull(users.deletedAt), like(users.email, `%${search}%`))
-      : isNull(users.deletedAt);
+    const orgId = await this.orgContext.getCurrentOrganizationId();
+    const base = isNull(users.deletedAt);
+    const orgFilter =
+      orgId !== null ? eq(users.organizationId, orgId) : undefined;
+    const searchFilter = search ? like(users.email, `%${search}%`) : undefined;
+    const whereClause = and(base, orgFilter, searchFilter);
 
     const [items, totalRow] = await Promise.all([
       this.db.query.users.findMany({
@@ -138,6 +141,9 @@ export class UserDrizzleRepository implements IUserRepository {
       patch.oauthProvider = data.oauthProvider;
     if (data.oauthSubject !== undefined) patch.oauthSubject = data.oauthSubject;
     if (data.email) patch.email = data.email.toLowerCase();
+    if (data.organizationId !== undefined) {
+      patch.organizationId = data.organizationId;
+    }
 
     await this.db
       .update(users)

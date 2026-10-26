@@ -1,4 +1,3 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { ISiteSettingRepository } from '@domain/site-setting/repositories/site-setting.repository.interface';
 import { DEFAULT_SITE_SETTINGS } from '@domain/site-setting/entities/site-settings.entity';
 import {
@@ -7,7 +6,6 @@ import {
   toSiteSettingsOutput,
   type PublicSiteSettingsOutput,
 } from '../dto/site-settings-output.mapper';
-import { SITE_SETTING_REPOSITORY } from '@shared/constants/tokens';
 
 function defaultPublicSettingsOutput(): PublicSiteSettingsOutput {
   const { security: _security, ...rest } = defaultSettingsOutput();
@@ -39,12 +37,8 @@ function defaultSettingsOutput(): SiteSettingsOutput {
   };
 }
 
-@Injectable()
 export class GetPublicSiteSettingsUseCase {
-  constructor(
-    @Inject(SITE_SETTING_REPOSITORY)
-    private readonly siteSettings: ISiteSettingRepository,
-  ) {}
+  constructor(private readonly siteSettings: ISiteSettingRepository) {}
 
   async execute(): Promise<PublicSiteSettingsOutput> {
     const settings = await this.siteSettings.get();
@@ -55,12 +49,8 @@ export class GetPublicSiteSettingsUseCase {
   }
 }
 
-@Injectable()
 export class GetSiteSettingsUseCase {
-  constructor(
-    @Inject(SITE_SETTING_REPOSITORY)
-    private readonly siteSettings: ISiteSettingRepository,
-  ) {}
+  constructor(private readonly siteSettings: ISiteSettingRepository) {}
 
   async execute(): Promise<SiteSettingsOutput> {
     const settings = await this.siteSettings.get();
@@ -71,12 +61,8 @@ export class GetSiteSettingsUseCase {
   }
 }
 
-@Injectable()
 export class UpdateSiteSettingsUseCase {
-  constructor(
-    @Inject(SITE_SETTING_REPOSITORY)
-    private readonly siteSettings: ISiteSettingRepository,
-  ) {}
+  constructor(private readonly siteSettings: ISiteSettingRepository) {}
 
   async execute(input: {
     hero?: Partial<SiteSettingsOutput['hero']>;

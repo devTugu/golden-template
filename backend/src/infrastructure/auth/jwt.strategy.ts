@@ -11,6 +11,7 @@ import { USER_REPOSITORY, TOKEN_BLACKLIST } from '@shared/constants/tokens';
 interface RawJwtPayload {
   sub: number;
   email: string;
+  organizationId: number;
   type: string;
   jti?: string;
 }
@@ -48,9 +49,17 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       throw new UnauthorizedException('Unable to load user permissions.');
     }
 
+    if (
+      typeof payload.organizationId !== 'number' ||
+      !Number.isFinite(payload.organizationId)
+    ) {
+      throw new UnauthorizedException('Invalid access token organization.');
+    }
+
     return {
       sub: payload.sub,
       email: payload.email,
+      organizationId: payload.organizationId,
       roleNames: context.roleNames,
       permissionCodes: context.permissionCodes,
       type: 'access',

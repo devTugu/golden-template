@@ -24,7 +24,10 @@ describe('VerifyMfaLoginUseCase', () => {
     decryptSecret: jest.fn().mockReturnValue('secret'),
     verifyToken: jest.fn().mockReturnValue(true),
   };
-  const config = { get: jest.fn().mockReturnValue(60) };
+  const runtimeConfig = { getPermissionCacheTtlSec: () => 60 };
+  const activeOrganization = {
+    resolveOrganizationId: jest.fn().mockResolvedValue(1),
+  };
 
   const useCase = new VerifyMfaLoginUseCase(
     users as never,
@@ -32,7 +35,8 @@ describe('VerifyMfaLoginUseCase', () => {
     recordRefresh as never,
     permissionCache as never,
     mfa as never,
-    config as never,
+    runtimeConfig as never,
+    activeOrganization as never,
   );
 
   beforeEach(() => jest.clearAllMocks());

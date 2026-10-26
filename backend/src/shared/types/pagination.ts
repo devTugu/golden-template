@@ -15,6 +15,7 @@ export interface TokenPair {
 export interface JwtPayload {
   sub: number;
   email: string;
+  organizationId: number;
   roleNames: string[];
   permissionCodes: string[];
   type: 'access';

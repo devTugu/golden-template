@@ -44,6 +44,11 @@ import { LOGIN_THROTTLE_OPTIONS } from '../../config/throttle-options';
 import { JwtPayload, TokenPair } from '@shared/types/pagination';
 import { LoginResult } from '@application/auth/dto/login-result';
 import { extractClientRequestMeta } from '../../lib/client-request-meta';
+import {
+  ListMyOrganizationsUseCase,
+  SwitchOrganizationUseCase,
+} from '@application/organization/use-cases/organization.use-cases';
+import { SwitchOrganizationDto } from '../../dto/v1/organization.dto';
 
 @ApiTags('Auth v1')
 @Controller({ path: 'auth', version: '1' })
@@ -61,7 +66,32 @@ export class AuthV1Controller {
     private readonly confirmMfaEnrollWithEnrollmentToken: ConfirmMfaEnrollWithEnrollmentTokenUseCase,
     private readonly getOAuthUrl: GetOAuthAuthorizationUrlUseCase,
     private readonly completeOAuth: CompleteOAuthLoginUseCase,
+    private readonly listMyOrganizations: ListMyOrganizationsUseCase,
+    private readonly switchOrganization: SwitchOrganizationUseCase,
   ) {}
+
+  @Get('organizations')
+  @ApiBearerAuth('access-token')
+  @ApiOperation({ summary: 'Organizations the current user belongs to' })
+  myOrganizations(@CurrentUser() user: JwtPayload) {
+    return this.listMyOrganizations.execute(user.sub);
+  }
+
+  @Post('switch-organization')
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth('access-token')
+  @ApiOperation({ summary: 'Switch active organization (new access token)' })
+  switchOrg(
+    @CurrentUser() user: JwtPayload,
+    @Body() dto: SwitchOrganizationDto,
+    @Req() req: Request,
+  ): Promise<TokenPair> {
+    return this.switchOrganization.execute(
+      user.sub,
+      dto.organizationId,
+      extractClientRequestMeta(req),
+    );
+  }
 
   @Public()
   @Post('login')

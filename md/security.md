@@ -23,6 +23,8 @@ Database seed in production requires explicit admin credentials; default passwor
 
 Permission codes on admin routes (`PermissionsGuard`); Redis cache when enabled.
 
+Access tokens include `organizationId`; admin list endpoints scope users, site settings, and audit logs to that tenant. Switch org via `POST /api/v1/auth/switch-organization` (membership required). Roles and permissions remain global.
+
 ## BFF (frontend)
 
 - httpOnly cookies for tokens — not `localStorage`

@@ -23,6 +23,8 @@ import { SiteSettingPresentationModule } from '@presentation/http/modules/site-s
 import { MediaPresentationModule } from '@presentation/http/modules/media.presentation.module';
 import { DashboardPresentationModule } from '@presentation/http/modules/dashboard.presentation.module';
 import { AuditPresentationModule } from '@presentation/http/modules/audit.presentation.module';
+import { ApplicationLayerModule } from '@presentation/http/modules/application-layer.module';
+import { OrganizationPresentationModule } from '@presentation/http/modules/organization.presentation.module';
 
 @Module({
   imports: [
@@ -56,6 +58,7 @@ import { AuditPresentationModule } from '@presentation/http/modules/audit.presen
       }),
     }),
     InfrastructureModule,
+    ApplicationLayerModule,
     AuthPresentationModule,
     UserPresentationModule,
     AuthorizationPresentationModule,
@@ -63,6 +66,7 @@ import { AuditPresentationModule } from '@presentation/http/modules/audit.presen
     MediaPresentationModule,
     DashboardPresentationModule,
     AuditPresentationModule,
+    OrganizationPresentationModule,
   ],
   providers: [
     { provide: APP_FILTER, useClass: AllExceptionsFilter },

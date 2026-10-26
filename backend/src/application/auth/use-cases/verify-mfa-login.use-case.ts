@@ -1,30 +1,23 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { IUserRepository } from '@domain/user/repositories/user.repository.interface';
 import { ITokenIssuer } from '@application/ports/token-issuer.port';
 import { IPermissionCache } from '@application/ports/permission-cache.port';
 import { IMfaVerifier } from '@application/ports/identity.port';
 import { AppErrors } from '@application/exceptions/application.exception';
 import { TokenPair } from '@shared/types/pagination';
-import {
-  USER_REPOSITORY,
-  TOKEN_ISSUER,
-  PERMISSION_CACHE,
-  MFA_VERIFIER,
-} from '@shared/constants/tokens';
-import { ConfigService } from '@nestjs/config';
+import { IRuntimeConfig } from '@application/ports/runtime-config.port';
 import type { ClientRequestMeta } from '../dto/client-request-meta';
 import { RecordRefreshTokenService } from '../services/record-refresh-token.service';
+import { ActiveOrganizationService } from '../services/active-organization.service';
 
-@Injectable()
 export class VerifyMfaLoginUseCase {
   constructor(
-    @Inject(USER_REPOSITORY) private readonly users: IUserRepository,
-    @Inject(TOKEN_ISSUER) private readonly tokens: ITokenIssuer,
+    private readonly users: IUserRepository,
+    private readonly tokens: ITokenIssuer,
     private readonly recordRefresh: RecordRefreshTokenService,
-    @Inject(PERMISSION_CACHE)
     private readonly permissionCache: IPermissionCache,
-    @Inject(MFA_VERIFIER) private readonly mfa: IMfaVerifier,
-    private readonly config: ConfigService,
+    private readonly mfa: IMfaVerifier,
+    private readonly runtimeConfig: IRuntimeConfig,
+    private readonly activeOrganization: ActiveOrganizationService,
   ) {}
 
   async execute(
@@ -49,14 +42,21 @@ export class VerifyMfaLoginUseCase {
       throw AppErrors.UNAUTHORIZED('Invalid MFA code.');
     }
 
-    const ttl = this.config.get<number>('PERMISSION_CACHE_TTL_SEC', 60);
+    const ttl = this.runtimeConfig.getPermissionCacheTtlSec();
     await this.permissionCache.set(
       user.id,
       { roleNames: user.roleNames, permissionCodes: user.permissionCodes },
       ttl,
     );
 
-    const issued = await this.tokens.issuePair(user.id, user.email);
+    const organizationId = await this.activeOrganization.resolveOrganizationId(
+      user.id,
+    );
+    const issued = await this.tokens.issuePair(
+      user.id,
+      user.email,
+      organizationId,
+    );
     await this.recordRefresh.record(
       user.id,
       issued.refreshToken,

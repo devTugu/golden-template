@@ -1,4 +1,3 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { Email } from '@domain/value-objects/email.vo';
 import { PasswordPolicy } from '@domain/user/value-objects/password-policy.vo';
 import { IUserRepository } from '@domain/user/repositories/user.repository.interface';
@@ -6,13 +5,11 @@ import { IPasswordHasher } from '@application/ports/password-hasher.port';
 import { AppErrors } from '@application/exceptions/application.exception';
 import { CreateUserInput, UserOutput } from '@application/dto/user.dto';
 import { toUserOutput } from '@application/dto/user-output.mapper';
-import { USER_REPOSITORY, PASSWORD_HASHER } from '@shared/constants/tokens';
 
-@Injectable()
 export class CreateUserUseCase {
   constructor(
-    @Inject(USER_REPOSITORY) private readonly users: IUserRepository,
-    @Inject(PASSWORD_HASHER) private readonly hasher: IPasswordHasher,
+    private readonly users: IUserRepository,
+    private readonly hasher: IPasswordHasher,
   ) {}
 
   async execute(input: CreateUserInput): Promise<UserOutput> {

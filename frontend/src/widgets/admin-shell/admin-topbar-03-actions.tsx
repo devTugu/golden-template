@@ -16,6 +16,7 @@ import { getErrorMessage } from '@/shared/api';
 import { toast } from 'sonner';
 import { ThemeToggle } from '@/shared/ui/theme-toggle';
 import { NavUserAvatar } from '@/widgets/app-sidebar/nav-user-dropdown';
+import { OrganizationSwitcher } from '@/features/organizations/ui/OrganizationSwitcher';
 
 const ADMIN_LANGUAGES = [
   {
@@ -65,6 +66,7 @@ export function AdminTopbar03Actions() {
 
   return (
     <div className="flex items-center gap-1.5">
+      <OrganizationSwitcher />
       <NotificationDropdown
         defaultOpen={false}
         align="end"

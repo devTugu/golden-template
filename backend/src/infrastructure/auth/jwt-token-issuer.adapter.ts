@@ -45,7 +45,11 @@ export class JwtTokenIssuerAdapter implements ITokenIssuer {
     private readonly config: ConfigService,
   ) {}
 
-  issuePair(userId: number, email: string): Promise<IssuedTokens> {
+  issuePair(
+    userId: number,
+    email: string,
+    organizationId: number,
+  ): Promise<IssuedTokens> {
     const accessSecret = this.config.getOrThrow<string>('JWT_ACCESS_SECRET');
     const refreshSecret = this.config.getOrThrow<string>('JWT_REFRESH_SECRET');
     const accessExpiresIn = this.parseExpiresIn(
@@ -57,7 +61,7 @@ export class JwtTokenIssuerAdapter implements ITokenIssuer {
 
     const jti = uuidv4();
     const accessToken = this.jwtService.sign(
-      { sub: userId, email, type: 'access', jti },
+      { sub: userId, email, organizationId, type: 'access', jti },
       { secret: accessSecret, expiresIn: accessExpiresIn },
     );
     const refreshToken = this.jwtService.sign(

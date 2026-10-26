@@ -18,7 +18,7 @@ pnpm --filter backend run dev
 | Health | `/api/v1/health/ready` |
 | Swagger | `/api/docs` when `SWAGGER_ENABLED=true` |
 
-**Seed admin:** `admin@default.mn` / `admin123!`
+**Seed admin:** `admin@example.com` / `admin123!`
 
 ## Docs
 

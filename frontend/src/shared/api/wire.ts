@@ -1,6 +1,11 @@
 import type { AxiosRequestConfig } from "axios";
 import { configureApi, createApiClient } from "@default/api";
-import { configureAuthSessionsFetcher, configureMeFetcher } from "@default/hooks";
+import {
+  configureAuthSessionsFetcher,
+  configureMeFetcher,
+  configureSwitchOrganizationFetcher,
+} from "@default/hooks";
+import { bffSwitchOrganization } from "@/shared/lib/bff-auth";
 import { axiosInstance } from "./axiosInstance";
 import type { ApiEnvelope } from "@default/api";
 import { bffMe } from "@/shared/lib/bff-auth";
@@ -36,6 +41,7 @@ async function request<T>(config: {
 
 configureApi(createApiClient(request));
 configureMeFetcher(() => bffMe<UserOutput>());
+configureSwitchOrganizationFetcher(bffSwitchOrganization);
 configureAuthSessionsFetcher({
   list: bffListAuthSessions,
   revoke: bffRevokeAuthSession,

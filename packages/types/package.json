@@ -57,6 +57,12 @@
       "import": "./src/media/index.ts",
       "default": "./src/media/index.ts"
     },
+    "./organization": {
+      "types": "./src/organization/index.ts",
+      "require": "./dist/organization/index.js",
+      "import": "./src/organization/index.ts",
+      "default": "./src/organization/index.ts"
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
@@ -87,6 +93,9 @@
       ],
       "media": [
         "./src/media/index.ts"
+      ],
+      "organization": [
+        "./src/organization/index.ts"
       ]
     }
   },

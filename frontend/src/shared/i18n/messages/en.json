@@ -104,6 +104,7 @@
     "accessControl": "Access control",
     "content": "Content",
     "overview": "Overview",
+    "organizations": "Organizations",
     "users": "Users",
     "roles": "Roles",
     "permissions": "Permissions",
@@ -251,6 +252,7 @@
       "notificationsAccept": "Accept",
       "viewAllNotifications": "See All Notifications",
       "language": "Language",
+      "organization": "Organization",
       "account": "Account"
     },
     "command": {
@@ -400,6 +402,29 @@
       "toastCreated": "Role created",
       "toastUpdated": "Role updated",
       "toastDeleted": "Role deleted"
+    },
+    "organizations": {
+      "pageDescription": "Manage tenant organizations and membership.",
+      "addOrganization": "Add organization",
+      "searchPlaceholder": "Search organizations...",
+      "emptyTitle": "No organizations found",
+      "createTitle": "Create organization",
+      "editTitle": "Edit {name}",
+      "createDescription": "Add a new tenant with a unique slug.",
+      "editDescription": "Update the display name for this organization.",
+      "namePlaceholder": "Acme Corp",
+      "slugPlaceholder": "acme-corp",
+      "toastCreated": "Organization created",
+      "toastUpdated": "Organization updated",
+      "membersTitle": "Members — {name}",
+      "membersDescription": "Users who can switch into this organization.",
+      "membersAction": "Manage members",
+      "memberEmail": "Email",
+      "memberRole": "Role",
+      "selectUser": "Select user",
+      "addMember": "Add member",
+      "memberAdded": "Member added",
+      "membersLoadFailed": "Could not load members."
     },
     "permissions": {
       "pageDescription": "Manage RBAC permission codes used by roles.",

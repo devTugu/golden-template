@@ -1,21 +1,13 @@
-import { Inject, Injectable } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { IRefreshTokenRepository } from '@domain/auth/repositories/refresh-token.repository.interface';
 import { ITokenIssuer } from '@application/ports/token-issuer.port';
 import { ITokenBlacklist } from '@application/ports/token-blacklist.port';
-import {
-  REFRESH_TOKEN_REPOSITORY,
-  TOKEN_ISSUER,
-  TOKEN_BLACKLIST,
-} from '@shared/constants/tokens';
 
-@Injectable()
 export class LogoutUseCase {
   constructor(
-    @Inject(REFRESH_TOKEN_REPOSITORY)
     private readonly refreshTokens: IRefreshTokenRepository,
-    @Inject(TOKEN_ISSUER) private readonly tokens: ITokenIssuer,
-    @Inject(TOKEN_BLACKLIST) private readonly blacklist: ITokenBlacklist,
+    private readonly tokens: ITokenIssuer,
+    private readonly blacklist: ITokenBlacklist,
   ) {}
 
   async execute(

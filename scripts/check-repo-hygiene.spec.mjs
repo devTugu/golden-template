@@ -11,7 +11,13 @@ test("required env examples exist", () => {
   assert.ok(fs.existsSync(path.join(root, "frontend/.env.example")));
 });
 
-test("package repository points at golden-template", () => {
-  const pkg = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
-  assert.match(pkg.repository.url, /golden-template/);
+test("workspace package.json repository urls align", () => {
+  const rootPkg = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
+  const rootUrl = rootPkg.repository.url;
+  for (const rel of ["backend/package.json", "frontend/package.json"]) {
+    const pkg = JSON.parse(fs.readFileSync(path.join(root, rel), "utf8"));
+    assert.equal(pkg.repository.url, rootUrl);
+    assert.equal(pkg.version, rootPkg.version);
+    assert.equal(pkg.private, true);
+  }
 });

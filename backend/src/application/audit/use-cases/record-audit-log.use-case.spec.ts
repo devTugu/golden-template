@@ -1,9 +1,8 @@
-import { Logger } from '@nestjs/common';
 import { RecordAuditLogUseCase } from './record-audit-log.use-case';
 
 describe('RecordAuditLogUseCase', () => {
   it('swallows repository errors', async () => {
-    const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation();
+    const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => {});
     const auditLogs = {
       save: jest.fn().mockRejectedValue(new Error('db down')),
       findAll: jest.fn(),

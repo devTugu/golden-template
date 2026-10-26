@@ -43,6 +43,7 @@ export class UserMapper {
       [...new Set(permissionCodes)],
       entity.mfaEnabled,
       entity.oauthProvider,
+      entity.organizationId ?? null,
     );
   }
 }

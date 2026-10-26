@@ -1,4 +1,3 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { IUserRepository } from '@domain/user/repositories/user.repository.interface';
 import { IOAuthIdentityProvider } from '@application/ports/identity.port';
 import { ITokenIssuer } from '@application/ports/token-issuer.port';
@@ -7,23 +6,14 @@ import { IPasswordHasher } from '@application/ports/password-hasher.port';
 import { AppErrors } from '@application/exceptions/application.exception';
 import { LoginResult } from '../dto/login-result';
 import { roleRequiresMfa } from '../lib/mfa-required-roles';
+import { IRuntimeConfig } from '@application/ports/runtime-config.port';
 import { MfaPolicyService } from '../services/mfa-policy.service';
-import {
-  USER_REPOSITORY,
-  OAUTH_IDENTITY,
-  TOKEN_ISSUER,
-  PERMISSION_CACHE,
-  PASSWORD_HASHER,
-} from '@shared/constants/tokens';
-import { ConfigService } from '@nestjs/config';
 import type { ClientRequestMeta } from '../dto/client-request-meta';
 import { RecordRefreshTokenService } from '../services/record-refresh-token.service';
+import { ActiveOrganizationService } from '../services/active-organization.service';
 
-@Injectable()
 export class GetOAuthAuthorizationUrlUseCase {
-  constructor(
-    @Inject(OAUTH_IDENTITY) private readonly oauth: IOAuthIdentityProvider,
-  ) {}
+  constructor(private readonly oauth: IOAuthIdentityProvider) {}
 
   async execute(state: string): Promise<{ url: string }> {
     if (!this.oauth.isEnabled()) {
@@ -34,18 +24,17 @@ export class GetOAuthAuthorizationUrlUseCase {
   }
 }
 
-@Injectable()
 export class CompleteOAuthLoginUseCase {
   constructor(
-    @Inject(OAUTH_IDENTITY) private readonly oauth: IOAuthIdentityProvider,
-    @Inject(USER_REPOSITORY) private readonly users: IUserRepository,
-    @Inject(TOKEN_ISSUER) private readonly tokens: ITokenIssuer,
+    private readonly oauth: IOAuthIdentityProvider,
+    private readonly users: IUserRepository,
+    private readonly tokens: ITokenIssuer,
     private readonly recordRefresh: RecordRefreshTokenService,
-    @Inject(PERMISSION_CACHE)
     private readonly permissionCache: IPermissionCache,
-    @Inject(PASSWORD_HASHER) private readonly hasher: IPasswordHasher,
-    private readonly config: ConfigService,
+    private readonly hasher: IPasswordHasher,
+    private readonly runtimeConfig: IRuntimeConfig,
     private readonly mfaPolicy: MfaPolicyService,
+    private readonly activeOrganization: ActiveOrganizationService,
   ) {}
 
   async execute(
@@ -96,7 +85,7 @@ export class CompleteOAuthLoginUseCase {
       return { requiresMfaEnrollment: true, enrollmentToken };
     }
 
-    const ttl = this.config.get<number>('PERMISSION_CACHE_TTL_SEC', 60);
+    const ttl = this.runtimeConfig.getPermissionCacheTtlSec();
     await this.permissionCache.set(
       authUser.id,
       {
@@ -106,7 +95,14 @@ export class CompleteOAuthLoginUseCase {
       ttl,
     );
 
-    const issued = await this.tokens.issuePair(authUser.id, authUser.email);
+    const organizationId = await this.activeOrganization.resolveOrganizationId(
+      authUser.id,
+    );
+    const issued = await this.tokens.issuePair(
+      authUser.id,
+      authUser.email,
+      organizationId,
+    );
     await this.recordRefresh.record(
       authUser.id,
       issued.refreshToken,

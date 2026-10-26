@@ -17,6 +17,7 @@ export const ROUTES = {
   PERMISSIONS: '/dashboard/permissions',
   SITE_SETTINGS: '/dashboard/site-settings',
   AUDIT_LOGS: '/dashboard/audit-logs',
+  ORGANIZATIONS: '/dashboard/organizations',
   /** Audit logs live under site settings (legacy `/audit-logs` redirects here). */
   SITE_SETTINGS_AUDIT: '/dashboard/site-settings?tab=audit',
 } as const;

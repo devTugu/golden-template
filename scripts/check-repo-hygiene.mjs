@@ -96,16 +96,57 @@ function normalizeGitUrl(url) {
   return trimmed;
 }
 
+const WORKSPACE_PACKAGE_JSON = [
+  "package.json",
+  "backend/package.json",
+  "frontend/package.json",
+];
+
+function readPkg(rel) {
+  return JSON.parse(fs.readFileSync(path.join(root, rel), "utf8"));
+}
+
 function assertRepositoryUrl() {
-  const pkg = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
   const expected = execSync("git remote get-url origin", {
     cwd: root,
     encoding: "utf8",
   }).trim();
-  const declared = normalizeGitUrl(pkg.repository?.url ?? "");
   const normalizedExpected = normalizeGitUrl(expected);
-  if (declared !== normalizedExpected) {
-    fail(`package.json repository.url (${declared}) != origin (${normalizedExpected})`);
+  const rootPkg = readPkg("package.json");
+  const rootDeclared = normalizeGitUrl(rootPkg.repository?.url ?? "");
+  if (rootDeclared !== normalizedExpected) {
+    fail(
+      `package.json repository.url (${rootDeclared}) != origin (${normalizedExpected})`,
+    );
+  }
+  for (const rel of WORKSPACE_PACKAGE_JSON.slice(1)) {
+    const pkg = readPkg(rel);
+    const declared = normalizeGitUrl(pkg.repository?.url ?? "");
+    if (declared !== rootDeclared) {
+      fail(`${rel} repository.url (${declared}) != root (${rootDeclared})`);
+    }
+  }
+}
+
+function assertWorkspaceVersions() {
+  const rootVersion = readPkg("package.json").version;
+  if (!rootVersion) {
+    fail("root package.json missing version");
+  }
+  for (const rel of WORKSPACE_PACKAGE_JSON.slice(1)) {
+    const version = readPkg(rel).version;
+    if (version !== rootVersion) {
+      fail(`${rel} version (${version}) != root (${rootVersion})`);
+    }
+  }
+}
+
+function assertWorkspacePrivateApps() {
+  for (const rel of ["backend/package.json", "frontend/package.json"]) {
+    const pkg = readPkg(rel);
+    if (pkg.private !== true) {
+      fail(`${rel} must set "private": true`);
+    }
   }
 }
 
@@ -115,4 +156,6 @@ assertEnvExamples();
 assertNoTsNocheck();
 assertNoDefaultPasswordsInCode(files);
 assertRepositoryUrl();
+assertWorkspaceVersions();
+assertWorkspacePrivateApps();
 console.log("check-repo-hygiene: ok");

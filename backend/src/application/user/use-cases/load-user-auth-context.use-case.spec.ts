@@ -3,11 +3,11 @@ import { LoadUserAuthContextUseCase } from './load-user-auth-context.use-case';
 describe('LoadUserAuthContextUseCase', () => {
   const users = { findById: jest.fn() };
   const cache = { get: jest.fn(), set: jest.fn() };
-  const config = { get: jest.fn().mockReturnValue(60) };
+  const runtimeConfig = { getPermissionCacheTtlSec: () => 60 };
   const useCase = new LoadUserAuthContextUseCase(
     users as never,
     cache as never,
-    config as never,
+    runtimeConfig as never,
   );
 
   beforeEach(() => jest.clearAllMocks());

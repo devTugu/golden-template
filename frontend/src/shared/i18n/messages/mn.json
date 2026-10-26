@@ -104,6 +104,7 @@
     "accessControl": "Хандалтын удирдлага",
     "content": "Агуулга",
     "overview": "Тойм",
+    "organizations": "Байгууллага",
     "users": "Хэрэглэгчид",
     "roles": "Эрхийн бүлэг",
     "permissions": "Эрхүүд",
@@ -251,6 +252,7 @@
       "notificationsAccept": "Зөвшөөрөх",
       "viewAllNotifications": "Бүх мэдэгдэл",
       "language": "Хэл",
+      "organization": "Байгууллага",
       "account": "Бүртгэл"
     },
     "command": {
@@ -400,6 +402,29 @@
       "toastCreated": "Эрхийн бүлэг үүслээ",
       "toastUpdated": "Эрхийн бүлэг шинэчлэгдлээ",
       "toastDeleted": "Эрхийн бүлэг устгагдлаа"
+    },
+    "organizations": {
+      "pageDescription": "Тenant байгууллага болон гишүүдийг удирдана.",
+      "addOrganization": "Байгууллага нэмэх",
+      "searchPlaceholder": "Байгууллага хайх...",
+      "emptyTitle": "Байгууллага олдсонгүй",
+      "createTitle": "Байгууллага үүсгэх",
+      "editTitle": "{name} засах",
+      "createDescription": "Slug давхцахгүй шинэ tenant нэмнэ.",
+      "editDescription": "Байгууллагын нэрийг шинэчилнэ.",
+      "namePlaceholder": "Жишээ ХХК",
+      "slugPlaceholder": "jishee-hhk",
+      "toastCreated": "Байгууллага үүслээ",
+      "toastUpdated": "Байгууллага шинэчлэгдлээ",
+      "membersTitle": "Гишүүд — {name}",
+      "membersDescription": "Энэ байгууллагад шилжих эрхтэй хэрэглэгчид.",
+      "membersAction": "Гишүүд удирдах",
+      "memberEmail": "Имэйл",
+      "memberRole": "Эрх",
+      "selectUser": "Хэрэглэгч сонгох",
+      "addMember": "Гишүүн нэмэх",
+      "memberAdded": "Гишүүн нэмэгдлээ",
+      "membersLoadFailed": "Гишүүдийг ачаалж чадсангүй."
     },
     "permissions": {
       "pageDescription": "RBAC эрхийн кодуудыг удирдана.",

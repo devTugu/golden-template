@@ -1,16 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { DEFAULT_SITE_SETTINGS } from '@domain/site-setting/entities/site-settings.entity';
 import { ISiteSettingRepository } from '@domain/site-setting/repositories/site-setting.repository.interface';
-import { SITE_SETTING_REPOSITORY } from '@shared/constants/tokens';
+import { IRuntimeConfig } from '@application/ports/runtime-config.port';
 import { resolveMfaRequiredRolesFromPolicy } from '../lib/mfa-required-roles';
 
-@Injectable()
 export class MfaPolicyService {
   constructor(
-    @Inject(SITE_SETTING_REPOSITORY)
     private readonly siteSettings: ISiteSettingRepository,
-    private readonly config: ConfigService,
+    private readonly runtimeConfig: IRuntimeConfig,
   ) {}
 
   async getRequiredRoles(): Promise<string[]> {
@@ -20,7 +16,7 @@ export class MfaPolicyService {
       DEFAULT_SITE_SETTINGS.security.enforcePrivilegedMfa;
     return resolveMfaRequiredRolesFromPolicy(
       enforce,
-      this.config.get<string>('MFA_REQUIRED_ROLES'),
+      this.runtimeConfig.getMfaRequiredRolesRaw(),
     );
   }
 }

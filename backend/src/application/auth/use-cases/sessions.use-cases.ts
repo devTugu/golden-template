@@ -1,9 +1,7 @@
-import { Inject, Injectable } from '@nestjs/common';
 import { normalizeClientIpAddress } from '@default/utils/client-ip';
 import { deviceLabelFromUserAgent } from '@default/utils/user-agent';
 import { IRefreshTokenRepository } from '@domain/auth/repositories/refresh-token.repository.interface';
 import { AppErrors } from '@application/exceptions/application.exception';
-import { REFRESH_TOKEN_REPOSITORY } from '@shared/constants/tokens';
 import { RecordRefreshTokenService } from '../services/record-refresh-token.service';
 
 export interface AuthSessionOutput {
@@ -21,10 +19,8 @@ export interface AuthSessionsListOutput {
   items: AuthSessionOutput[];
 }
 
-@Injectable()
 export class ListAuthSessionsUseCase {
   constructor(
-    @Inject(REFRESH_TOKEN_REPOSITORY)
     private readonly refreshTokens: IRefreshTokenRepository,
     private readonly recordRefresh: RecordRefreshTokenService,
   ) {}
@@ -53,12 +49,8 @@ export class ListAuthSessionsUseCase {
   }
 }
 
-@Injectable()
 export class RevokeAuthSessionUseCase {
-  constructor(
-    @Inject(REFRESH_TOKEN_REPOSITORY)
-    private readonly refreshTokens: IRefreshTokenRepository,
-  ) {}
+  constructor(private readonly refreshTokens: IRefreshTokenRepository) {}
 
   async execute(userId: number, sessionId: number): Promise<void> {
     const revoked = await this.refreshTokens.revokeByIdForUser(
@@ -71,10 +63,8 @@ export class RevokeAuthSessionUseCase {
   }
 }
 
-@Injectable()
 export class RevokeOtherAuthSessionsUseCase {
   constructor(
-    @Inject(REFRESH_TOKEN_REPOSITORY)
     private readonly refreshTokens: IRefreshTokenRepository,
     private readonly recordRefresh: RecordRefreshTokenService,
   ) {}

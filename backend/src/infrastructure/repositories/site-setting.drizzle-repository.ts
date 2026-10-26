@@ -17,8 +17,6 @@ import {
 import { siteSettings } from '../database/drizzle/schema';
 import { SiteSettingMapper } from '../database/drizzle/mappers/site-setting.mapper';
 
-const SINGLETON_ID = 1;
-
 @Injectable()
 export class SiteSettingDrizzleRepository implements ISiteSettingRepository {
   constructor(
@@ -28,19 +26,27 @@ export class SiteSettingDrizzleRepository implements ISiteSettingRepository {
   ) {}
 
   async get(): Promise<SiteSettings | null> {
+    const organizationId = await this.orgContext.getCurrentOrganizationId();
+    if (organizationId === null) {
+      return null;
+    }
     const entity = await this.db.query.siteSettings.findFirst({
-      where: eq(siteSettings.id, SINGLETON_ID),
+      where: eq(siteSettings.organizationId, organizationId),
     });
     return entity ? SiteSettingMapper.toDomain(entity) : null;
   }
 
   async upsert(data: UpdateSiteSettingsData): Promise<SiteSettings> {
-    const existing = await this.db.query.siteSettings.findFirst({
-      where: eq(siteSettings.id, SINGLETON_ID),
-    });
+    const organizationId = await this.orgContext.getCurrentOrganizationId();
+    const existing =
+      organizationId !== null
+        ? await this.db.query.siteSettings.findFirst({
+            where: eq(siteSettings.organizationId, organizationId),
+          })
+        : null;
 
     const base = existing ?? {
-      id: SINGLETON_ID,
+      id: organizationId ?? DEFAULT_SITE_SETTINGS.id,
       hero: { ...DEFAULT_SITE_SETTINGS.hero },
       header: { ...DEFAULT_SITE_SETTINGS.header },
       footer: {
@@ -59,14 +65,26 @@ export class SiteSettingDrizzleRepository implements ISiteSettingRepository {
         stats: [...DEFAULT_SITE_SETTINGS.about.stats],
       },
       security: { ...DEFAULT_SITE_SETTINGS.security },
-      updatedAt: new Date(),
     };
 
     const next = {
       hero: data.hero ? { ...base.hero, ...data.hero } : base.hero,
       header: data.header ? { ...base.header, ...data.header } : base.header,
-      footer: data.footer ? { ...base.footer, ...data.footer } : base.footer,
-      seo: data.seo ? { ...base.seo, ...data.seo } : base.seo,
+      footer: data.footer
+        ? {
+            ...base.footer,
+            ...data.footer,
+            socialLinks:
+              data.footer.socialLinks ?? base.footer.socialLinks ?? [],
+          }
+        : base.footer,
+      seo: data.seo
+        ? {
+            ...base.seo,
+            ...data.seo,
+            keywords: data.seo.keywords ?? base.seo.keywords ?? {},
+          }
+        : base.seo,
       contactInfo: data.contactInfo
         ? { ...base.contactInfo, ...data.contactInfo }
         : base.contactInfo,
@@ -84,8 +102,6 @@ export class SiteSettingDrizzleRepository implements ISiteSettingRepository {
         : base.security,
     };
 
-    const organizationId = await this.orgContext.getCurrentOrganizationId();
-
     if (existing) {
       await this.db
         .update(siteSettings)
@@ -93,13 +109,14 @@ export class SiteSettingDrizzleRepository implements ISiteSettingRepository {
           ...next,
           organizationId: organizationId ?? existing.organizationId,
         })
-        .where(eq(siteSettings.id, SINGLETON_ID));
+        .where(eq(siteSettings.id, existing.id));
     } else {
+      const rowId = organizationId ?? DEFAULT_SITE_SETTINGS.id;
       await this.db.insert(siteSettings).values({
-        id: SINGLETON_ID,
+        id: rowId,
         organizationId: organizationId ?? null,
         ...next,
-      });
+      } as typeof siteSettings.$inferInsert);
     }
 
     const saved = await this.get();

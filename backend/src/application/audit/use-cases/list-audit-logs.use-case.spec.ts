@@ -29,9 +29,14 @@ describe('ListAuditLogsUseCase', () => {
       execute: jest.fn().mockResolvedValue(undefined),
     };
 
+    const orgContext = {
+      getCurrentOrganizationId: jest.fn().mockResolvedValue(1),
+    };
+
     const useCase = new ListAuditLogsUseCase(
       auditLogs,
       recordAuditLog as unknown as RecordAuditLogUseCase,
+      orgContext,
     );
 
     await useCase.execute({ page: 1, limit: 20 }, 42);

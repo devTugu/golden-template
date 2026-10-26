@@ -35,9 +35,9 @@ if (!seedGuard.ok) {
 
 const useSsl = process.env.DB_SSL === 'true';
 
-const ADMIN_EMAIL = process.env.SEED_ADMIN_EMAIL ?? 'admin@default.mn';
+const ADMIN_EMAIL = process.env.SEED_ADMIN_EMAIL ?? 'admin@example.com';
 const ADMIN_PASSWORD = process.env.SEED_ADMIN_PASSWORD ?? 'admin123!';
-const VIEWER_EMAIL = process.env.SEED_VIEWER_EMAIL ?? 'viewer@default.mn';
+const VIEWER_EMAIL = process.env.SEED_VIEWER_EMAIL ?? 'viewer@example.com';
 const VIEWER_PASSWORD = process.env.SEED_VIEWER_PASSWORD ?? 'viewer123!';
 const DEFAULT_ORG_SLUG = process.env.ORGANIZATION_DEFAULT_SLUG ?? 'default';
 

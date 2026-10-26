@@ -14,6 +14,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@default/ui/primitives/sheet";
+import { resolveEnvBrandName } from "@/shared/config/brand";
+import { env } from "@/shared/config/env";
 import { DOCS_PRIMARY_NAV } from "../docs-primary-nav";
 type DocsHeaderProps = {
   /** Sidebar toggle + mobile nav (rendered beside logo). */
@@ -33,6 +35,8 @@ function activePrimaryNav(pathname: string, label: string): boolean {
 export function DocsHeader({ sidebarControl }: DocsHeaderProps) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const brandName = resolveEnvBrandName();
+  const githubUrl = env.REPOSITORY_URL;
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -46,7 +50,7 @@ export function DocsHeader({ sidebarControl }: DocsHeaderProps) {
               className="absolute -left-1 size-7 rounded-full bg-primary opacity-90"
             />
             <span className="relative text-lg font-semibold tracking-tight">
-              default<span className="text-muted-foreground">.</span>
+              {brandName}
             </span>
           </span>
           </Link>
@@ -54,11 +58,13 @@ export function DocsHeader({ sidebarControl }: DocsHeaderProps) {
 
         <div className="flex items-center gap-1 sm:gap-2">
           <ThemeToggle className="size-9" />
-          <Button variant="ghost" size="icon-sm" asChild>
-            <Link href="https://github.com/devTugu/default" aria-label="GitHub">
-              <Github className="size-4" />
-            </Link>
-          </Button>
+          {githubUrl ? (
+            <Button variant="ghost" size="icon-sm" asChild>
+              <Link href={githubUrl} aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                <Github className="size-4" />
+              </Link>
+            </Button>
+          ) : null}
           <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon-sm" className="md:hidden" aria-label="Menu">

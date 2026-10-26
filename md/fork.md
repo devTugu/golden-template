@@ -33,6 +33,8 @@ pnpm fork:rename-scope -- --scope @acme          # dry-run
 pnpm fork:rename-scope -- --scope @acme --apply  # rename @default → @acme
 ```
 
+After fork, align **repository metadata** in all three manifests: root [`package.json`](../package.json), [`backend/package.json`](../backend/package.json), and [`frontend/package.json`](../frontend/package.json) — same `repository.url`, `version`, and `"private": true` on the apps. `pnpm check:hygiene` enforces this against `git remote origin`.
+
 ## Branding
 
 | Variable | Purpose |
@@ -42,6 +44,7 @@ pnpm fork:rename-scope -- --scope @acme --apply  # rename @default → @acme
 | `NEXT_PUBLIC_APP_NAME` | Admin title |
 | `NEXT_PUBLIC_BRAND_NAME` | Fallback brand |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URL |
+| `NEXT_PUBLIC_REPOSITORY_URL` | Optional `/docs` GitHub + issue links (omit to hide) |
 | `API_INTERNAL_URL` | Server-only Nest base (`…/api/v1`) — required in prod |
 | `NEXT_SERVER_MODE` | `dev` \| `prod` — `/docs` catalog in dev only |
 
@@ -89,7 +92,7 @@ Constants: `frontend/src/shared/config/routes.ts`.
 Data flow: `@default/types` → `@default/api` → `@default/hooks` → UI. No raw Nest `fetch` in features.
 
 **Included:** auth, MFA/OIDC, users/roles/permissions, site-settings, media, dashboard, audit log read.  
-**Not included:** billing, multi-org UI, feature flags, full CMS.
+**Not included:** billing, feature flags, full CMS. **Included:** multi-org admin (organizations, membership, JWT active org).
 
 ## Production checklist
 
