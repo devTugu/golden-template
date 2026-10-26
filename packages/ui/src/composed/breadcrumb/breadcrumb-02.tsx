@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { HomeIcon } from 'lucide-react'
 import { Breadcrumb,BreadcrumbItem,BreadcrumbLink,BreadcrumbList,BreadcrumbPage,BreadcrumbSeparator } from '@default/ui/primitives/breadcrumb'
 

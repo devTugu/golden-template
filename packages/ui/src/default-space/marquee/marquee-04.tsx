@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Card } from "@default/ui/primitives/card";
 import { Marquee } from "../animations/marquee";
 

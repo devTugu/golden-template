@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { Button } from "@default/ui/primitives/button";
@@ -25,7 +24,7 @@ export default function Header() {
             className="hidden h-4! sm:block self-center!"
           />
           <div className="hidden lg:flex items-center justify-between">
-            <NavigationMenu viewport={false}>
+            <NavigationMenu>
               <NavigationMenuList className="flex gap-1">
                 {(NavData as NavGroup[]).map((item) => {
                   if (item.type === "dropdown" && item.items) {

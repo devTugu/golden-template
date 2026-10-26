@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Navbar from "./index";
 
 const page = () => {

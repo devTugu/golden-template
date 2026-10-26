@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useId } from 'react'
 import { Label } from "@default/ui/primitives/label"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue } from "@default/ui/primitives/select"

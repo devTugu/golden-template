@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { Check, User, FileText, CheckCircle2, type LucideIcon } from "lucide-react";
 import { cn } from "@default/ui/lib/cn";
 import { Button } from "@default/ui/primitives/button";
@@ -71,7 +71,7 @@ export default function StepperDemo() {
           animate={{
             scaleX: activeStep / (steps.length - 1),
           }}
-          transition={{ type: "spring", stiffness: 100, damping: 20 }}
+          transition={{ type: "spring" as const, stiffness: 100, damping: 20 }}
         />
 
         {steps.map((step, idx) => {
@@ -94,7 +94,7 @@ export default function StepperDemo() {
                 animate={{
                   scale: isActive ? 1.05 : 1,
                 }}
-                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                transition={{ type: "spring" as const, stiffness: 300, damping: 15 }}
               >
                 {isCompleted ? (
                   <Check className="w-5 h-5" strokeWidth={2.5} />

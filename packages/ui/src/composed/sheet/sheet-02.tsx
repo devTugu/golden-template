@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { Button } from "@default/ui/primitives/button"
@@ -22,7 +21,7 @@ const SheetWithScrollableContentDemo = () => {
 Scrollable Content
 </Button>
 </SheetTrigger>
-      <SheetContent initialFocus={false}>
+      <SheetContent>
         <ScrollArea className='h-full'>
           <SheetHeader>
             <SheetTitle>Terms &amp; Conditions</SheetTitle>

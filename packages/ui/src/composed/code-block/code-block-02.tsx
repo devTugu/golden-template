@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { CodeBlock } from "@default/ui/primitives/code-block";

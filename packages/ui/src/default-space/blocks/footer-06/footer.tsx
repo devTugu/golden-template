@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 import { Button } from "@default/ui/primitives/button";
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { cn } from "@default/ui/lib/cn";
 import Logo from "../../assets/logo/logo";
 import { Avatar, AvatarFallback, AvatarImage } from "@default/ui/primitives/avatar";
@@ -134,7 +134,7 @@ const Footer = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}
-      variants={containerVariants}
+      variants={containerVariants as unknown as Variants}
     >
       <div className="max-w-7xl mx-auto px-4 lg:px-8 xl:px-16">
         <div className="border-x border-border px-5 md:px-8 py-8 overflow-hidden" />
@@ -144,7 +144,7 @@ const Footer = () => {
           <div className="border-x border-border overflow-hidden">
             <div className="grid grid-cols-1 md:grid-cols-2">
               <motion.div
-                variants={itemVariants}
+                variants={itemVariants as unknown as Variants}
                 className="flex flex-col gap-12 p-6 lg:p-12 border-b md:border-b-0 md:border-r border-border"
               >
                 <h2 className="text-4xl lg:text-5xl xl:text-6xl font-medium text-foreground">
@@ -155,7 +155,7 @@ const Footer = () => {
                 </p>
               </motion.div>
               <div className="flex flex-col justify-between">
-                <motion.div variants={itemVariants} className="p-6 lg:p-12">
+                <motion.div variants={itemVariants as unknown as Variants} className="p-6 lg:p-12">
                   <div className="flex flex-col gap-10">
                     <div className="flex flex-wrap items-center gap-6">
                       <div className="relative flex items-center">
@@ -245,7 +245,7 @@ const Footer = () => {
                   </div>
                 </motion.div>
                 <motion.div
-                  variants={itemVariants}
+                  variants={itemVariants as unknown as Variants}
                   className="grid grid-cols-4 min-h-20 border-t border-border"
                 >
                   {socialLinks.map((link, index) => (
@@ -265,7 +265,7 @@ const Footer = () => {
               </div>
             </div>
             <motion.div
-              variants={itemVariants}
+              variants={itemVariants as unknown as Variants}
               className="border-t border-border flex flex-col md:flex-row items-center justify-between gap-1 px-6 lg:px-12 py-8"
             >
               <a href="#">

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useId } from 'react'
 import { Textarea } from "@default/ui/primitives/textarea"
 

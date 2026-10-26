@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client"
 import { Icon } from '@iconify/react';
 import { Card, CardContent } from "@default/ui/primitives/card";

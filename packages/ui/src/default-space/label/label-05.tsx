@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Label } from "@default/ui/primitives/label"
 import { Switch } from "@default/ui/primitives/switch"
 

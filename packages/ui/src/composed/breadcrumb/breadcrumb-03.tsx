@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { ChevronLeft, ChevronRight, CircleUserRound, DotIcon, HomeIcon, Settings } from 'lucide-react'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@default/ui/primitives/breadcrumb'
 

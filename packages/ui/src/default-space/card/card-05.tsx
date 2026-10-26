@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Badge } from "@default/ui/primitives/badge";
 import { Card, CardContent } from "@default/ui/primitives/card";
 import { Separator } from "@default/ui/primitives/separator";

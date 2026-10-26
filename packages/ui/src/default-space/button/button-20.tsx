@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { Heart } from "lucide-react";
 import { cn } from "@default/ui/lib/cn";
 
@@ -81,7 +81,7 @@ export default function AnimatedLikeButton() {
         onClick={handleClick}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.93 }}
-        transition={{ type: "spring", stiffness: 380, damping: 22 }}
+        transition={{ type: "spring" as const, stiffness: 380, damping: 22 }}
         className="relative overflow-hidden inline-flex items-center gap-3 px-4 py-2 rounded-full border border-border bg-background text-sm font-medium select-none cursor-pointer"
       >
         {/* Ripple */}

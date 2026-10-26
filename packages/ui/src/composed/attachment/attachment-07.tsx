@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { CheckCircle2, X } from "lucide-react";
 import {
   Attachment,

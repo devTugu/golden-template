@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client"
 import * as React from "react"
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail } from "@default/ui/primitives/sidebar"

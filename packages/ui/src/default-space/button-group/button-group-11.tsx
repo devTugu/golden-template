@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
@@ -7,6 +6,7 @@ import { Button } from "@default/ui/primitives/button";
 import { ButtonGroup } from "@default/ui/primitives/button-group";
 import { Code2Icon, GlobeIcon, TestTube2Icon } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 
 const devVariants = {
   active: {
@@ -143,8 +143,7 @@ const EnvironmentButtonGroup = () => {
               <motion.span
                 layoutId="active-env-bg"
                 className="absolute inset-0 bg-primary"
-                transition={{
-                  type: "spring",
+                transition={{ type: "spring" as const,
                   stiffness: 350,
                   damping: 28,
                 }}
@@ -154,7 +153,7 @@ const EnvironmentButtonGroup = () => {
             <span className="relative z-10 flex items-center gap-1.5">
               <motion.span
                 className="inline-flex items-center justify-center"
-                variants={env.variants}
+                variants={env.variants as unknown as Variants}
                 animate={isActive ? "active" : "inactive"}
                 whileHover="hover"
               >

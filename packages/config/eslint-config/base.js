@@ -25,6 +25,15 @@ export default [
         "warn",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        {
+          "ts-nocheck": true,
+          "ts-ignore": true,
+          "ts-expect-error": "allow-with-description",
+          minimumDescriptionLength: 10,
+        },
+      ],
     },
   },
 ];

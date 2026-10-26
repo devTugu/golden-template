@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import {
   KeyboardIcon,
   LayoutDashboardIcon,
@@ -88,8 +88,7 @@ const PopoverFeatureTourDemo = () => {
             <motion.span
               initial={{ scale: 0.6, rotate: -20, opacity: 0 }}
               animate={{ scale: 1, rotate: 0, opacity: 1 }}
-              transition={{
-                type: "spring",
+              transition={{ type: "spring" as const,
                 stiffness: 260,
                 damping: 18,
                 delay: 0.05,
@@ -118,7 +117,7 @@ const PopoverFeatureTourDemo = () => {
                   backgroundColor:
                     index === step ? "var(--primary)" : "var(--muted)",
                 }}
-                transition={{ type: "spring", stiffness: 300, damping: 24 }}
+                transition={{ type: "spring" as const, stiffness: 300, damping: 24 }}
               />
             ))}
           </div>

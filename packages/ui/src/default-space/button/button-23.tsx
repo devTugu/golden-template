@@ -1,9 +1,9 @@
-// @ts-nocheck
 "use client";
 
 import { Button } from "@default/ui/primitives/button";
 import { ShieldXIcon, ShieldCheckIcon } from "lucide-react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 
 const MotionButton = motion.create(Button);
 const MotionShieldXIcon = motion.create(ShieldXIcon);
@@ -48,7 +48,7 @@ const PermissionsButtonDemo = () => {
         }}
       >
         Reject
-        <MotionShieldXIcon variants={rejectIconVariants} />
+        <MotionShieldXIcon variants={rejectIconVariants as unknown as Variants} />
       </MotionButton>
       <MotionButton
         className="cursor-pointer bg-teal-400/10 text-teal-400 hover:bg-teal-400/20 focus-visible:border-teal-400/40"
@@ -61,7 +61,7 @@ const PermissionsButtonDemo = () => {
         }}
       >
         Approve
-        <MotionShieldCheckIcon variants={approveIconVariants} />
+        <MotionShieldCheckIcon variants={approveIconVariants as unknown as Variants} />
       </MotionButton>
     </div>
   );

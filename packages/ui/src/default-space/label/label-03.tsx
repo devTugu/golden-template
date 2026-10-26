@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useId } from 'react'
 import { Badge } from "@default/ui/primitives/badge"
 import { Input } from "@default/ui/primitives/input"

@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import * as React from "react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import {
   Pagination,
   PaginationContent,
@@ -57,7 +57,7 @@ export default function FloatingPill() {
                   <motion.div
                     layoutId="pill-active"
                     className="absolute inset-0 bg-primary rounded-full shadow-md"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    transition={{ type: "spring" as const, bounce: 0.2, duration: 0.6 }}
                   />
                 )}
               </PaginationItem>

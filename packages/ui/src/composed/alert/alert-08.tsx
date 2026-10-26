@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { InfoIcon, XIcon } from "lucide-react";
 import {
   Alert,
@@ -45,7 +45,7 @@ const AlertEvaporateDemo = ({
               filter: "blur(6px)",
               transition: { duration: 0.6, ease: "easeOut" },
             }}
-            transition={{ type: "spring", stiffness: 400, damping: 32 }}
+            transition={{ type: "spring" as const, stiffness: 400, damping: 32 }}
             className="relative"
           >
             {VAPOR.map((dot, i) => (

@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { Button } from "@default/ui/primitives/button";
 import {
   Card,
@@ -92,7 +92,7 @@ const TokenUsageDemo = ({
             <motion.div
               initial="closed"
               animate={isOpen ? "open" : "closed"}
-              variants={contentVariants}
+              variants={contentVariants as unknown as Variants}
               style={{ overflow: "hidden" }}
             >
               <div className="flex flex-col gap-2.5 pt-2">

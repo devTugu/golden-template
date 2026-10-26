@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
@@ -136,7 +135,7 @@ export const StackRipple = ({ stackCardItems = stackItems }: StackRippleProps) =
         })}
 
         <motion.div
-          variants={buttonVariant}
+          variants={buttonVariant as unknown as Variants}
           animate={isOpen ? "open" : "close"}
           initial="close"
           style={{ top: 168 }}
@@ -162,7 +161,7 @@ export const StackRipple = ({ stackCardItems = stackItems }: StackRippleProps) =
             </AnimatePresence>
 
             <motion.span
-              variants={iconVariant}
+              variants={iconVariant as unknown as Variants}
               animate={isOpen ? "open" : "close"}
               initial="close"
               className="text-foreground/80 flex items-center"

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Avatar, AvatarFallback, AvatarImage } from "@default/ui/primitives/avatar";
 import { Badge } from "@default/ui/primitives/badge";
 

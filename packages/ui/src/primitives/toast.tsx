@@ -510,7 +510,7 @@ function ToastCard({
       initial={{ opacity: 0, x: enterX, y: enterY, scale: scale * 0.95 }}
       animate={{ opacity: hidden ? 0 : 1, x: 0, y: restYValue, scale, zIndex }}
       exit={{ opacity: 0, x: exitX, y: exitY, scale: scale * 0.9 }}
-      transition={{ type: "spring", stiffness: 320, damping: 30 }}
+      transition={{ type: "spring" as const, stiffness: 320, damping: 30 }}
       drag={dismissible ? "x" : false}
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={{ left: 0.4, right: 0.4 }}

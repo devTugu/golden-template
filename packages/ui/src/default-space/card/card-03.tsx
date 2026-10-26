@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Badge } from "@default/ui/primitives/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@default/ui/primitives/card";
 import { Progress } from "@default/ui/primitives/progress";

@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import {
   ArrowRight,
   Bookmark,
@@ -159,7 +159,7 @@ const DropdownMenu07 = ({ defaultOpen = false }: Props) => {
                             key={count}
                             initial={{ scale: 0.4, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
-                            transition={{ type: "spring", bounce: 0.5, duration: 0.4 }}
+                            transition={{ type: "spring" as const, bounce: 0.5, duration: 0.4 }}
                             className="absolute -top-1 -right-1 flex size-5 items-center justify-center rounded-full bg-orange-500 text-xs  text-white"
                           >
                             {count}

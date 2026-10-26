@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { TrendingDown, TrendingUp } from "lucide-react";
 
 import { Marquee } from "../animations/marquee";

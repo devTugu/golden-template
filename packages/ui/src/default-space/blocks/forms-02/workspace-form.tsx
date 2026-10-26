@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 import { Field, FieldLabel } from "@default/ui/primitives/field";
 import { Input } from "@default/ui/primitives/input";

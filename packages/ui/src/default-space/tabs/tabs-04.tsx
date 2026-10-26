@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Badge } from "@default/ui/primitives/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@default/ui/primitives/tabs";
 

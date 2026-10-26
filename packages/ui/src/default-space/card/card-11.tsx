@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client"
 import { Avatar, AvatarImage } from "@default/ui/primitives/avatar"
 import { Button } from "@default/ui/primitives/button"
@@ -45,7 +44,7 @@ const AssignTaskCard = () => {
 
   return (
     <div className="max-w-sm mx-auto px-4 w-full">
-      <Card size="sm">
+      <Card>
         <CardHeader className="border-b">
           <CardTitle>Assign Issue</CardTitle>
           <CardDescription>Select users to assign to this issue.</CardDescription>

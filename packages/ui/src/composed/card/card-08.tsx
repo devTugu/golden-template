@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Button } from "@default/ui/primitives/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@default/ui/primitives/card"
 import { Input } from "@default/ui/primitives/input"

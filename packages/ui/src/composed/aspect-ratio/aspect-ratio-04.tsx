@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { PlayIcon } from "lucide-react";
 
 import { AspectRatio } from "@default/ui/primitives/aspect-ratio";

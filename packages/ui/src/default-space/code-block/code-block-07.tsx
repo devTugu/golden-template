@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { InstallCommand } from "@default/ui/primitives/code-block";
 
 export default function CodeBlockInstallCommand() {

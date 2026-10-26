@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -161,14 +160,11 @@ const Navbar = ({
                 <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
 
                 <SheetHeader className="flex-row items-center justify-between p-0">
-                  <SheetClose
-                    nativeButton={false}
-                    render={
-                      <a href="#" className="shrink-0">
-                        <Logo />
-                      </a>
-                    }
-                  />
+                  <SheetClose asChild>
+                    <a href="#" className="shrink-0">
+                      <Logo />
+                    </a>
+                  </SheetClose>
                   <SheetClose
                     aria-label="Close menu"
                     className="flex size-9 cursor-pointer items-center justify-center rounded-full border border-border text-foreground transition-colors hover:bg-muted"
@@ -179,10 +175,7 @@ const Navbar = ({
 
                 <div className="flex flex-col gap-1">
                   {navigationData.map((item) => (
-                    <SheetClose
-                      key={item.title}
-                      nativeButton={false}
-                      render={
+                    <SheetClose asChild key={item.title}>
                         <a
                           href={item.href}
                           aria-current={item.isActive ? "page" : undefined}
@@ -203,8 +196,7 @@ const Navbar = ({
                           />
                           {item.title}
                         </a>
-                      }
-                    />
+                    </SheetClose>
                   ))}
                 </div>
 

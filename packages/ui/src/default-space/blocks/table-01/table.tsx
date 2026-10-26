@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { LucideIcon, AppWindowMac, HandMetal, Megaphone, Contrast, Brush } from 'lucide-react';

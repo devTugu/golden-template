@@ -2,6 +2,7 @@
 import { Button } from "@default/ui/primitives/button";
 import { ArrowRight, ChevronRight, Star } from "lucide-react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 
 export interface BrandList {
     image: string;
@@ -56,7 +57,7 @@ const HeroSection = ({ getStartedHref = "#" }: HeroSectionProps) => {
 
                         <div className="max-w-lg flex flex-col gap-12 md:gap-40">
                             <div className="flex flex-col gap-4 sm:gap-6">
-                                <motion.div variants={itemVariants} className="w-fit bg-background flex items-center gap-1.5 border border-border py-1 px-3 rounded-full">
+                                <motion.div variants={itemVariants as unknown as Variants} className="w-fit bg-background flex items-center gap-1.5 border border-border py-1 px-3 rounded-full">
                                     <div className="w-1 h-1 rounded-full bg-teal-400" />
                                     <p className="text-sm font-normal text-foreground">Announcing API 1.0</p>
                                     <ArrowRight size={16} className="text-foreground" />

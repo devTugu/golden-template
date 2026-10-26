@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import React, { useState } from "react";
@@ -9,6 +8,7 @@ import {
   motion,
   MotionProps,
 } from "motion/react";
+import type { Variants } from "motion/react";
 import { cn } from "@default/ui/lib/cn";
 
 type TransitionPanelProps = {
@@ -36,7 +36,7 @@ function TransitionPanel({
       >
         <motion.div
           key={activeIndex}
-          variants={variants}
+          variants={variants as unknown as Variants}
           transition={transition}
           initial="enter"
           animate="center"

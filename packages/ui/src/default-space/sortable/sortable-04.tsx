@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { DndContext, DragOverlay, PointerSensor, closestCenter, useSensor, useSensors, type DragEndEvent, type DraggableAttributes, type DraggableSyntheticListeners, type DragStartEvent } from "@dnd-kit/core";

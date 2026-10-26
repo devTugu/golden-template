@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { Input } from "@default/ui/primitives/input";

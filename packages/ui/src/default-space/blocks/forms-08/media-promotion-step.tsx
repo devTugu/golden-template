@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { ImagePlus, Camera, X, Plus } from "lucide-react";

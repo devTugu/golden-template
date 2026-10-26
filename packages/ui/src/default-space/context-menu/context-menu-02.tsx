@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { MouseEvent, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { type LucideIcon, Copy, Edit, MoreVertical, Share2, Trash2 } from "lucide-react";
 import { cn } from "@default/ui/lib/cn";
 
@@ -92,7 +92,7 @@ export const ContextMenuBubble = ({ items, className }: ContextMenuBubbleProps) 
               initial={{ scale: 0.3, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0, opacity: 0, transition: { duration: 0.18 } }}
-              transition={{ type: "spring", stiffness: 380, damping: 20 }}
+              transition={{ type: "spring" as const, stiffness: 380, damping: 20 }}
               className="absolute z-50 flex h-40 w-40 items-center justify-center"
               style={{
                 left: position.x - 80,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { useEffect, useRef, useState, type FocusEvent } from "react";
@@ -9,6 +8,7 @@ import {
   useReducedMotion,
   useTransform,
 } from "motion/react";
+import type { Variants } from "motion/react";
 import {
   Bell,
   BellOff,
@@ -189,8 +189,7 @@ function NotificationCard({
             <motion.div
               initial={reduce ? false : { scale: 0.4, rotate: -20 }}
               animate={{ scale: 1, rotate: 0 }}
-              transition={{
-                type: "spring",
+              transition={{ type: "spring" as const,
                 stiffness: 500,
                 damping: 18,
                 delay: 0.1,

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Badge } from "@default/ui/primitives/badge";
 import { Card } from "@default/ui/primitives/card";
 import { ArrowRight, Bath, BedDouble, Expand } from "lucide-react";

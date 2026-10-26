@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import PixelSnow from "../animations/PixelSnow";

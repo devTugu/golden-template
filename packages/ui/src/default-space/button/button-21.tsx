@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client"
 
 import { useState } from "react"
@@ -57,7 +56,7 @@ export default function UpVoteButton() {
         onClick={handleClick}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.88 }}
-        transition={{ type: "spring", stiffness: 380, damping: 22 }}
+        transition={{ type: "spring" as const, stiffness: 380, damping: 22 }}
         className="relative overflow-hidden inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-800 cursor-pointer select-none"
       >
         {/* Ripple */}

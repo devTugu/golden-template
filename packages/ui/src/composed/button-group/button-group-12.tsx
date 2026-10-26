@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
@@ -21,6 +20,7 @@ import {
   HistoryIcon,
 } from "lucide-react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 
 const menuVariants = {
   hidden: { opacity: 0, scale: 0.97, y: -4 },
@@ -63,7 +63,7 @@ const ActionExecuteButtonGroup = () => {
       >
         <motion.span
           animate={isHovered ? { x: 2, scale: 1.05 } : { x: 0, scale: 1 }}
-          transition={{ type: "spring", stiffness: 450, damping: 16 }}
+          transition={{ type: "spring" as const, stiffness: 450, damping: 16 }}
           className="flex items-center justify-center mr-1"
         >
           <PlayIcon aria-hidden="true" className="fill-current size-4" />
@@ -82,8 +82,7 @@ const ActionExecuteButtonGroup = () => {
               animate={{
                 rotate: open ? 180 : 0,
               }}
-              transition={{
-                type: "spring",
+              transition={{ type: "spring" as const,
                 stiffness: 250,
                 damping: 18,
               }}
@@ -97,22 +96,22 @@ const ActionExecuteButtonGroup = () => {
           <motion.div
             initial="hidden"
             animate="visible"
-            variants={menuVariants}
+            variants={menuVariants as unknown as Variants}
             className="flex flex-col gap-0.5"
           >
-            <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants as unknown as Variants}>
               <DropdownMenuItem className="cursor-pointer">
                 <GitCommitIcon aria-hidden="true" />
                 <span>Commit & Push</span>
               </DropdownMenuItem>
             </motion.div>
-            <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants as unknown as Variants}>
               <DropdownMenuItem className="cursor-pointer">
                 <GitPullRequestIcon aria-hidden="true" />
                 <span>Commit & Sync</span>
               </DropdownMenuItem>
             </motion.div>
-            <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants as unknown as Variants}>
               <DropdownMenuItem className="cursor-pointer">
                 <HistoryIcon aria-hidden="true" />
                 <span>Amend Last Commit</span>

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Field, FieldLabel } from "@default/ui/primitives/field";
 import { Input } from "@default/ui/primitives/input";
 import { Textarea } from "@default/ui/primitives/textarea"

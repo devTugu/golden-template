@@ -1,4 +1,3 @@
-// @ts-nocheck
 export default function Subfooter() {
   return (
     <div className="relative w-full animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-300 ease-in-out fill-mode-both">

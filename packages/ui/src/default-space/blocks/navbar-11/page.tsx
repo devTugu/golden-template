@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Navbar from "./navbar"
 
 const Navbar11 = () => {

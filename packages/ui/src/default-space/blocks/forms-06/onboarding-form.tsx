@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -153,8 +153,7 @@ const OnboardingForm = () => {
                   <motion.div
                     initial={{ scale: 0, rotate: -45 }}
                     animate={{ scale: 1, rotate: 0 }}
-                    transition={{
-                      type: "spring",
+                    transition={{ type: "spring" as const,
                       stiffness: 260,
                       damping: 20,
                       delay: 0.1,
@@ -234,7 +233,7 @@ const OnboardingForm = () => {
                 <motion.form
                   key={step}
                   custom={direction}
-                  variants={stepVariants}
+                  variants={stepVariants as unknown as Variants}
                   initial="initial"
                   animate="animate"
                   exit="exit"
@@ -317,8 +316,7 @@ const OnboardingForm = () => {
                                 <motion.div
                                   layoutId="role-highlight"
                                   className="absolute inset-0 bg-foreground/5"
-                                  transition={{
-                                    type: "spring",
+                                  transition={{ type: "spring" as const,
                                     stiffness: 400,
                                     damping: 32,
                                   }}

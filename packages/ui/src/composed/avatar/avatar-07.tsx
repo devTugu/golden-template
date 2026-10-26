@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import * as React from "react";
 import { motion, type HTMLMotionProps } from "motion/react";
+import type { Variants } from "motion/react";
 import { Avatar, AvatarImage, AvatarFallback } from "@default/ui/primitives/avatar";
 import { cn } from "@default/ui/lib/cn";
 import { Plus } from "lucide-react";
@@ -35,7 +35,7 @@ export const SelectableAvatar = React.forwardRef<
     aria-pressed={isSelected}
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}
-    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+    transition={{ type: "spring" as const, stiffness: 400, damping: 25 }}
     className={cn(
       "group relative inline-flex flex-col items-center gap-1.5 outline-none",
       className

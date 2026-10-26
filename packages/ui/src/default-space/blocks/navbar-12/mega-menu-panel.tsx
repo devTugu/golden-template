@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Star, ArrowUpRight, Sparkles } from "lucide-react";
 import { cn } from "@default/ui/lib/cn";
 import { Button } from "@default/ui/primitives/button";

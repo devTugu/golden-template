@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@default/ui/primitives/avatar";
 import { Collapsible, CollapsibleTrigger } from "@default/ui/primitives/collapsible";
 import { Separator } from "@default/ui/primitives/separator";
@@ -120,13 +120,13 @@ const UserProfileDemo = ({
             {open && (
               <motion.div
                 key="collapsible-content"
-                variants={containerVariants}
+                variants={containerVariants as unknown as Variants}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
                 style={{ overflow: "hidden" }}
               >
-                <motion.div variants={itemVariants}>
+                <motion.div variants={itemVariants as unknown as Variants}>
                   <Separator />
                 </motion.div>
 
@@ -134,7 +134,7 @@ const UserProfileDemo = ({
                   {stats.map(({ icon: Icon, label, value }) => (
                     <motion.div
                       key={label}
-                      variants={itemVariants}
+                      variants={itemVariants as unknown as Variants}
                       className="flex items-center justify-between rounded-lg bg-muted dark:bg-muted/50 px-3 py-2"
                     >
                       <div className="flex items-center gap-2">
@@ -153,11 +153,11 @@ const UserProfileDemo = ({
                   ))}
                 </div>
 
-                <motion.div variants={itemVariants}>
+                <motion.div variants={itemVariants as unknown as Variants}>
                   <Separator />
                 </motion.div>
 
-                <motion.div variants={itemVariants} className="px-4 py-2.5">
+                <motion.div variants={itemVariants as unknown as Variants} className="px-4 py-2.5">
                   <a
                     href={profileHref}
                     className="group flex gap-1 items-center text-muted-foreground hover:text-primary text-xs font-medium transition-colors"

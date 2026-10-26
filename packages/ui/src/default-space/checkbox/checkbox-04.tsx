@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useId } from 'react'
 
 import { Checkbox } from "@default/ui/primitives/checkbox"

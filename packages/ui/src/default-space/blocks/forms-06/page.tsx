@@ -1,4 +1,3 @@
-// @ts-nocheck
 import OnboardingForm from "./onboarding-form";
 
 const Page = () => {

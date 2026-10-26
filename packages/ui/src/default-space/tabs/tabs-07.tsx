@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { cn } from "@default/ui/lib/cn";
 import { Sparkles, Cpu, Terminal, Layers, CheckCircle2, Circle } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@default/ui/primitives/tabs";
@@ -91,7 +91,11 @@ export default function TabsScrollSwitch() {
     exit: (dir: number) => ({ y: dir > 0 ? 48 : -48, opacity: 0 }),
   };
 
-  const transition = { type: "spring", stiffness: 320, damping: 30 };
+  const transition = {
+    type: "spring" as const,
+    stiffness: 320,
+    damping: 30,
+  };
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4 py-8">
@@ -127,7 +131,7 @@ export default function TabsScrollSwitch() {
                       layoutId="tabs-07-active-indicator"
                       className="absolute inset-0 bg-muted rounded-lg pointer-events-none"
                       initial={false}
-                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                      transition={{ type: "spring" as const, stiffness: 300, damping: 25 }}
                     />
                   )}
                 </TabsTrigger>
@@ -147,7 +151,7 @@ export default function TabsScrollSwitch() {
                   <motion.div
                     key={tab.id}
                     custom={direction}
-                    variants={variants}
+                    variants={variants as unknown as Variants}
                     initial="enter"
                     animate="center"
                     exit="exit"

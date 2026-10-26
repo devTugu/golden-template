@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { Button } from "@default/ui/primitives/button";
 import { Input } from "@default/ui/primitives/input";
 import { Separator } from "@default/ui/primitives/separator";
@@ -261,7 +261,7 @@ const DropdownMenu04 = ({ defaultOpen = false }: Props) => {
                 <motion.div
                   key={currentPanelId}
                   custom={direction}
-                  variants={panelVariants}
+                  variants={panelVariants as unknown as Variants}
                   initial="enter"
                   animate="center"
                   exit="exit"

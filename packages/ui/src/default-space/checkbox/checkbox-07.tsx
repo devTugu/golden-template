@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useId } from "react";
 import { HeartIcon, Send, StarIcon } from "lucide-react";
 import { Checkbox } from "@default/ui/primitives/checkbox";

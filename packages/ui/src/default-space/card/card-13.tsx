@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client"
 
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@default/ui/primitives/card"

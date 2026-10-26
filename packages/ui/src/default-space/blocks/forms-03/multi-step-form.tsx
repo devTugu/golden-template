@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import {
   Check,
   ChevronRight,
@@ -186,7 +186,7 @@ const MultiStepForm = () => {
                 <motion.div
                   key={currentStep}
                   custom={direction}
-                  variants={stepVariants}
+                  variants={stepVariants as unknown as Variants}
                   initial="initial"
                   animate="animate"
                   exit="exit"

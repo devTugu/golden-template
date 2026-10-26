@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { cn } from "@default/ui/lib/cn";
 import { Button } from "@default/ui/primitives/button";
 import { Kbd } from "@default/ui/primitives/kbd";
@@ -121,8 +121,7 @@ export function EditorToolbarTooltip({
               data-slot="tooltip-content"
               className="flex h-7 items-center rounded-md bg-foreground"
               animate={{ clipPath: coords.clipPath, x: coords.x }}
-              transition={{
-                type: "spring",
+              transition={{ type: "spring" as const,
                 bounce: 0,
                 duration: isEntering ? 0 : 0.4,
               }}

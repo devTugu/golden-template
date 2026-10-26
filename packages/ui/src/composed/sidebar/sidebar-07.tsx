@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { SidebarProvider, SidebarTrigger } from "@default/ui/primitives/sidebar";
 import {
   AppSidebar,
@@ -34,7 +34,7 @@ function MegaPanel({ menuTitle, onClose, onSelectParent }: MegaPanelProps) {
       initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: -20, opacity: 0 }}
-      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+      transition={{ type: "spring" as const, stiffness: 380, damping: 30 }}
       className="absolute inset-y-0 left-0 z-50 w-full bg-sidebar text-sidebar-foreground border-r border-sidebar-border shadow-2xl p-6 flex flex-col gap-6"
     >
       {/* Header */}

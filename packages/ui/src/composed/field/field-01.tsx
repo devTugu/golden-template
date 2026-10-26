@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { SubmitEvent, useState } from "react";

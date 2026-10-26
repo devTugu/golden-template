@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useId } from 'react'
 import { HomeIcon } from 'lucide-react'
 import { Textarea } from "@default/ui/primitives/textarea"

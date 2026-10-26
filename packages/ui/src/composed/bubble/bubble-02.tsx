@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Bubble, BubbleContent } from "@default/ui/primitives/bubble";
 
 const MESSAGES = [

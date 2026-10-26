@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import {
   Avatar,
   AvatarFallback,
@@ -338,7 +338,7 @@ const DropdownMenu03 = ({ defaultOpen = false }: Props) => {
                         key={user.name}
                         layout
                         custom={actions[user.name]}
-                        variants={rowVariants}
+                        variants={rowVariants as unknown as Variants}
                         animate="visible"
                         exit="exit"
                         transition={SPRING}

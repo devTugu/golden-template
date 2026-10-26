@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { MultiFileCodeBlock } from "@default/ui/primitives/code-block";
 import type { FileEntry } from "@default/ui/primitives/code-block";
 

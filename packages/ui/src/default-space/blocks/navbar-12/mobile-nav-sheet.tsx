@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import Logo from "../../assets/logo/logo";
@@ -44,23 +43,23 @@ export function MobileNavSheet({
             <a href="#" onClick={close}>
               <Logo />
             </a>
-            <SheetClose
-              render={
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="rounded-lg size-10 cursor-pointer"
-                />
-              }
-            >
-              <X className="size-4" />
+            <SheetClose asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-lg size-10 cursor-pointer"
+                type="button"
+                aria-label="Close menu"
+              >
+                <X className="size-4" />
+              </Button>
             </SheetClose>
           </div>
           <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
           <hr className="border-border" />
           <ScrollArea className="flex-1 min-h-0">
             <div className="flex flex-col p-4 sm:p-6">
-              <Accordion multiple className="w-full">
+              <Accordion type="multiple" className="w-full">
                 {navLinks.map((link) =>
                   link.megaMenu ? (
                     <AccordionItem key={link.name} value={link.name}>

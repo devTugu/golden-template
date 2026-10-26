@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { CheckCircle2, EyeClosed, X, Eye } from "lucide-react";

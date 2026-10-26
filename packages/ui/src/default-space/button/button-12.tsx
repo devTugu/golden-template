@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Button } from "@default/ui/primitives/button";
 
 const ButtonDefaultDemo = () => {

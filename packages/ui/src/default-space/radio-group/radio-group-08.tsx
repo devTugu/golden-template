@@ -1,9 +1,9 @@
-// @ts-nocheck
 "use client";
 
 import { useId, useState } from "react";
 import { CreditCard, Landmark, Wallet } from "lucide-react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { Label } from "@default/ui/primitives/label";
 import { RadioGroup, RadioGroupItem } from "@default/ui/primitives/radio-group";
 import { cn } from "@default/ui/lib/cn";
@@ -69,7 +69,7 @@ const RadioGroupHopDemo = () => {
                 <motion.span
                   layoutId={`${id}-hop`}
                   className="bg-primary pointer-events-none absolute inset-1 rounded-full"
-                  transition={{ type: "spring", bounce: 0.25, duration: 0.45 }}
+                  transition={{ type: "spring" as const, bounce: 0.25, duration: 0.45 }}
                 />
               )}
             </span>

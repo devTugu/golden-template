@@ -1,10 +1,9 @@
-// @ts-nocheck
 'use client'
 
 import React, { useRef, useState } from 'react';
 import { cn } from "@default/ui/lib/cn";
 import { useDropzone } from 'react-dropzone';
-import { motion } from 'motion/react';
+import { motion, type Variants } from 'motion/react';
 import { Upload } from 'lucide-react';
 
 const mainVariant = {
@@ -143,7 +142,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({ isDragActive }) => (
   <>
     <motion.div
       layoutId="file-upload"
-      variants={mainVariant}
+      variants={mainVariant as unknown as Variants}
       transition={{
         type: 'spring',
         stiffness: 300,
@@ -167,7 +166,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({ isDragActive }) => (
       )}
     </motion.div>
     <motion.div
-      variants={secondaryVariant}
+      variants={secondaryVariant as unknown as Variants}
       className="absolute opacity-0 border border-dashed border-primary/50 inset-0 z-30 bg-primary/5 flex items-center justify-center h-28 mt-4 w-full max-w-32 mx-auto rounded-md"
     />
   </>

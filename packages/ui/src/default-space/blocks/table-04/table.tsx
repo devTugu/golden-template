@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@default/ui/primitives/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@default/ui/primitives/select";

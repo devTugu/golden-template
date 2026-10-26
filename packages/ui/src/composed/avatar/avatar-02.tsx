@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Avatar, AvatarFallback, AvatarImage, AvatarGroupCount } from "@default/ui/primitives/avatar";
 const GroupAvatarDemo = () => {
   return (

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Separator } from "@default/ui/primitives/separator"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@default/ui/primitives/sidebar"
 import { AppSidebar } from "../../default-space/blocks/sidebar-03/app-sidebar"

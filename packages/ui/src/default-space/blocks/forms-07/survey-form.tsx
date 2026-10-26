@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import NumberFlow from "@number-flow/react";
 import { ArrowLeft, ArrowRight, Check, Mail, RotateCcw } from "lucide-react";
 import { Button } from "@default/ui/primitives/button";
@@ -192,8 +192,7 @@ const SurveyForm = () => {
                   <motion.div
                     initial={{ scale: 0, rotate: -45 }}
                     animate={{ scale: 1, rotate: 0 }}
-                    transition={{
-                      type: "spring",
+                    transition={{ type: "spring" as const,
                       stiffness: 260,
                       damping: 20,
                       delay: 0.1,
@@ -263,7 +262,7 @@ const SurveyForm = () => {
                 <motion.form
                   key={step}
                   custom={direction}
-                  variants={stepVariants}
+                  variants={stepVariants as unknown as Variants}
                   initial="initial"
                   animate="animate"
                   exit="exit"

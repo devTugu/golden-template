@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { Check, Eye, EyeClosed } from "lucide-react";
 import { Input } from "@default/ui/primitives/input";
 import { Label } from "@default/ui/primitives/label";
@@ -82,8 +82,7 @@ export const AnimatedCheckmarkCircle = ({
             scale: isComplete ? 1 : 0,
             opacity: isComplete ? 1 : 0,
           }}
-          transition={{
-            type: "spring",
+          transition={{ type: "spring" as const,
             stiffness: 300,
             damping: 20,
             delay: isComplete ? 0.15 : 0,
@@ -97,8 +96,7 @@ export const AnimatedCheckmarkCircle = ({
             scale: isComplete ? 1 : 0,
             opacity: isComplete ? 1 : 0,
           }}
-          transition={{
-            type: "spring",
+          transition={{ type: "spring" as const,
             stiffness: 400,
             damping: 15,
             delay: isComplete ? 0.28 : 0,

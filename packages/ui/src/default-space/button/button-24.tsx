@@ -1,10 +1,10 @@
-// @ts-nocheck
 "use client";
 
 import { useState } from "react";
 import { Button } from "@default/ui/primitives/button";
 import { CheckIcon, CopyIcon } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 
 const MotionButton = motion.create(Button);
 const MotionCopyIcon = motion.create(CopyIcon);
@@ -55,7 +55,7 @@ const CopyButtonDemo = () => {
         hover: { scale: 1.02 },
         tap: { scale: 0.98 },
       }}
-      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      transition={{ type: "spring" as const, stiffness: 400, damping: 25 }}
     >
       <AnimatePresence mode="wait" initial={false}>
         {copied ? (
@@ -69,7 +69,7 @@ const CopyButtonDemo = () => {
           >
             <MotionCheckIcon
               className="size-3.5 stroke-teal-400"
-              variants={checkIconVariants}
+              variants={checkIconVariants as unknown as Variants}
               initial="initial"
               animate="animate"
             />
@@ -86,7 +86,7 @@ const CopyButtonDemo = () => {
           >
             <MotionCopyIcon
               className="size-3.5"
-              variants={copyIconVariants}
+              variants={copyIconVariants as unknown as Variants}
               initial="initial"
             />
             Copy

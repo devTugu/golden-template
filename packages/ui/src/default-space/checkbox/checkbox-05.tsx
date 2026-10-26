@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { Gamepad2, MapPinned, Music2 } from 'lucide-react'
 import { Checkbox } from "@default/ui/primitives/checkbox"
 import { Label } from "@default/ui/primitives/label"

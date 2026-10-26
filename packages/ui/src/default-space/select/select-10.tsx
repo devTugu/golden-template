@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useId, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import {
   Select,
   SelectContent,
@@ -37,7 +37,7 @@ function Digit({ value }: { value: string }) {
           initial={{ y: 14, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -14, opacity: 0 }}
-          transition={{ type: "spring", stiffness: 420, damping: 32 }}
+          transition={{ type: "spring" as const, stiffness: 420, damping: 32 }}
           className="absolute"
         >
           {value}
@@ -160,8 +160,7 @@ const SelectTimePickerDemo = () => {
                       initial={{ y: 14, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -14, opacity: 0 }}
-                      transition={{
-                        type: "spring",
+                      transition={{ type: "spring" as const,
                         stiffness: 420,
                         damping: 32,
                       }}

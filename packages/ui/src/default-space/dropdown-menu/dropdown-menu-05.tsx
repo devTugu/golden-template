@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import type { Variants } from "motion/react";
 import { Check, Plus, Search, X } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@default/ui/primitives/avatar";
 import { Input } from "@default/ui/primitives/input";
@@ -160,7 +160,7 @@ const DropdownMenu05 = ({ defaultOpen = false }: Props) => {
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         exit={{ scale: 0 }}
-                        transition={{ type: "spring", bounce: 0.3, duration: 0.3 }}
+                        transition={{ type: "spring" as const, bounce: 0.3, duration: 0.3 }}
                         className="absolute -bottom-1 -right-1 size-5 bg-blue-500 rounded-full flex items-center justify-center shadow-sm pointer-events-none"
                       >
                         <Plus className="size-3 text-white" strokeWidth={2.5} />

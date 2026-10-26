@@ -1,8 +1,8 @@
-// @ts-nocheck
 "use client";
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import type { Variants } from "motion/react";
 import { cn } from "@default/ui/lib/cn";
 import { NavItem } from "./app-sidebar";
 import { ChevronDown } from "lucide-react";
@@ -101,7 +101,7 @@ export function NavMain({
                   <motion.div
                     layoutId="sidebar07-hover-bg"
                     className="absolute inset-0 bg-sidebar-accent/50 rounded-xl z-0"
-                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    transition={{ type: "spring" as const, stiffness: 350, damping: 30 }}
                   />
                 )}
 
@@ -110,7 +110,7 @@ export function NavMain({
                   <motion.div
                     layoutId="sidebar07-active-bg"
                     className="absolute inset-0 bg-sidebar-accent rounded-xl z-0 shadow-sm"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    transition={{ type: "spring" as const, stiffness: 380, damping: 30 }}
                   />
                 )}
 
@@ -119,7 +119,7 @@ export function NavMain({
                   <motion.span
                     layoutId="sidebar07-active-bar"
                     className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 rounded-r-full bg-primary z-10"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    transition={{ type: "spring" as const, stiffness: 380, damping: 30 }}
                   />
                 ))}
 
