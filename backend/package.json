@@ -82,7 +82,7 @@
     "ioredis": "^5.11.0",
     "joi": "^18.0.2",
     "pg": "^8.16.3",
-    "nest-winston": "^1.10.2",
+    "nest-winston": "^2.0.0",
     "nestjs-zod": "^5.5.0",
     "nodemailer": "^10.1.7",
     "openid-client": "^6.6.2",
