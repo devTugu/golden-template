@@ -1,6 +1,5 @@
 "use client";
 
-import PixelSnow from "../animations/PixelSnow";
 import { BackgroundBeamsWithCollision } from "../animations/BackgroundBeamsWithCollision";
 import { Card, CardContent } from "@default/ui/primitives/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@default/ui/primitives/tabs";
@@ -26,22 +25,7 @@ const TabsDemo = () => {
 
       <TabsContent value="winter">
         <Card className="relative min-h-90 w-full overflow-hidden rounded-2xl border-none bg-linear-to-b from-slate-950 via-slate-900 to-slate-800 sm:min-h-105">
-          <div className="absolute inset-0">
-            <PixelSnow
-              color="#ffffff"
-              flakeSize={0.02}
-              minFlakeSize={1.25}
-              pixelResolution={500}
-              speed={0.5}
-              density={0.3}
-              direction={95}
-              brightness={1}
-              depthFade={20}
-              farPlane={20}
-              gamma={0.4545}
-              variant="round"
-            />
-          </div>
+          <div className="absolute inset-0 bg-linear-to-b from-slate-900/80 to-slate-950/90" />
           <CardContent className="relative z-10 flex h-full flex-col items-center justify-center gap-3 p-8 text-center">
             <Snowflake className="size-8 text-white/90" />
             <h3 className="text-2xl font-semibold text-white">Winter</h3>

@@ -6,7 +6,7 @@
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
     },
     "@default/ui#build": {
-      "dependsOn": ["@default/design-tokens#build", "@default/ui-charts#build", "@default/ui-motion-3d#build"],
+      "dependsOn": ["@default/design-tokens#build", "@default/ui-charts#build"],
       "outputs": ["dist/**"]
     },
     "@default/ui-code#build": {

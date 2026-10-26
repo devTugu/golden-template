@@ -12,8 +12,6 @@ const VARIANTS: DocsCatalogVariant[] = [
     previewClassName: "w-full max-w-md py-8",
   },
   {
-    label: "Tabs 09 - Seasonal PixelSnow Tabs",
-    load: () => import("@default/ui/composed/tabs/tabs-09"),
     previewClassName: WIDE,
   },
   {
