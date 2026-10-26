@@ -59,7 +59,7 @@ Constants: `frontend/src/shared/config/routes.ts`.
 
 ## Add a domain
 
-0. **Scaffold:** `pnpm generate:domain -- --name <kebab-case>` — types → api → hooks → Drizzle table + repository → Nest `GET /admin/<name>` → BFF + `/dashboard/<name>` + `${NAME}_READ` + sidebar/i18n.
+0. **Scaffold:** `pnpm generate:domain -- --tier domain --name <kebab-case>` for the legacy 4-layer list scaffold, or copy the **announcements** example for simple-tier CRUD (`--tier simple` automation: copy announcements, rename). Then `db:generate`, migrate, seed.
 1. **Migrate:** `pnpm --filter backend run db:generate` → `migration:run` → `seed`.
 2. **Product logic** — extend table/port/use cases; domain entities when rules grow.
 3. **UI** — data table, forms in `frontend/src/features/<domain>/`.
@@ -82,14 +82,26 @@ Constants: `frontend/src/shared/config/routes.ts`.
 | Shared schema | `packages/types/src/<domain>/` |
 | HTTP client | `packages/api/src/<domain>/` |
 | Hooks | `packages/hooks/src/<domain>/` |
-| Backend | `backend/src/domain|application|infrastructure|presentation` |
+| Backend (domain tier) | `backend/src/domain|application|infrastructure|presentation` |
+| Backend (simple tier) | `backend/src/modules/<domain>/` |
 | Admin UI | `frontend/src/features/<domain>/` |
 | BFF allowlist | `frontend/src/shared/config/bff-allowlist.ts` |
 
 Data flow: `@default/types` → `@default/api` → `@default/hooks` → UI. No raw Nest `fetch` in features.
 
-**Included:** auth, MFA/OIDC, users/roles/permissions, site-settings, media, dashboard, audit log read.  
+**Included:** auth, MFA/OIDC, users/roles/permissions, site-settings, media, dashboard, audit log read, **announcements example** (remove before product — see below).  
 **Not included:** billing, multi-org UI, feature flags, full CMS.
+
+### Remove the announcements example
+
+Delete or revert:
+
+- `backend/src/modules/announcements/` and `AnnouncementsModule` import in `backend/src/app.module.ts`
+- Drizzle `announcements` table in schema + migration (new forward migration to drop table if you already migrated)
+- `packages/types/src/announcements/`, `packages/api/src/announcements/`, `packages/hooks/src/announcements/`
+- `frontend/src/features/announcements/`, `frontend/app/dashboard/announcements/`
+- Permission codes `ANNOUNCEMENT_*` in `permissions.const.ts`, seed, `frontend/src/shared/config/{permissions,routes,bff-allowlist}.ts`, sidebar item, i18n `nav.announcements` + `entities.announcements`
+- `frontend/e2e/announcements.spec.ts` (if present)
 
 ## Production checklist
 

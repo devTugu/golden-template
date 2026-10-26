@@ -162,6 +162,7 @@
       "^@infrastructure/(.*)$": "<rootDir>/infrastructure/$1",
       "^@presentation/(.*)$": "<rootDir>/presentation/$1",
       "^@shared/(.*)$": "<rootDir>/shared/$1",
+      "^@modules/(.*)$": "<rootDir>/modules/$1",
       "^@default/utils/client-ip$": "<rootDir>/../../packages/utils/src/client-ip.ts",
       "^@default/utils/user-agent$": "<rootDir>/../../packages/utils/src/user-agent/device-label.ts",
       "^@default/utils/(.*)$": "<rootDir>/../../packages/utils/src/$1.ts",

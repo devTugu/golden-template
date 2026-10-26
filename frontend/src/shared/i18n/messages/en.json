@@ -115,6 +115,7 @@
     "leadership": "Leadership",
     "team": "Team",
     "news": "News",
+    "announcements": "Announcements",
     "siteSettings": "Site Settings",
     "contactMessages": "Contact Messages",
     "navigation": "Navigation"
@@ -384,6 +385,19 @@
       "anonymizeConfirmLabel": "Type the user email to confirm",
       "anonymizeSelfBlocked": "You cannot anonymize your own account.",
       "toastAnonymized": "User PII anonymized"
+    },
+    "announcements": {
+      "pageTitle": "Announcements",
+      "create": "New announcement",
+      "createTitle": "Create announcement",
+      "editTitle": "Edit announcement",
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
+      "published": "Published",
+      "draft": "Draft",
+      "titlePlaceholder": "Title",
+      "bodyPlaceholder": "Body"
     },
     "roles": {
       "pageDescription": "Define roles and assign permissions for access control.",

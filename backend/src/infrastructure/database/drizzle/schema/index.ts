@@ -51,6 +51,24 @@ export const users = pgTable(
   ],
 );
 
+export const announcements = pgTable(
+  'announcements',
+  {
+    id: serial('id').primaryKey(),
+    title: varchar('title', { length: 255 }).notNull(),
+    body: text('body').notNull(),
+    published: boolean('published').notNull().default(false),
+    createdAt: timestamp('created_at', { mode: 'date', precision: 6 })
+      .notNull()
+      .defaultNow(),
+    updatedAt: timestamp('updated_at', { mode: 'date', precision: 6 })
+      .notNull()
+      .defaultNow()
+      .$onUpdate(() => new Date()),
+  },
+  (table) => [index('IDX_announcements_title').on(table.title)],
+);
+
 export const roles = pgTable(
   'roles',
   {
@@ -235,6 +253,7 @@ export const refreshTokensRelations = relations(refreshTokens, ({ one }) => ({
 
 export const schema = {
   users,
+  announcements,
   roles,
   permissions,
   userRoles,

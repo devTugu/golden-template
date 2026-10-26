@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { LayoutDashboard, Settings, Shield } from 'lucide-react';
+import { LayoutDashboard, Megaphone, Settings, Shield } from 'lucide-react';
 import { env } from '@/shared/config/env';
 import { ROUTES } from '@/shared/config/routes';
 import {
@@ -50,6 +50,12 @@ const systemNavItems: NavItem[] = [
 ];
 
 const contentNavItems: NavItem[] = [
+  {
+    titleKey: 'announcements',
+    href: ROUTES.ANNOUNCEMENTS,
+    icon: Megaphone,
+    permission: PERMISSION_CODES.ANNOUNCEMENT_READ,
+  },
   {
     titleKey: 'siteSettings',
     href: ROUTES.SITE_SETTINGS,

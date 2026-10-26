@@ -19,6 +19,8 @@ const ROUTE_DEFINITIONS: Array<{ path: string; methods: HttpMethod[] }> = [
   { path: '/admin/media/upload', methods: ['POST'] },
   { path: '/admin/dashboard/stats', methods: ['GET'] },
   { path: '/admin/audit-logs', methods: ['GET'] },
+  { path: '/admin/announcements', methods: ['GET', 'POST'] },
+  { path: '/admin/announcements/:id', methods: ['GET', 'PUT', 'DELETE'] },
   { path: '/users/:id/export', methods: ['GET'] },
   { path: '/users/:id/anonymize', methods: ['POST'] },
   { path: '/auth/mfa/enroll', methods: ['POST'] },

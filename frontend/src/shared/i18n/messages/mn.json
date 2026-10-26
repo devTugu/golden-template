@@ -115,6 +115,7 @@
     "leadership": "Удирдлага",
     "team": "Баг",
     "news": "Мэдээ",
+    "announcements": "Зарлал",
     "siteSettings": "Сайтын тохиргоо",
     "contactMessages": "Холбоо барих мессеж",
     "navigation": "Навигаци"
@@ -384,6 +385,19 @@
       "anonymizeConfirmLabel": "Баталгаажуулахын тулд хэрэглэгчийн имэйл оруулна уу",
       "anonymizeSelfBlocked": "Өөрийн бүртгэлийг нэргүйжүүлэх боломжгүй.",
       "toastAnonymized": "Хэрэглэгчийн PII нэргүйжүүлэгдлээ"
+    },
+    "announcements": {
+      "pageTitle": "Зарлал",
+      "create": "Шинэ зарлал",
+      "createTitle": "Зарлал үүсгэх",
+      "editTitle": "Зарлал засах",
+      "edit": "Засах",
+      "delete": "Устгах",
+      "save": "Хадгалах",
+      "published": "Нийтэлсэн",
+      "draft": "Ноорог",
+      "titlePlaceholder": "Гарчиг",
+      "bodyPlaceholder": "Агуулга"
     },
     "roles": {
       "pageDescription": "Эрхийн бүлэг тодорхойлж, хандах эрх онооно.",

@@ -43,4 +43,8 @@ export const API_ENDPOINTS = {
   AUDIT_LOGS: {
     LIST: "/admin/audit-logs",
   },
+  ANNOUNCEMENTS: {
+    LIST: "/admin/announcements",
+    BY_ID: (id: number) => `/admin/announcements/${id}`,
+  },
 } as const;

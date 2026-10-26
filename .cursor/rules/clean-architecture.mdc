@@ -12,11 +12,27 @@ Applies to `backend/`. Overview also in `project-core.mdc`.
 
 ```text
 src/
-├── domain/           # Entities, repository interfaces, value objects — no Nest/ORM
-├── application/      # Use cases, ports, application DTOs
+├── modules/<name>/   # Simple tier (default for new CRUD domains)
+├── domain/           # Domain tier — entities, repository interfaces
+├── application/      # Domain tier — use cases, ports
 ├── infrastructure/   # Drizzle, Redis, JWT, S3, repository implementations
-├── presentation/http/# Controllers, guards, filters, HTTP DTOs
-└── shared/           # Config, constants, cross-cutting helpers
+├── presentation/http/# Controllers, guards, filters (domain tier)
+└── shared/
+```
+
+## Two tiers
+
+| Tier | When | Flow |
+|------|------|------|
+| **Simple** | Plain CRUD, one aggregate | `controller → service → repository` under `src/modules/` |
+| **Domain** | Multi-write tx, cross-module rules, external side effects | Full 4-layer + ports |
+
+**Promote simple → domain** when: orchestration across modules, transaction across aggregates, more than ~3 non-trivial business rules, or non-trivial external side effects.
+
+```text
+✅ modules/announcements/announcements.controller.ts → service → repository
+✅ UserController → CreateUserUseCase → IUserRepository
+❌ modules/*.controller.ts importing drizzle-orm directly
 ```
 
 **Dependency rule:** `presentation` → `application` → `domain` ← `infrastructure`

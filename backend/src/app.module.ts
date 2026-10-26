@@ -23,6 +23,7 @@ import { SiteSettingPresentationModule } from '@presentation/http/modules/site-s
 import { MediaPresentationModule } from '@presentation/http/modules/media.presentation.module';
 import { DashboardPresentationModule } from '@presentation/http/modules/dashboard.presentation.module';
 import { AuditPresentationModule } from '@presentation/http/modules/audit.presentation.module';
+import { AnnouncementsModule } from '@modules/announcements/announcements.module';
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { AuditPresentationModule } from '@presentation/http/modules/audit.presen
     MediaPresentationModule,
     DashboardPresentationModule,
     AuditPresentationModule,
+    AnnouncementsModule,
   ],
   providers: [
     { provide: APP_FILTER, useClass: AllExceptionsFilter },

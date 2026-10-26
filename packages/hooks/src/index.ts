@@ -46,6 +46,15 @@ export {
 
 export { auditLogKeys, useAuditLogs } from "./audit-log/use-audit-logs";
 
+export {
+  announcementKeys,
+  useAnnouncements,
+  useAnnouncement,
+  useCreateAnnouncement,
+  useUpdateAnnouncement,
+  useDeleteAnnouncement,
+} from "./announcements/use-announcements";
+
 export { useUploadMedia } from "./media/use-upload-media";
 
 export {

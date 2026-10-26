@@ -27,7 +27,7 @@
     "test": "turbo run test --filter=backend --filter=frontend --filter=@default/utils --filter=@default/api --filter=@default/types --filter=@default/hooks",
     "quality": "pnpm verify",
     "check:hygiene": "node scripts/check-repo-hygiene.mjs",
-    "test:scripts": "node --test scripts/*.spec.mjs",
+    "test:scripts": "node --test scripts/*.spec.mjs scripts/generate-domain/*.spec.mjs",
     "verify": "pnpm generate:tokens && pnpm --filter frontend exec node scripts/verify-lightningcss.js && pnpm lint && pnpm typecheck && pnpm build && pnpm test && pnpm test:scripts && pnpm --filter backend run test:cov && pnpm run audit && pnpm check:hygiene",
     "audit": "pnpm audit --audit-level=high",
     "generate:domain": "node scripts/generate-domain.mjs",

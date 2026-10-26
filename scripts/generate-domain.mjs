@@ -10,21 +10,10 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
-function parseArgs(argv) {
-  const idx = argv.indexOf("--name");
-  if (idx === -1 || !argv[idx + 1]) {
-    console.error("Usage: node scripts/generate-domain.mjs --name <kebab-case>");
-    process.exit(1);
-  }
-  return argv[idx + 1].trim().toLowerCase();
-}
-
-function assertKebab(name) {
-  if (!/^[a-z][a-z0-9]*(-[a-z0-9]+)*$/.test(name)) {
-    console.error(`Invalid domain name "${name}". Use kebab-case (e.g. job-postings).`);
-    process.exit(1);
-  }
-}
+import {
+  assertKebab,
+  parseGeneratorArgs,
+} from "./generate-domain/parse-args.mjs";
 
 function toPascal(kebab) {
   return kebab
@@ -665,8 +654,20 @@ See \`md/fork.md\`.
 }
 
 function main() {
-  const name = parseArgs(process.argv);
+  const { name, tier, dryRun } = parseGeneratorArgs(process.argv);
   assertKebab(name);
+  if (dryRun) {
+    console.log(
+      `[dry-run] Would scaffold "${name}" with tier "${tier}" (see md/fork.md and announcements example).`,
+    );
+    process.exit(0);
+  }
+  if (tier === "simple") {
+    console.error(
+      `Simple tier code generation is not fully automated yet. Copy the announcements module under backend/src/modules/ and packages/types|api|hooks, then adapt. Use --tier domain for the legacy scaffold.`,
+    );
+    process.exit(1);
+  }
   const ctx = {
     name,
     Pascal: toPascal(name),
