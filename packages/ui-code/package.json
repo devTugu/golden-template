@@ -12,9 +12,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@default/ui": "workspace:*",
-    "lucide-react": "^0.555.0",
-    "shiki": "^4.5.0"
+    "@default/ui": "workspace:*"
   },
   "devDependencies": {
     "@default/tsconfig": "workspace:*",
