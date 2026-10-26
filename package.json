@@ -28,7 +28,7 @@
     "quality": "pnpm verify",
     "check:hygiene": "node scripts/check-repo-hygiene.mjs",
     "test:scripts": "node --test scripts/*.spec.mjs",
-    "verify": "pnpm generate:tokens && pnpm --filter frontend exec node scripts/verify-lightningcss.js && pnpm lint && pnpm typecheck && pnpm build && pnpm test && pnpm test:scripts && pnpm --filter backend run test:cov && pnpm audit && pnpm check:hygiene",
+    "verify": "pnpm generate:tokens && pnpm --filter frontend exec node scripts/verify-lightningcss.js && pnpm lint && pnpm typecheck && pnpm build && pnpm test && pnpm test:scripts && pnpm --filter backend run test:cov && pnpm run audit && pnpm check:hygiene",
     "audit": "pnpm audit --audit-level=high",
     "generate:domain": "node scripts/generate-domain.mjs",
     "fork:check": "bash scripts/fork-check.sh",

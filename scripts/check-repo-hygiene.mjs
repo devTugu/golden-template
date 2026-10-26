@@ -73,6 +73,7 @@ const PASSWORD_ALLOW_PREFIXES = [
 function assertNoDefaultPasswordsInCode(files) {
   const needles = ["admin123!", "viewer123!"];
   for (const rel of files) {
+    if (rel === "scripts/check-repo-hygiene.mjs") continue;
     if (!/\.(ts|tsx|js|mjs)$/.test(rel)) continue;
     if (rel.includes(".spec.") || rel.includes("e2e/")) continue;
     if (PASSWORD_ALLOW_PREFIXES.some((p) => rel.startsWith(p))) continue;
