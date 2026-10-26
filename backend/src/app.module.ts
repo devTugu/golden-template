@@ -3,7 +3,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { WinstonModule } from 'nest-winston';
-import { envValidationSchema } from '@infrastructure/config/env.validation';
+import { validateEnv } from '@infrastructure/config/env.validation';
 import { createWinstonConfig } from '@infrastructure/config/logger.config';
 import { InfrastructureModule } from '@infrastructure/infrastructure.module';
 import { RedisClient } from '@infrastructure/cache/redis/redis.client';
@@ -34,11 +34,7 @@ import { AnnouncementsModule } from '@modules/announcements/announcements.module
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
-      validationSchema: envValidationSchema,
-      validationOptions: {
-        convert: true,
-        abortEarly: false,
-      },
+      validate: validateEnv,
     }),
     ThrottlerModule.forRootAsync({
       imports: [InfrastructureModule],

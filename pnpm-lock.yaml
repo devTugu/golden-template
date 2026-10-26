@@ -110,9 +110,6 @@ importers:
       ioredis:
         specifier: ^5.11.0
         version: 5.11.1
-      joi:
-        specifier: ^18.0.2
-        version: 18.2.9
       nest-winston:
         specifier: ^1.10.2
         version: 1.10.2(@nestjs/common@11.2.7(class-transformer@0.5.1)(class-validator@0.14.4)(reflect-metadata@0.2.2)(rxjs@7.8.2))(winston@3.19.0)
@@ -10068,18 +10065,24 @@ snapshots:
   '@hapi/address@5.1.1':
     dependencies:
       '@hapi/hoek': 11.0.7
+    optional: true
 
-  '@hapi/formula@3.0.2': {}
+  '@hapi/formula@3.0.2':
+    optional: true
 
-  '@hapi/hoek@11.0.7': {}
+  '@hapi/hoek@11.0.7':
+    optional: true
 
-  '@hapi/pinpoint@2.0.1': {}
+  '@hapi/pinpoint@2.0.1':
+    optional: true
 
-  '@hapi/tlds@1.1.7': {}
+  '@hapi/tlds@1.1.7':
+    optional: true
 
   '@hapi/topo@6.0.2':
     dependencies:
       '@hapi/hoek': 11.0.7
+    optional: true
 
   '@hookform/resolvers@5.9.1(@sinclair/typebox@0.34.52)(@standard-schema/spec@1.1.0)(ajv@8.20.0)(class-transformer@0.5.1)(class-validator@0.14.4)(joi@18.2.9)(react-hook-form@7.89.0(@types/react@19.3.0)(react@19.2.0))(zod@4.6.7)':
     dependencies:
@@ -15949,6 +15952,7 @@ snapshots:
       '@hapi/tlds': 1.1.7
       '@hapi/topo': 6.0.2
       '@standard-schema/spec': 1.1.0
+    optional: true
 
   jose@6.2.12: {}
 
