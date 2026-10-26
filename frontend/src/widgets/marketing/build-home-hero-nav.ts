@@ -9,20 +9,21 @@ type HomeHeroNavLabels = {
 
 type BuildHomeHeroNavInput = {
   labels: HomeHeroNavLabels;
-  showDocs: boolean;
+  /** External UI catalog URL (e.g. golden-template-ui-docs on :3002). */
+  uiDocsUrl?: string;
 };
 
 export function buildHomeHeroNavigation({
   labels,
-  showDocs,
+  uiDocsUrl,
 }: BuildHomeHeroNavInput): NavigationSection[] {
   const items: NavigationSection[] = [
     { name: labels.privacy, href: PUBLIC_ROUTES.PRIVACY },
     { name: labels.terms, href: PUBLIC_ROUTES.TERMS },
   ];
 
-  if (showDocs) {
-    items.push({ name: labels.docs, href: '/docs' });
+  if (uiDocsUrl) {
+    items.push({ name: labels.docs, href: uiDocsUrl });
   }
 
   return items;

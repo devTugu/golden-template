@@ -9,6 +9,10 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const uiRoot = path.join(root, 'packages/ui/src');
 
+const uiDocsFeatures = process.env.UI_DOCS_FEATURES_DIR
+  ? path.resolve(process.env.UI_DOCS_FEATURES_DIR)
+  : path.join(root, '../golden-template-ui-docs/frontend/src/features/docs');
+
 const SCAN_DIRS = [
   path.join(root, 'frontend/app'),
   path.join(root, 'frontend/src'),
@@ -19,6 +23,7 @@ const SCAN_DIRS = [
   path.join(root, 'packages/ui-charts'),
   path.join(root, 'packages/ui-code'),
   path.join(root, 'packages/ui-motion-3d'),
+  ...(fs.existsSync(uiDocsFeatures) ? [uiDocsFeatures] : []),
 ];
 
 const IMPORT_RE =
@@ -56,7 +61,11 @@ function collectUsedImports() {
         const rel = path.relative(root, file);
         if (rel.startsWith('frontend/app/')) {
           used.frontendApp.add(key);
-        } else if (rel.startsWith('frontend/src/features/docs/')) {
+        } else if (
+          rel.startsWith('frontend/src/features/docs/') ||
+          (fs.existsSync(uiDocsFeatures) &&
+            file.startsWith(uiDocsFeatures + path.sep))
+        ) {
           used.docs.add(key);
         } else if (rel.startsWith('frontend/src/')) {
           used.frontendSrc.add(key);
@@ -148,7 +157,7 @@ function main() {
     '',
     'Scope: `packages/ui/src/composed/` and `default-space/` demo modules (one `.tsx` file = one row).',
     '',
-    'Legend: **app** = `frontend/app`; **src** = `frontend/src` (non-docs); **docs** = `frontend/src/features/docs`; **pkg** = other workspace packages.',
+    'Legend: **app** = `frontend/app`; **src** = `frontend/src`; **docs** = `golden-template-ui-docs/frontend/src/features/docs` (sibling clone); **pkg** = other workspace packages.',
     '',
   ];
 

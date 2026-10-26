@@ -4,7 +4,7 @@ Full-stack **Golden Template** — production-shaped **platform skeleton** (auth
 
 | Package | Role |
 |---------|------|
-| [`backend/`](backend/) | NestJS API — auth, RBAC, site-settings, media, dashboard, audit logs |
+| [`backend/`](backend/) | NestJS API — auth, RBAC, organizations (multi-org), site-settings, media, dashboard, audit logs |
 | [`frontend/`](frontend/) | Next.js — public home + admin dashboard (FSD + BFF) |
 | [`packages/types`](packages/types) | `@default/types` — shared Zod schemas |
 | [`packages/api`](packages/api) | `@default/api` — HTTP client + domain APIs |
@@ -23,9 +23,10 @@ Agent rules: [`.cursor/rules/`](.cursor/rules/), [`CLAUDE.md`](CLAUDE.md).
 | Included | Not included (you add) |
 |----------|-------------------------|
 | Auth, MFA/OIDC, sessions | Billing / payments |
-| Users, roles, permissions | Multi-org admin UI |
-| Site settings, media upload | Feature flags |
-| Dashboard stats, audit log read | Full CMS / vertical modules |
+| Users, roles, permissions | Feature flags |
+| Organizations (multi-org admin, JWT tenant) | Full CMS / vertical modules |
+| Site settings, media upload | |
+| Dashboard stats, audit log read | |
 | Marketing home, i18n shell | |
 
 Details: [md/fork.md](md/fork.md).
@@ -84,6 +85,17 @@ After fork: [md/fork.md](md/fork.md).
 | `pnpm test:e2e:backend` | Nest e2e (needs DB) |
 | `pnpm test:e2e:frontend` | Playwright |
 | `pnpm infra:up` / `infra:down` | Dev PostgreSQL + Redis |
+| `bash scripts/populate-golden-template-ui-docs.sh <path>` | Refresh sibling [UI catalog repo](https://github.com/devTugu/golden-template-ui-docs) |
+
+## UI catalog (optional)
+
+Component previews live in a **separate repo**: [golden-template-ui-docs](https://github.com/devTugu/golden-template-ui-docs). Clone it beside this template, run `pnpm install && pnpm dev`, open http://localhost:3002/docs. Re-sync after UI changes:
+
+```bash
+bash scripts/populate-golden-template-ui-docs.sh ../golden-template-ui-docs
+```
+
+Optional link from marketing home: set `NEXT_PUBLIC_UI_DOCS_URL=http://localhost:3002/docs` in `frontend/.env.local`.
 
 ## Docs
 

@@ -4,7 +4,7 @@ import { getPublicSiteSettings } from '@/entities/public-api';
 import { resolveBrandContext } from '@/shared/config/brand';
 import type { Locale } from '@/shared/i18n/config';
 import { ROUTES } from '@/shared/config/routes';
-import { isDevServerMode } from '@/shared/config/server-mode';
+import { env } from '@/shared/config/env';
 import { hasServerSession } from '@/shared/lib/server-session';
 import {
   buildHomeHeroNavigation,
@@ -40,7 +40,7 @@ export default async function HomePage() {
             terms: t('navTerms'),
             docs: t('navDocs'),
           },
-          showDocs: isDevServerMode(),
+          uiDocsUrl: env.UI_DOCS_URL,
         })}
         getStartedLabel={t('getStarted')}
         bookDemoLabel={t('bookDemo')}

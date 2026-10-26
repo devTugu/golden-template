@@ -44,9 +44,12 @@ After fork, align **repository metadata** in all three manifests: root [`package
 | `NEXT_PUBLIC_APP_NAME` | Admin title |
 | `NEXT_PUBLIC_BRAND_NAME` | Fallback brand |
 | `NEXT_PUBLIC_SITE_URL` | Canonical URL |
-| `NEXT_PUBLIC_REPOSITORY_URL` | Optional `/docs` GitHub + issue links (omit to hide) |
+| `NEXT_PUBLIC_REPOSITORY_URL` | Optional GitHub + issue links in UI (omit to hide) |
+| `NEXT_PUBLIC_UI_DOCS_URL` | Optional external UI catalog link (e.g. http://localhost:3002/docs) |
 | `API_INTERNAL_URL` | Server-only Nest base (`…/api/v1`) — required in prod |
-| `NEXT_SERVER_MODE` | `dev` \| `prod` — `/docs` catalog in dev only |
+| `NEXT_SERVER_MODE` | `dev` \| `prod` — dev-only debug surfaces |
+
+**UI catalog repo:** [golden-template-ui-docs](https://github.com/devTugu/golden-template-ui-docs) — full `@default/ui` previews on port **3002**. Sync from this repo: `bash scripts/populate-golden-template-ui-docs.sh /path/to/golden-template-ui-docs`.
 
 **Runtime:** Admin → **Site settings** (logos, hero, SEO, theme). See `frontend/src/shared/config/brand.ts`.
 

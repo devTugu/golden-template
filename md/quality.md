@@ -35,6 +35,6 @@ Backend Jest (unit + e2e): `@default/utils/*` and `@default/types/*` need matchi
 
 `@default/ui-code` re-exports code-block from `@default/ui`; there is no workspace cycle.
 
-UI `/docs` catalog: dev-only (`NEXT_SERVER_MODE=prod` hides in prod).
+UI component catalog: separate [golden-template-ui-docs](https://github.com/devTugu/golden-template-ui-docs) repo (port 3002).
 
 Rules: `.cursor/rules/` · ESLint clean-code limits — split units instead of disabling rules.

@@ -10,8 +10,6 @@ export const config = {
     '/dashboard/:path*',
     '/dashboard',
     '/sign-in',
-    '/docs',
-    '/docs/:path*',
     '/blog',
     '/blog/:path*',
     '/projects',

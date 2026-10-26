@@ -5,6 +5,7 @@ const clientEnvSchema = z.object({
   NEXT_PUBLIC_BRAND_NAME: z.string().min(1).default('Your Site'),
   NEXT_PUBLIC_SITE_URL: z.string().url().optional(),
   NEXT_PUBLIC_REPOSITORY_URL: z.string().url().optional(),
+  NEXT_PUBLIC_UI_DOCS_URL: z.string().url().optional(),
   NODE_ENV: z.enum(['development', 'test', 'production']).optional(),
 });
 
@@ -29,6 +30,7 @@ const parsedClient = clientEnvSchema.safeParse({
   NEXT_PUBLIC_BRAND_NAME: process.env.NEXT_PUBLIC_BRAND_NAME ?? 'Your Site',
   NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
   NEXT_PUBLIC_REPOSITORY_URL: process.env.NEXT_PUBLIC_REPOSITORY_URL,
+  NEXT_PUBLIC_UI_DOCS_URL: process.env.NEXT_PUBLIC_UI_DOCS_URL,
   NODE_ENV: process.env.NODE_ENV,
 });
 
@@ -52,6 +54,9 @@ export const env = {
     : undefined,
   REPOSITORY_URL: parsedClient.success
     ? parsedClient.data.NEXT_PUBLIC_REPOSITORY_URL
+    : undefined,
+  UI_DOCS_URL: parsedClient.success
+    ? parsedClient.data.NEXT_PUBLIC_UI_DOCS_URL
     : undefined,
   APP_ENV: process.env.NODE_ENV ?? 'development',
 } as const;

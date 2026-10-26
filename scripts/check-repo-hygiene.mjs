@@ -80,7 +80,11 @@ function assertNoDefaultPasswordsInCode(files) {
     if ([...DEFAULT_PASSWORD_ALLOW].some((p) => rel.endsWith(p) || rel.includes(p))) {
       continue;
     }
-    const text = fs.readFileSync(path.join(root, rel), "utf8");
+    const abs = path.join(root, rel);
+    if (!fs.existsSync(abs)) {
+      continue;
+    }
+    const text = fs.readFileSync(abs, "utf8");
     for (const needle of needles) {
       if (text.includes(needle)) {
         fail(`found ${needle} in ${rel}`);

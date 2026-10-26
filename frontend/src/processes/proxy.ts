@@ -1,9 +1,5 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import {
-  isDocsCatalogEnabled,
-  isDocsPath,
-} from '@/shared/config/docs-catalog';
 import { ROUTES } from '@/shared/config/routes';
 import { AUTH_COOKIE_NAMES } from '@/shared/lib/auth-cookies';
 
@@ -13,10 +9,6 @@ const AUTH_ROUTES = [ROUTES.LOGIN];
 export function createProxyHandler() {
   return function proxy(request: NextRequest) {
     const { pathname } = request.nextUrl;
-
-    if (isDocsPath(pathname) && !isDocsCatalogEnabled()) {
-      return new NextResponse(null, { status: 404 });
-    }
 
     const hasSessionHint =
       request.cookies.get(AUTH_COOKIE_NAMES.SESSION)?.value === '1';
