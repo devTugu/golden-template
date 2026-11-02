@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@default/types": "workspace:*",
-    "axios": "^1.13.2",
+    "axios": "^1.21.0",
     "zod": "^4.6.6"
   },
   "devDependencies": {
