@@ -12,12 +12,12 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "three": "^0.186.1"
+    "three": "^0.187.0"
   },
   "devDependencies": {
     "@default/tsconfig": "workspace:*",
     "@types/react": "^19.1.0",
-    "@types/three": "^0.186.0",
+    "@types/three": "^0.187.0",
     "typescript": "^5.9.2"
   },
   "peerDependencies": {
